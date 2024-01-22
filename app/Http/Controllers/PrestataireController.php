@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PrestataireModel;
-use App\Http\Requests\StorePrestataireModelRequest;
-use App\Http\Requests\UpdatePrestataireModelRequest;
+use App\Models\prestataire;
+use App\Http\Requests\StoreprestataireRequest;
+use App\Http\Requests\UpdateprestataireRequest;
 
-class PrestataireModelController extends Controller
+class PrestataireController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class PrestataireModelController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePrestataireModelRequest $request)
+    public function store(StoreprestataireRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class PrestataireModelController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(PrestataireModel $prestataireModel)
+    public function show(prestataire $prestataire)
     {
         //
     }
@@ -43,7 +43,7 @@ class PrestataireModelController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(PrestataireModel $prestataireModel)
+    public function edit(prestataire $prestataire)
     {
         //
     }
@@ -51,7 +51,7 @@ class PrestataireModelController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePrestataireModelRequest $request, PrestataireModel $prestataireModel)
+    public function update(UpdateprestataireRequest $request, prestataire $prestataire)
     {
         //
     }
@@ -59,7 +59,7 @@ class PrestataireModelController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PrestataireModel $prestataireModel)
+    public function destroy(prestataire $prestataire)
     {
         //
     }

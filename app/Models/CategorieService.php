@@ -6,15 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class CategorieService extends Model
+class categorieService extends Model
 {
     use HasFactory;
+    public function prestation(): BelongsTo
+    {
 
-    public function service (): BelongsTo {
-        return $this->belongsTo(Service::class);
+        return $this->belongsTo(PrestationService::class);
     }
 
     protected $fillable = [
-        'libelle',
+        'libelleCategorie',
     ];
 }

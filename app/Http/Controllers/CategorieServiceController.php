@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CategorieService;
-use App\Http\Requests\StoreCategorieServiceRequest;
-use App\Http\Requests\UpdateCategorieServiceRequest;
+use App\Models\categorieService;
+use App\Http\Requests\StorecategorieServiceRequest;
+use App\Http\Requests\UpdatecategorieServiceRequest;
 
 class CategorieServiceController extends Controller
 {
@@ -27,7 +27,7 @@ class CategorieServiceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCategorieServiceRequest $request)
+    public function store(StorecategorieServiceRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class CategorieServiceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(CategorieService $categorieService)
+    public function show(categorieService $categorieService)
     {
         //
     }
@@ -43,7 +43,7 @@ class CategorieServiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(CategorieService $categorieService)
+    public function edit(categorieService $categorieService)
     {
         //
     }
@@ -51,7 +51,7 @@ class CategorieServiceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCategorieServiceRequest $request, CategorieService $categorieService)
+    public function update(UpdatecategorieServiceRequest $request, categorieService $categorieService)
     {
         //
     }
@@ -59,7 +59,7 @@ class CategorieServiceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CategorieService $categorieService)
+    public function destroy(categorieService $categorieService)
     {
         //
     }

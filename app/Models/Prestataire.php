@@ -6,11 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class PrestataireModel extends Model
+class prestataire extends Model
 {
     use HasFactory;
-
-
 
     public function user(): BelongsTo
     {
@@ -18,20 +16,9 @@ class PrestataireModel extends Model
         return $this->belongsTo(User::class);
     }
 
-
-    public function service(): BelongsTo
-    {
-        return $this->belongsTo(Service::class);
-    }
-
-
-    public function comment(): BelongsTo
+    public function prestation(): BelongsTo
     {
 
-        return $this->belongsTo(Commentaire::class);
+        return $this->belongsTo(PrestationService::class);
     }
-
-
-
-    protected $fillable = [];
 }

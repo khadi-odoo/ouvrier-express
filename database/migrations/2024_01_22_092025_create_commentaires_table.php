@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('commentaires', function (Blueprint $table) {
             $table->id();
-            $table->string("descrption");
-            $table->unsignedBigInteger('id_client');
-            $table->foreign('id_client')->references('id')->on('client_models')->onDelete('cascade');
-            $table->unsignedBigInteger('id_prest');
-            $table->foreign('id_prest')->references('id')->on('prestataire_models')->onDelete('cascade');
+            $table->unsignedBigInteger('client_id');
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
+            $table->unsignedBigInteger('prestation_id');
+            $table->foreign('prestation_id')->references('id')->on('prestation_services')->onDelete('cascade');
+            $table->string('statut-evaluation');
             $table->timestamps();
         });
     }

@@ -9,20 +9,18 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Commentaire extends Model
 {
     use HasFactory;
+
     public function client(): HasMany
     {
-
-        return $this->hasMany(ClientModel::class);
+        return $this->hasMany(Client::class);
     }
 
-    public function prestataire(): HasMany
+    public function prestation(): HasMany
     {
-
-        return $this->hasMany(PrestataireModel::class);
+        return $this->hasMany(PrestationService::class);
     }
-
 
     protected $fillable = [
-        'description',
+        'statut-evaluation',
     ];
 }

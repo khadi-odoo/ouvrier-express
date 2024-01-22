@@ -22,13 +22,13 @@ class User extends Authenticatable
     public function client(): HasOne
     {
 
-        return $this->hasOne(ClientModel::class);
+        return $this->hasOne(Client::class);
     }
 
     public function prestataire(): HasOne
     {
 
-        return $this->hasOne(PrestataireModel::class);
+        return $this->hasOne(Prestataire::class);
     }
 
 

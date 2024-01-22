@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ClientModel;
-use App\Http\Requests\StoreClientModelRequest;
-use App\Http\Requests\UpdateClientModelRequest;
+use App\Models\PrestationService;
+use App\Http\Requests\StorePrestationServiceRequest;
+use App\Http\Requests\UpdatePrestationServiceRequest;
 
-class ClientModelController extends Controller
+class PrestationServiceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class ClientModelController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreClientModelRequest $request)
+    public function store(StorePrestationServiceRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class ClientModelController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ClientModel $clientModel)
+    public function show(PrestationService $prestationService)
     {
         //
     }
@@ -43,7 +43,7 @@ class ClientModelController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ClientModel $clientModel)
+    public function edit(PrestationService $prestationService)
     {
         //
     }
@@ -51,7 +51,7 @@ class ClientModelController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateClientModelRequest $request, ClientModel $clientModel)
+    public function update(UpdatePrestationServiceRequest $request, PrestationService $prestationService)
     {
         //
     }
@@ -59,7 +59,7 @@ class ClientModelController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ClientModel $clientModel)
+    public function destroy(PrestationService $prestationService)
     {
         //
     }
