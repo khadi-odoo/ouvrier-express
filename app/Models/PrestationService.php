@@ -32,6 +32,6 @@ class PrestationService extends Model
     protected $fillable = [
 
         'nomService',
-        'disponibilite',
+        'estArchive',
     ];
 }

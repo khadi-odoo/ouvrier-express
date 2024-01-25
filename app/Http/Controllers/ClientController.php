@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\client;
 use App\Http\Requests\StoreclientRequest;
 use App\Http\Requests\UpdateclientRequest;
+use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
 {
@@ -29,7 +30,20 @@ class ClientController extends Controller
      */
     public function store(StoreclientRequest $request)
     {
-        //
+        $client = new client();
+
+        // $client->user_id = $user;
+        // $client->user_id = Auth::user()->id;
+
+        if (Auth::check()) {
+            // dd('ok');
+            $client->user_id = Auth::user()->id;
+        }
+        $client->user_id = $request->user_id;
+
+        $client->save();
+
+        return response()->json(['message' => 'Client ajouté avec succès', 'data' => $client]);
     }
 
     /**
@@ -37,7 +51,7 @@ class ClientController extends Controller
      */
     public function show(client $client)
     {
-        //
+        return response()->json($client);
     }
 
     /**

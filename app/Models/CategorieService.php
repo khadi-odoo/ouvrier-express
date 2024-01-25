@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class categorieService extends Model
+class CategorieService extends Model
 {
     use HasFactory;
     public function prestation(): BelongsTo
@@ -17,5 +17,7 @@ class categorieService extends Model
 
     protected $fillable = [
         'libelleCategorie',
+        'image',
+        'estArchive',
     ];
 }

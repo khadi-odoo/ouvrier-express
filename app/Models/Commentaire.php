@@ -21,6 +21,7 @@ class Commentaire extends Model
     }
 
     protected $fillable = [
-        'statut-evaluation',
+        'statut_evaluation',
+        'estArchive',
     ];
 }

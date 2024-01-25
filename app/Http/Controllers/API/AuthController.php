@@ -58,7 +58,7 @@ class AuthController extends Controller
     ]);
 
         return response()->json([
-            'message' => 'User created successfully',
+            'message' => 'Utilisateur créé avec succès',
             'user' => $user
         ]);
     }
@@ -81,4 +81,6 @@ class AuthController extends Controller
             ]
         ]);
     }
+
+   
 }

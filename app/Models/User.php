@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model;
+
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -20,19 +23,17 @@ class User extends Authenticatable implements JWTSubject
      * @var array<int, string>
      */
 
-    public function client(): HasOne
+    public function client(): HasMany
     {
 
-        return $this->hasOne(Client::class);
+        return $this->hasMany(Client::class);
     }
 
-    public function prestataire(): HasOne
+    public function prestataire(): HasMany
     {
 
-        return $this->hasOne(Prestataire::class);
+        return $this->hasMany(Prestataire::class);
     }
-
-
 
 
     protected $fillable = [
@@ -42,7 +43,16 @@ class User extends Authenticatable implements JWTSubject
         'role',
         'email',
         'password',
+        'estArchive',
     ];
+
+
+    // public function isAdmin()
+    // {
+
+    //     return $this->role === 'admin';
+    // }
+
 
     /**
      * The attributes that should be hidden for serialization.

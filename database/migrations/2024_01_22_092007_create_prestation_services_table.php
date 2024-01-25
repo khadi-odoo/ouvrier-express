@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('prestation_services', function (Blueprint $table) {
             $table->id();
             $table->string('nomService');
-            $table->boolean('disponibilite');
             $table->unsignedBigInteger('prestataire_id');
             $table->foreign('prestataire_id')->references('id')->on('prestataires')->onDelete('cascade');
             $table->unsignedBigInteger('categorie_id');
             $table->foreign('categorie_id')->references('id')->on('categorie_services')->onDelete('cascade');
+            $table->boolean('estArchive')->default(false);
             $table->timestamps();
         });
     }

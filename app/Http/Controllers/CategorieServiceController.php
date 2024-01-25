@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\categorieService;
 use App\Http\Requests\StorecategorieServiceRequest;
 use App\Http\Requests\UpdatecategorieServiceRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CategorieServiceController extends Controller
 {
@@ -13,7 +15,7 @@ class CategorieServiceController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(CategorieService::where('estArchive', false)->get()); //
     }
 
     /**
@@ -29,7 +31,26 @@ class CategorieServiceController extends Controller
      */
     public function store(StorecategorieServiceRequest $request)
     {
-        //
+
+
+        $request->validated($request->all());
+        $categorie = new CategorieService();
+
+        // $categorie->user_id = $user;
+        //$categorie->user_id = Auth::user()->id;
+        if (Auth::check()) {
+            // dd('ok');
+            $categorie->user_id = Auth::user()->id;
+        }
+
+        $categorie->libelleCategorie = $request->libelleCategorie;
+
+        // $imagePath = $request->file('image')->store('images/Categorie', 'public');
+        // $categorie->image = $imagePath;
+
+        $categorie->save();
+
+        return response()->json(['message' => 'Catégorie de service ajouté avec succès', 'data' => $categorie]);
     }
 
     /**
@@ -37,7 +58,7 @@ class CategorieServiceController extends Controller
      */
     public function show(categorieService $categorieService)
     {
-        //
+        return response()->json($categorieService);
     }
 
     /**
@@ -53,7 +74,19 @@ class CategorieServiceController extends Controller
      */
     public function update(UpdatecategorieServiceRequest $request, categorieService $categorieService)
     {
-        //
+        //$request->all();
+        $request->validated();
+
+        $categorieService->libelleCategorie = $request->libelleCategorie;
+
+        if ($request->file('image')) {
+            $imagePath = $request->file('image')->store('images/Categorie', 'public');
+            $categorieService->image = $imagePath;
+        }
+
+        $categorieService->update();
+
+        return response()->json($categorieService);
     }
 
     /**
@@ -61,6 +94,10 @@ class CategorieServiceController extends Controller
      */
     public function destroy(categorieService $categorieService)
     {
-        //
+        //$categorieService->delete();
+        $categorieService->estArchive = true;
+        $categorieService->update();
+
+        return response()->json('Catégorie supprimées');
     }
 }

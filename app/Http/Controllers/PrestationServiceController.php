@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\PrestationService;
 use App\Http\Requests\StorePrestationServiceRequest;
 use App\Http\Requests\UpdatePrestationServiceRequest;
+use Illuminate\Support\Facades\Auth;
 
 class PrestationServiceController extends Controller
 {
@@ -13,7 +14,7 @@ class PrestationServiceController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(PrestationService::where('estArchive', false)->get());
     }
 
     /**
@@ -29,7 +30,20 @@ class PrestationServiceController extends Controller
      */
     public function store(StorePrestationServiceRequest $request)
     {
-        //
+        $request->validated();
+        $prestation = new PrestationService();
+        //$prestation->user_id = $user;
+        //$prestation->user_id = Auth::user()->id;
+        $prestation->nomService = $request->nomService;
+        // dd(Auth::user());
+        if (Auth::check()) {
+            $prestation->prestataire_id = Auth::user()->id;
+            $prestation->categorie_id = $request->categorie_id;
+        }
+
+        $prestation->save();
+
+        return response()->json(['message' => 'Prestation ajoutée avec succès', 'data' => $prestation]);
     }
 
     /**
@@ -37,7 +51,7 @@ class PrestationServiceController extends Controller
      */
     public function show(PrestationService $prestationService)
     {
-        //
+        return response()->json($prestationService);
     }
 
     /**
@@ -53,7 +67,12 @@ class PrestationServiceController extends Controller
      */
     public function update(UpdatePrestationServiceRequest $request, PrestationService $prestationService)
     {
-        //
+        $request->validated();
+
+        $prestationService->nomService = $request->nomService;
+
+
+        $prestationService->update();
     }
 
     /**
@@ -61,6 +80,10 @@ class PrestationServiceController extends Controller
      */
     public function destroy(PrestationService $prestationService)
     {
-        //
+        //$categorieService->delete();
+        $prestationService->estArchive = true;
+        $prestationService->update();
+
+        return response()->json('Prestation de service supprimées');
     }
 }

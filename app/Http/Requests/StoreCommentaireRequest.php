@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Symfony\Contracts\Service\Attribute\Required;
 
 class StoreCommentaireRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class StoreCommentaireRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,7 @@ class StoreCommentaireRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'statut_evaluation' => 'required|string|min:5|max:50',
         ];
     }
 }

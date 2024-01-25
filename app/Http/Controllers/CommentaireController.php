@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Commentaire;
 use App\Http\Requests\StoreCommentaireRequest;
 use App\Http\Requests\UpdateCommentaireRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CommentaireController extends Controller
 {
@@ -13,7 +14,7 @@ class CommentaireController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Commentaire::where('estArchive', false)->get());
     }
 
     /**
@@ -29,7 +30,25 @@ class CommentaireController extends Controller
      */
     public function store(StoreCommentaireRequest $request)
     {
-        //
+        $request->validated($request->all());
+        $comment = new Commentaire();
+
+        //$comment->user_id = $user;
+        //$comment->user_id = Auth::user()->id;
+
+
+        // dd(Auth::user());
+
+
+        if (Auth::check()) {
+            $comment->client_id = Auth::user()->id;
+        }
+        $comment->client_id = $request->client_id;
+        $comment->prestation_id = $request->prestation_id;
+        $comment->statut_evaluation = $request->statut_evaluation;
+        $comment->save();
+
+        return response()->json(['message' => 'Commentaire envoyé avec succès', 'data' => $comment]);
     }
 
     /**
@@ -53,7 +72,9 @@ class CommentaireController extends Controller
      */
     public function update(UpdateCommentaireRequest $request, Commentaire $commentaire)
     {
-        //
+        $request->validated();
+        $commentaire->statut_evaluation = $request->statut_evaluation;
+        $commentaire->update();
     }
 
     /**
@@ -61,6 +82,10 @@ class CommentaireController extends Controller
      */
     public function destroy(Commentaire $commentaire)
     {
-        //
+        //$categorieService->delete();
+        $commentaire->estArchive = true;
+        $commentaire->update();
+
+        return response()->json('Commentaire supprimé');
     }
 }

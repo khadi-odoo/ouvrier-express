@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('categorie_services', function (Blueprint $table) {
             $table->id();
             $table->string('libelleCategorie');
+            $table->string('image')->nullable();
+            $table->boolean('estArchive')->default(false);
             $table->timestamps();
         });
     }

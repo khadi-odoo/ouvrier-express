@@ -11,7 +11,7 @@ class StorecategorieServiceRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class StorecategorieServiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'libelleCategorie' => 'required|string|min:5|max:50',
+            'image' => 'image|mimes:jpeg,png,jpg|max:2048',
         ];
     }
 }

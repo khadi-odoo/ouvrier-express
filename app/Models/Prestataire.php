@@ -21,4 +21,11 @@ class prestataire extends Model
 
         return $this->belongsTo(PrestationService::class);
     }
+
+    protected $fillable = [
+        'image',
+        'metier',
+        'disponibilite',
+        'estArchive',
+    ];
 }

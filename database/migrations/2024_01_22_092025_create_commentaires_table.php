@@ -17,7 +17,8 @@ return new class extends Migration
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
             $table->unsignedBigInteger('prestation_id');
             $table->foreign('prestation_id')->references('id')->on('prestation_services')->onDelete('cascade');
-            $table->string('statut-evaluation');
+            $table->string('statut_evaluation');
+            $table->boolean('estArchive')->default(false);
             $table->timestamps();
         });
     }

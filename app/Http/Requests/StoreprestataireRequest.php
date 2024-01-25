@@ -11,7 +11,7 @@ class StoreprestataireRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class StoreprestataireRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'image' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'metier' => 'required|string|min:5|max:50',
+            'disponibilte' => 'boolean',
         ];
     }
 }

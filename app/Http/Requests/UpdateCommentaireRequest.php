@@ -11,7 +11,7 @@ class UpdateCommentaireRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,7 @@ class UpdateCommentaireRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'statut_evaluation' => 'required|string|min:5|max:50',
         ];
     }
 }

@@ -11,7 +11,7 @@ class UpdatePrestationServiceRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,7 @@ class UpdatePrestationServiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nomService' => 'required|string|min:5|max:50',
         ];
     }
 }
