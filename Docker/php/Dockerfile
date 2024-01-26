@@ -1,4 +1,8 @@
 FROM php:8.2-apache
+#le chemin du conteneur
+WORKDIR /var/www/html  
+#Il met à jour le co nteneur 
+COPY . .
 
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 

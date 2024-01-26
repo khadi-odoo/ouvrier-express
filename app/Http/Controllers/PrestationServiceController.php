@@ -73,6 +73,8 @@ class PrestationServiceController extends Controller
 
 
         $prestationService->update();
+
+        return response()->json(['message' => 'Prestation modifiée avec succès', 'data' => $prestationService]);
     }
 
     /**
@@ -84,6 +86,6 @@ class PrestationServiceController extends Controller
         $prestationService->estArchive = true;
         $prestationService->update();
 
-        return response()->json('Prestation de service supprimées');
+        return response()->json(['message' => 'Prestation de service supprimées']);
     }
 }

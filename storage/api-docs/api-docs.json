@@ -1,0 +1,176 @@
+{
+    "openapi": "3.0.0",
+    "paths": {
+        "/api/listeCétegorie": {
+            "get": {
+                "tags": [
+                    "Catégorie de service"
+                ],
+                "summary": "liste de toutes les catégories de service",
+                "operationId": "8044780a6fb5678febc61e28cba94811",
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                }
+            }
+        },
+        "/api/ajouterCategorie": {
+            "post": {
+                "tags": [
+                    "Catégorie de service"
+                ],
+                "summary": "Ajouter une catégorie de service",
+                "operationId": "b19e4cac34b494bfb9d92f020592cc3e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "libelleCategorie": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "description": "Fichier de photo",
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Catégorie de service ajoutée avec succées"
+                    },
+                    "401": {
+                        "description": "Validation Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/affichCategorie/{categorieservice}": {
+            "get": {
+                "tags": [
+                    "Catégorie de service"
+                ],
+                "summary": "Details d'une categorie de service",
+                "operationId": "d5ff8f80e0cca7540213077494849bb6",
+                "parameters": [
+                    {
+                        "name": "categorieservice",
+                        "in": "path",
+                        "description": "ID de la catégorie à afficher",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Succès"
+                    },
+                    "401": {
+                        "description": "Non autorisé"
+                    }
+                }
+            }
+        },
+        "/api/modifCategorie/{categorieservice}": {
+            "patch": {
+                "tags": [
+                    "Catégorie de service"
+                ],
+                "summary": "Modificier une catégorie de service",
+                "operationId": "9531bcd8efe03c5b95cdef75b4f5a774",
+                "parameters": [
+                    {
+                        "name": "categorieservice",
+                        "in": "path",
+                        "description": "ID de la catégorie à modifier",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "libelleCategorie": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "description": "Fichier de photo",
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Catégorie de service ajoutée avec succées"
+                    },
+                    "401": {
+                        "description": "Validation Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/supprimCategorie/{id}": {
+            "patch": {
+                "tags": [
+                    "Catégorie de service"
+                ],
+                "summary": "Supprimer une catégorie de service",
+                "operationId": "31097b1b5915aabb3d65d75847cd1d09",
+                "parameters": [
+                    {
+                        "name": "Catégorie de service",
+                        "in": "path",
+                        "description": "ID de la catégorie à supprimer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}

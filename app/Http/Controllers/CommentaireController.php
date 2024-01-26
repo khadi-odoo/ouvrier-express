@@ -75,6 +75,9 @@ class CommentaireController extends Controller
         $request->validated();
         $commentaire->statut_evaluation = $request->statut_evaluation;
         $commentaire->update();
+
+        return response()->json(['message' => 'Catégorie de service modifiiée avec succès', 'data' => $commentaire]);
+
     }
 
     /**
@@ -86,6 +89,6 @@ class CommentaireController extends Controller
         $commentaire->estArchive = true;
         $commentaire->update();
 
-        return response()->json('Commentaire supprimé');
+        return response()->json(['message' => 'Commentaire supprimé']);
     }
 }

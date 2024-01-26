@@ -99,6 +99,8 @@ class PrestataireController extends Controller
         $prestataire->metier = $request->metier;
         $prestataire->disponibilite = $request->disponibilite;
         $prestataire->update();
+
+        return response()->json(['message' => 'prestataire modifié avec succès', 'data' => $prestataire]);
     }
 
     /**
@@ -109,6 +111,6 @@ class PrestataireController extends Controller
         $prestataire->estArchive = true;
         $prestataire->update();
 
-        return response()->json('Prestataire supprimé');
+        return response()->json(['message' => 'Prestataire supprimé']);
     }
 }
