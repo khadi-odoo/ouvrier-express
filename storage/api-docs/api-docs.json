@@ -1,6 +1,189 @@
 {
     "openapi": "3.0.0",
+    "info": {
+        "title": "Ouvrier-Express",
+        "description": "Application de gestion de relation prestataire-client",
+        "version": "1.0.0"
+    },
     "paths": {
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Connexion"
+                ],
+                "summary": "Authentifier un utilisateur",
+                "operationId": "44212a9096e4b09358281e9ec8a0701d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Utilisateur connecté avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string"
+                                        },
+                                        "user": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer"
+                                                },
+                                                "nom": {
+                                                    "type": "string"
+                                                },
+                                                "prenom": {
+                                                    "type": "string"
+                                                },
+                                                "tel": {
+                                                    "type": "string"
+                                                },
+                                                "adress": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "type": "string"
+                                                },
+                                                "login": {
+                                                    "type": "string"
+                                                },
+                                                "role": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Erreur d'authentification"
+                    }
+                }
+            }
+        },
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Inscription"
+                ],
+                "summary": "Ajouter un utilisateur",
+                "operationId": "a718f172ff3ac464d723835815f8fb57",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "nom": {
+                                        "type": "string"
+                                    },
+                                    "prenom": {
+                                        "type": "string"
+                                    },
+                                    "tel": {
+                                        "type": "string"
+                                    },
+                                    "adress": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "login": {
+                                        "type": "string"
+                                    },
+                                    "role": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Utilisateur ajouté avec succès"
+                    },
+                    "401": {
+                        "description": "Validation Error"
+                    }
+                }
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Déconnexion"
+                ],
+                "summary": "Se Déconnecter",
+                "operationId": "79854151e609bd20032aa5aa4d5a35c0",
+                "responses": {
+                    "200": {
+                        "description": "Utilisateur déconnecté avec succès"
+                    }
+                },
+                "security": {
+                    "bearerAuth": {}
+                }
+            }
+        },
+        "/api/refresh": {
+            "post": {
+                "tags": [
+                    "Connexion"
+                ],
+                "summary": "Rafraîchir le token d'authentification",
+                "operationId": "7d5da2870d3eba95cdd67878ab20da3a",
+                "responses": {
+                    "200": {
+                        "description": "Token rafraîchi avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Erreur d'authentification"
+                    }
+                },
+                "security": {
+                    "bearerAuth": {}
+                }
+            }
+        },
         "/api/listeCétegorie": {
             "get": {
                 "tags": [
@@ -57,16 +240,16 @@
                 ]
             }
         },
-        "/api/affichCategorie/{categorieservice}": {
+        "/api/affichCategorie/{id}": {
             "get": {
                 "tags": [
                     "Catégorie de service"
                 ],
                 "summary": "Details d'une categorie de service",
-                "operationId": "d5ff8f80e0cca7540213077494849bb6",
+                "operationId": "6c1af176b8e393b3eed687d026d4e4e4",
                 "parameters": [
                     {
-                        "name": "categorieservice",
+                        "name": "id",
                         "in": "path",
                         "description": "ID de la catégorie à afficher",
                         "required": true,
@@ -85,16 +268,16 @@
                 }
             }
         },
-        "/api/modifCategorie/{categorieservice}": {
+        "/api/modifCategorie/{id}": {
             "patch": {
                 "tags": [
                     "Catégorie de service"
                 ],
                 "summary": "Modificier une catégorie de service",
-                "operationId": "9531bcd8efe03c5b95cdef75b4f5a774",
+                "operationId": "8a7d376c403f297988452c39d9b20d3b",
                 "parameters": [
                     {
-                        "name": "categorieservice",
+                        "name": "id",
                         "in": "path",
                         "description": "ID de la catégorie à modifier",
                         "required": true,
@@ -125,7 +308,7 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Catégorie de service ajoutée avec succées"
+                        "description": "Catégorie de service modifiée avec succées"
                     },
                     "401": {
                         "description": "Validation Error"
@@ -147,9 +330,514 @@
                 "operationId": "31097b1b5915aabb3d65d75847cd1d09",
                 "parameters": [
                     {
-                        "name": "Catégorie de service",
+                        "name": "id",
                         "in": "path",
-                        "description": "ID de la catégorie à supprimer",
+                        "description": "Suppression d'une catégorie à partir de l'id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                }
+            }
+        },
+        "/api/ajouterclient": {
+            "post": {
+                "tags": [
+                    "Profil client"
+                ],
+                "summary": "Ajouter profil client",
+                "operationId": "5062bfbf240047adb8f453930d4afdcd",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "nom": {
+                                        "type": "string"
+                                    },
+                                    "prenom": {
+                                        "type": "string"
+                                    },
+                                    "tel": {
+                                        "type": "string"
+                                    },
+                                    "adress": {
+                                        "type": "string"
+                                    },
+                                    "login": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "création profil reussie"
+                    },
+                    "401": {
+                        "description": "Validation Error"
+                    }
+                }
+            }
+        },
+        "/api/listeComment": {
+            "get": {
+                "tags": [
+                    "Commentaire sur un prestataire"
+                ],
+                "summary": "liste de toutes les commentaires",
+                "operationId": "03a59617b5168a7efc58a10679d5f1a2",
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                }
+            }
+        },
+        "/api/ajoutComment": {
+            "post": {
+                "tags": [
+                    "Commentaire sur un prestataire"
+                ],
+                "summary": "Ajouter un commentaire sur un prestataire",
+                "operationId": "2ed4cc14cf97335461f00c77388cd6d3",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "statut_evaluation": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Commentaire ajoutée avec succés"
+                    },
+                    "401": {
+                        "description": "Validation Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/aaffichComment/{id}": {
+            "get": {
+                "tags": [
+                    "Commentaire sur un prestataire"
+                ],
+                "summary": "Afficher un commentaire",
+                "operationId": "aeb3ae0e87d0b0ef9b267db2f57e110f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id du commentaire à afficher",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Succès"
+                    },
+                    "401": {
+                        "description": "Non autorisé"
+                    }
+                }
+            }
+        },
+        "/api/modifCategorie/{commentaire}": {
+            "patch": {
+                "tags": [
+                    "Commentaire sur un prestataire"
+                ],
+                "summary": "Modificier un commentaire",
+                "operationId": "883d4a74037fb67eb42243cb32036b70",
+                "parameters": [
+                    {
+                        "name": "commentaire",
+                        "in": "path",
+                        "description": "ID du commentaire à modifier",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "statut_evaluation": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Commentaire modifié avec succées"
+                    },
+                    "401": {
+                        "description": "Validation Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/supprimComment/{id}": {
+            "patch": {
+                "tags": [
+                    "Commentaire sur un prestataire"
+                ],
+                "summary": "Supprimer un commentaire",
+                "operationId": "d0a58e2e7dc4bb558909ccd0bda98434",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Supprimer un commentaire à partir de l'id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                }
+            }
+        },
+        "/api/listePresta": {
+            "get": {
+                "tags": [
+                    "Profil prestataire"
+                ],
+                "summary": "liste des profills prestataires",
+                "operationId": "d418774958d880311436ec86bfae7b9d",
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                }
+            }
+        },
+        "/api/ajouterPresta": {
+            "post": {
+                "tags": [
+                    "Profil prestataire"
+                ],
+                "summary": "Ajouter profil",
+                "operationId": "641afae848b35a700928fcc2bdda057d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "image": {
+                                        "description": "Fichier de photo",
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "metier": {
+                                        "type": "string"
+                                    },
+                                    "disponibilite": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Création reussie"
+                    },
+                    "401": {
+                        "description": "Validation Error"
+                    }
+                }
+            }
+        },
+        "/api/affichPresta{id}": {
+            "get": {
+                "tags": [
+                    "Profil prestataire"
+                ],
+                "summary": "Voir profil",
+                "operationId": "970971d10f5533d7a6115e615895811e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Afficher un prestataire",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Succès"
+                    }
+                }
+            }
+        },
+        "/api/modifPresta/{prestataire}": {
+            "patch": {
+                "tags": [
+                    "Profil prestataire"
+                ],
+                "summary": "Modificier un profil",
+                "operationId": "fe93a99ec056c9ea78fa60693a8c3e4a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Modifier à partir de l'id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "image": {
+                                        "description": "Fichier de photo",
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "metier": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Profil modifiée avec succés"
+                    },
+                    "401": {
+                        "description": "Validation Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/supprimPresta/{id}": {
+            "patch": {
+                "tags": [
+                    "Profil prestataire"
+                ],
+                "summary": "Supprimer un profil",
+                "operationId": "6a757c1e828c33ee01d1405d62172708",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Supprimer un profil à partir de l'id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                }
+            }
+        },
+        "/api/listePrestaService": {
+            "get": {
+                "tags": [
+                    "Prestation de service"
+                ],
+                "summary": "liste de toutes les prestations de service",
+                "operationId": "43a5380023113184f72ae75ae09f2b4c",
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                }
+            }
+        },
+        "/api/ajoutPrestaService": {
+            "post": {
+                "tags": [
+                    "Prestation de service"
+                ],
+                "summary": "Ajouter une prestation de service",
+                "operationId": "2f1ce5f884b8f665be38a6a9c501b092",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "nomService": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Prestation de service ajoutée avec succées"
+                    },
+                    "401": {
+                        "description": "Validation Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/affichPrestaService/{id}": {
+            "get": {
+                "tags": [
+                    "Prestation de service"
+                ],
+                "summary": "Voir une prestation de service",
+                "operationId": "834dda159bd38dac925275229b9e9860",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Prestation de service à afficher à partir de l'id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Succès"
+                    },
+                    "401": {
+                        "description": "Non autorisé"
+                    }
+                }
+            }
+        },
+        "/api/modifPrestaService/{prestatationservice}": {
+            "patch": {
+                "tags": [
+                    "Prestation de service"
+                ],
+                "summary": "Modificier une prestation de service",
+                "operationId": "28f088c0ff81615ad170d6eef087542e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la prestation à modifier",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "nomService": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Prestation de service modifiée avec succés"
+                    },
+                    "401": {
+                        "description": "Validation Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/supprimPrestaService/{id}": {
+            "patch": {
+                "tags": [
+                    "Prestation de service"
+                ],
+                "summary": "Supprimer une prestation de service",
+                "operationId": "0352b6cbf98b1d038969fbd1c26281ec",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Suppression d'une prestation de service à partir de l'id",
                         "required": true,
                         "schema": {
                             "type": "integer"

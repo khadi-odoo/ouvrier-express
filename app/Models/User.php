@@ -23,25 +23,27 @@ class User extends Authenticatable implements JWTSubject
      * @var array<int, string>
      */
 
-    public function client(): HasMany
+    public function client(): HasOne
     {
 
-        return $this->hasMany(Client::class);
+        return $this->hasOne(Client::class);
     }
 
-    public function prestataire(): HasMany
+    public function prestataire(): HasOne
     {
 
-        return $this->hasMany(Prestataire::class);
+        return $this->hasOne(Prestataire::class);
     }
 
 
     protected $fillable = [
-        'name',
+        'nom',
+        'prenom',
         'tel',
         'adress',
         'role',
         'email',
+        'login',
         'password',
         'estArchive',
     ];

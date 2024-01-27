@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('metier');
             $table->boolean('disponibilite')->default(true);
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->boolean('estArchive')->default(false);
             $table->timestamps();
         });

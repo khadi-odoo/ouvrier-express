@@ -8,13 +8,57 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use OpenApi\Annotations as OA;
 
+/**
+ * @OA\Info(
+ *     title="Ouvrier-Express",
+ *     version="1.0.0",
+ *     description="Application de gestion de relation prestataire-client"
+ * )
+ */
 class AuthController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
+
+    /**
+     * @OA\Post(
+     *     path="/api/login",
+     *     tags={"Connexion"},
+     *     summary="Authentifier un utilisateur",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *             @OA\Property(property="email", type="string"),
+     *             @OA\Property(property="password", type="string"),
+     *         )
+     *        )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Utilisateur connecté avec succès",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="token", type="string"),
+     *             @OA\Property(property="user", type="object",
+     *                 @OA\Property(property="id", type="integer"),
+     *                 @OA\Property(property="nom", type="string"),
+     *                 @OA\Property(property="prenom", type="string"),
+     *                 @OA\Property(property="tel", type="string"),
+     *                 @OA\Property(property="adress", type="string"),
+     *                 @OA\Property(property="email", type="string"),
+     *                 @OA\Property(property="login", type="string"),
+     *                 @OA\Property(property="role", type="string"),
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(response=401, description="Erreur d'authentification")
+     * )
+     */
 
     public function login(Request $request)
     {
@@ -24,7 +68,7 @@ class AuthController extends Controller
         ]);
         $credentials = $request->only('email', 'password');
         $token = Auth::attempt($credentials);
-        
+
         if (!$token) {
             return response()->json([
                 'message' => 'Unauthorized',
@@ -41,6 +85,35 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/register",
+     *     tags={"Inscription"},
+     *     summary="Ajouter un utilisateur",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *             @OA\Property(property="nom", type="string"),
+     *            @OA\Property(property="prenom", type="string"),
+     *            @OA\Property(property="tel", type="string"),
+     *            @OA\Property(property="adress", type="string"),
+     *            @OA\Property(property="email", type="string"),
+     *           @OA\Property(property="login", type="string"),
+     *           @OA\Property(property="role", type="string"),
+     *          @OA\Property(property="password", type="string"),
+     *         )
+     *        )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Utilisateur ajouté avec succès",
+     *     ),
+     *     @OA\Response(response=401, description="Validation Error")
+     * )
+     */
+
     public function register(Request $request)
     {
         $request->validate([
@@ -50,19 +123,35 @@ class AuthController extends Controller
         ]);
 
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
+            'nom' => $request->nom,
+            'prenom' => $request->prenom,
             'tel' => $request->tel,
             'adress' => $request->adress,
+            'email' => $request->email,
+            'login' => $request->login,
             'role' => $request->role,
             'password' => Hash::make($request->password),
-    ]);
+        ]);
 
         return response()->json([
             'message' => 'Utilisateur créé avec succès',
             'user' => $user
         ]);
     }
+
+
+    /**
+     * @OA\Post(
+     *     path="/api/logout",
+     *     tags={"Déconnexion"},
+     *     summary="Se Déconnecter",
+     *     security={"bearerAuth": {}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Utilisateur déconnecté avec succès",
+     *     ),
+     * )
+     */
 
     public function logout()
     {
@@ -71,6 +160,24 @@ class AuthController extends Controller
             'message' => 'Successfully logged out',
         ]);
     }
+
+
+    /**
+     * @OA\Post(
+     *     path="/api/refresh",
+     *     tags={"Connexion"},
+     *     summary="Rafraîchir le token d'authentification",
+     *     security={"bearerAuth": {}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Token rafraîchi avec succès",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="token", type="string"),
+     *         )
+     *     ),
+     *     @OA\Response(response=401, description="Erreur d'authentification")
+     * )
+     */
 
     public function refresh()
     {
@@ -82,6 +189,4 @@ class AuthController extends Controller
             ]
         ]);
     }
-
-   
 }

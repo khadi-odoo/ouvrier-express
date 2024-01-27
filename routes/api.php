@@ -34,21 +34,21 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::controller(PrestataireController::class)->group(function () {
-    Route::get('listePresta/{id}', 'index');
+    Route::get('listePresta', 'index');
     Route::post('ajouterPresta', 'store');
     Route::post('ajouterPrestataire', 'ajouterPrestataire');
-    Route::get('affichPresta', 'show');
+    Route::get('affichPresta{id}', 'show');
     Route::patch('modifPresta/{prestataire}', 'update');
-    Route::patch('supprimPresta/{prestataire}', 'destroy');
+    Route::patch('supprimPresta/{id}', 'destroy');
 });
 
 
 Route::controller(ClientController::class)->group(function () {
-    Route::get('listeclient/{client_id}', 'index');
-    Route::post('ajouterclient/{id}', 'store');
-    Route::get('afficherclient/{client_id}', 'show');
+    Route::get('listeclient', 'index');
+    Route::post('ajouterclient', 'store');
+    Route::get('afficherclient/{id}', 'show');
     Route::patch('modifclient/{client}', 'update');
-    Route::patch('supprimclient/{client}', 'destroy');
+    Route::patch('supprimclient/{id}', 'destroy');
 });
 
 
@@ -62,18 +62,18 @@ Route::controller(CategorieServiceController::class)->group(function () {
 
 
 Route::controller(PrestationServiceController::class)->group(function () {
-    Route::get('listePrestaService/{prestataire_id}', 'index');
-    Route::post('ajoutPrestaService/{prestataire_id}', 'store');
-    Route::get('affichPrestaService/{prestatationservice}', 'show');
+    Route::get('listePrestaService', 'index');
+    Route::post('ajoutPrestaService', 'store');
+    Route::get('affichPrestaService/{id}', 'show');
     Route::patch('modifPrestaService/{prestatationservice}', 'update');
-    Route::patch('supprimPrestaService/{prestatationservice}', 'destroy');
+    Route::patch('supprimPrestaService/{id}', 'destroy');
 });
 
 
 Route::controller(CommentaireController::class)->group(function () {
-    // Route::post('listeComment', 'index');
-    Route::post('ajoutComment/{clent_id}', 'store');
-    Route::get('affichComment/{commentaire}', 'show');
+    Route::get('listeComment', 'index');
+    Route::post('ajoutComment', 'store');
+    Route::get('affichComment/{id}', 'show');
     Route::patch('modifComment/{commentaire}', 'update');
-    Route::patch('supprimComment/{commentaire}', 'destroy');
+    Route::patch('supprimComment/{id}', 'destroy');
 });

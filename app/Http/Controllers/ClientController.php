@@ -5,13 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\client;
 use App\Http\Requests\StoreclientRequest;
 use App\Http\Requests\UpdateclientRequest;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use OpenApi\Annotations as OA;
 
+/**
+ * @OA\Info(
+ *     title="Ouvrier-Express",
+ *     version="1.0.0",
+ *     description="Application de gestion de relation prestataire-client"
+ * )
+ */
 class ClientController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         //
@@ -26,24 +33,63 @@ class ClientController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *     path="/api/ajouterclient",
+     *     tags={"Profil client"},
+     *     summary="Ajouter profil client",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *             @OA\Property(property="nom", type="string"),
+     *            @OA\Property(property="prenom", type="string"),
+     *            @OA\Property(property="tel", type="string"),
+     *            @OA\Property(property="adress", type="string"),
+     *           @OA\Property(property="login", type="string"),
+     *         )
+     *        )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="création profil reussie",
+     *     ),
+     *     @OA\Response(response=401, description="Validation Error")
+     * )
      */
     public function store(StoreclientRequest $request)
     {
-        $client = new client();
+        // Récupérer l'identifiant de l'utilisateur à partir du champ user_id du formulaire
+        $user_id = $request->user_id;
 
-        // $client->user_id = $user;
-        // $client->user_id = Auth::user()->id;
+        // Trouver l'utilisateur avec cet identifiant et charger sa relation avec le client
+        $user = User::with('client')->find($user_id);
 
-        if (Auth::check()) {
-            // dd('ok');
-            $client->user_id = Auth::user()->id;
+        // Vérifier si l'utilisateur existe et a le rôle de client
+        if ($user && $user->role('client')) {
+            // Créer un nouveau client avec les données du formulaire
+            $client = new Client();
+
+            // Associer le client à l'utilisateur
+            $client->user_id = $user_id;
+
+            // Récupérer les autres champs de l'utilisateur et les mettre dans le client
+            $client->nom = $user->nom;
+            $client->prenom = $user->prenom;
+            $client->tel = $user->tel;
+            $client->adress = $user->adress;
+            $client->login = $user->login;
+
+
+            // Enregistrer le client dans la base de données
+            $client->save();
+
+            // Retourner une réponse JSON avec le client créé
+            return response()->json(['message' => 'Client ajouté avec succès', 'data' => $client]);
+        } else {
+            // Retourner une erreur
+            return response()->json(['message' => 'L\'utilisateur n\'existe pas ou n\'a pas le rôle de client'], 404);
         }
-        $client->user_id = $request->user_id;
-
-        $client->save();
-
-        return response()->json(['message' => 'Client ajouté avec succès', 'data' => $client]);
     }
 
     /**

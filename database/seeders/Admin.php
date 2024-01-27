@@ -16,11 +16,13 @@ class Admin extends Seeder
     {
         $admin = [
 
-            'name' => 'Khadija DIEYE',
-            'tel' => '77 500 17 30',
+            'nom' => 'DIEYE',
+            'prenom' => 'Khadija',
+            'tel' => '77 500 17 33',
             'adress' => 'DIAXAAY 2',
             'role' => 'admin',
-            'email' => 'CC@gmail.com',
+            'email' => 'kadia@gmail.com',
+            'login' => 'kadia',
             'password'  => Hash::make('pass@123'),
 
         ];

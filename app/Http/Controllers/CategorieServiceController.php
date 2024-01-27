@@ -98,14 +98,13 @@ class CategorieServiceController extends Controller
 
         return response()->json(['message' => 'Catégorie de service ajoutée avec succès', 'data' => $categorie]);
     }
-
     /**
      * @OA\Get(
-     *     path="/api/affichCategorie/{categorieservice}",
+     *     path="/api/affichCategorie/{id}",
      *     tags={"Catégorie de service"},
      *     summary="Details d'une categorie de service",
      *     @OA\Parameter(
-     *         name="categorieservice",
+     *         name="id",
      *         in="path",
      *         required=true,
      *         description="ID de la catégorie à afficher",
@@ -139,7 +138,7 @@ class CategorieServiceController extends Controller
 
     /**
      * @OA\Patch(
-     *     path="/api/modifCategorie/{categorieservice}",
+     *     path="/api/modifCategorie/{id}",
      *     summary="Modificier une catégorie de service",
      *     security={
      *         {"bearerAuth": {}}
@@ -147,7 +146,7 @@ class CategorieServiceController extends Controller
      *     tags={"Catégorie de service"},
      * 
      *         @OA\Parameter(
-     *         name="categorieservice",
+     *         name="id",
      *         in="path",
      *         required=true,
      *         description="ID de la catégorie à modifier",
@@ -166,7 +165,7 @@ class CategorieServiceController extends Controller
      *     ),
      *     @OA\Response(
      *         response=201,
-     *         description="Catégorie de service ajoutée avec succées",
+     *         description="Catégorie de service modifiée avec succées",
      *     ),
      *     @OA\Response(response=401, description="Validation Error")
      * )
@@ -178,10 +177,10 @@ class CategorieServiceController extends Controller
 
         $categorieService->libelleCategorie = $request->libelleCategorie;
 
-        if ($request->file('image')) {
-            $imagePath = $request->file('image')->store('images/Categorie', 'public');
-            $categorieService->image = $imagePath;
-        }
+        // if ($request->file('image')) {
+        //     $imagePath = $request->file('image')->store('images/Categorie', 'public');
+        //     $categorieService->image = $imagePath;
+        // }
 
         $categorieService->update();
 
@@ -195,10 +194,10 @@ class CategorieServiceController extends Controller
      *     summary="Supprimer une catégorie de service",
      *    
      *  @OA\Parameter(
-     *         name="Catégorie de service",
+     *         name="id",
      *         in="path",
      *         required=true,
-     *         description="ID de la catégorie à supprimer",
+     *         description="Suppression d'une catégorie à partir de l'id",
      *         @OA\Schema(type="integer")
      * ),
      *     @OA\Response(response="200", description="succes")

@@ -7,11 +7,35 @@ use App\Http\Requests\StoreprestataireRequest;
 use App\Http\Requests\UpdateprestataireRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use OpenApi\Annotations as OA;
+
+/**
+ * @OA\Info(
+ *     title="Ouvrier-Express",
+ *     version="1.0.0",
+ *     description="Application de gestion de relation prestataire-client"
+ * )
+ */
+
+/**
+ * @OA\SecurityScheme(
+ *      securityScheme="bearerAuth",
+ *      type="http",
+ *      scheme="bearer",
+ *      bearerFormat="JWT",
+ * )
+ */
 
 class PrestataireController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/api/listePresta",
+     *     tags={"Profil prestataire"},
+     *     summary="liste des profills prestataires",
+     *     @OA\Response(response="200", description="succes")
+     * )
      */
     public function index()
     {
@@ -27,7 +51,27 @@ class PrestataireController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *     path="/api/ajouterPresta",
+     *     tags={"Profil prestataire"},
+     *     summary="Ajouter profil",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *             @OA\Property(property="image", type="string", format="binary", description="Fichier de photo"),
+     *             @OA\Property(property="metier", type="string"),
+     *             @OA\Property(property="disponibilite", type="string"),
+     *         )
+     *        )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Création reussie",
+     *     ),
+     *     @OA\Response(response=401, description="Validation Error")
+     * )
      */
     public function store(StoreprestataireRequest $request)
     {
@@ -67,15 +111,34 @@ class PrestataireController extends Controller
         //dd($presta);
         $presta->save();
 
-        return response()->json(['message' => 'prestataire ajouté avec succès']);
+        return response()->json(['message' => 'Inscription reussie']);
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *     path="/api/affichPresta{id}",
+     *     tags={"Profil prestataire"},
+     *     summary="Voir profil",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="Afficher un prestataire",
+     *         @OA\Schema(type="integer")
+     * ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Succès",
+     *     ),
+     * )
      */
-    public function show(prestataire $prestataire)
+    public function show($id)
     {
-        return response()->json($prestataire);
+        $prestataire = prestataire::findOrFail($id);
+        return response()->json([
+
+            "Profils" => $prestataire,
+        ]);
     }
 
     /**
@@ -87,15 +150,45 @@ class PrestataireController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @OA\Patch(
+     *     path="/api/modifPresta/{prestataire}",
+     *     tags={"Profil prestataire"},
+     *     summary="Modificier un profil",
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     *         @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="Modifier à partir de l'id",
+     *         @OA\Schema(type="integer")
+     * ),    
+     * 
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *             @OA\Property(property="image", type="string", format="binary", description="Fichier de photo"),
+     *             @OA\Property(property="metier", type="string"),
+     *         )
+     *        )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Profil modifiée avec succés",
+     *     ),
+     *     @OA\Response(response=401, description="Validation Error")
+     * )
      */
     public function update(UpdateprestataireRequest $request, prestataire $prestataire)
     {
         $request->validated();
-        if ($request->file('image')) {
-            $imagePath = $request->file('image')->store('images/Prestataires', 'public');
-            $prestataire->image = $imagePath;
-        }
+        // if ($request->file('image')) {
+        //     $imagePath = $request->file('image')->store('images/Prestataires', 'public');
+        //     $prestataire->image = $imagePath;
+        // }
         $prestataire->metier = $request->metier;
         $prestataire->disponibilite = $request->disponibilite;
         $prestataire->update();
@@ -104,13 +197,30 @@ class PrestataireController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Patch(
+     *     path="/api/supprimPresta/{id}",
+     *     tags={"Profil prestataire"}, 
+     *     summary="Supprimer un profil",
+     *    
+     *  @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="Supprimer un profil à partir de l'id",
+     *         @OA\Schema(type="integer")
+     * ),
+     *     @OA\Response(response="200", description="succes")
+     * )
      */
-    public function destroy(prestataire $prestataire)
+    public function destroy($id)
     {
-        $prestataire->estArchive = true;
-        $prestataire->update();
+        $presta = prestataire::findOrFail($id);
+        // dd($presta);
+        if ($presta->estArchive == 0) {
+            $presta->estArchive = 1;
+            $presta->save();
 
-        return response()->json(['message' => 'Prestataire supprimé']);
+            return response()->json(['message' => 'Prestataire supprimé']);
+        };
     }
 }
