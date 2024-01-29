@@ -19,14 +19,7 @@ use OpenApi\Annotations as OA;
  */
 
 
-/**
- * @OA\SecurityScheme(
- *      securityScheme="bearerAuth",
- *      type="http",
- *      scheme="bearer",
- *      bearerFormat="JWT",
- * )
- */
+
 class AuthController extends Controller
 {
     public function __construct()
@@ -38,12 +31,6 @@ class AuthController extends Controller
      * @OA\Post(
      *     path="/api/login",
      *     tags={"Connexion"},
-     * 
-     * security={
-     *         {"bearerAuth": {}}
-     *     },
-     * 
-     * 
      *     summary="Authentifier un utilisateur",
      *     @OA\RequestBody(
      *         required=true,
