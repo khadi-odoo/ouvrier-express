@@ -67,7 +67,6 @@ class AuthController extends Controller
      *                 @OA\Property(property="tel", type="string"),
      *                 @OA\Property(property="adress", type="string"),
      *                 @OA\Property(property="email", type="string"),
-     *                 @OA\Property(property="login", type="string"),
      *                 @OA\Property(property="role", type="string"),
      *             )
      *         )
