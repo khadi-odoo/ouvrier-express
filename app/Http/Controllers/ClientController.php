@@ -42,11 +42,7 @@ class ClientController extends Controller
      *         @OA\MediaType(
      *             mediaType="multipart/form-data",
      *             @OA\Schema(
-     *             @OA\Property(property="nom", type="string"),
-     *            @OA\Property(property="prenom", type="string"),
-     *            @OA\Property(property="tel", type="string"),
-     *            @OA\Property(property="adress", type="string"),
-     *           @OA\Property(property="login", type="string"),
+     *             @OA\Property(property="user_id", type="string"),
      *         )
      *        )
      *     ),
@@ -71,7 +67,7 @@ class ClientController extends Controller
             $client = new Client();
 
             // Associer le client à l'utilisateur
-            $client->user_id = $user_id;
+            $client->user_id = $user->id;
 
             // Récupérer les autres champs de l'utilisateur et les mettre dans le client
             $client->nom = $user->nom;

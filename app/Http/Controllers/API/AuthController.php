@@ -117,7 +117,7 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'nom' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
         ]);
@@ -127,15 +127,16 @@ class AuthController extends Controller
             'prenom' => $request->prenom,
             'tel' => $request->tel,
             'adress' => $request->adress,
+            'role' => $request->role,
             'email' => $request->email,
             'login' => $request->login,
-            'role' => $request->role,
+
             'password' => Hash::make($request->password),
         ]);
 
         return response()->json([
             'message' => 'Utilisateur créé avec succès',
-            'user' => $user
+            'data' => $user
         ]);
     }
 
