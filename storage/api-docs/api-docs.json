@@ -61,9 +61,6 @@
                                                 "email": {
                                                     "type": "string"
                                                 },
-                                                "login": {
-                                                    "type": "string"
-                                                },
                                                 "role": {
                                                     "type": "string"
                                                 }
@@ -108,9 +105,6 @@
                                         "type": "string"
                                     },
                                     "email": {
-                                        "type": "string"
-                                    },
-                                    "login": {
                                         "type": "string"
                                     },
                                     "role": {
@@ -359,20 +353,8 @@
                         "multipart/form-data": {
                             "schema": {
                                 "properties": {
-                                    "nom": {
-                                        "type": "string"
-                                    },
-                                    "prenom": {
-                                        "type": "string"
-                                    },
-                                    "tel": {
-                                        "type": "string"
-                                    },
-                                    "adress": {
-                                        "type": "string"
-                                    },
-                                    "login": {
-                                        "type": "string"
+                                    "user_id": {
+                                        "type": "integer"
                                     }
                                 },
                                 "type": "object"
@@ -417,6 +399,12 @@
                         "multipart/form-data": {
                             "schema": {
                                 "properties": {
+                                    "client_id": {
+                                        "type": "integer"
+                                    },
+                                    "prestation_id": {
+                                        "type": "integer"
+                                    },
                                     "statut_evaluation": {
                                         "type": "string"
                                     }
@@ -579,6 +567,9 @@
                                     },
                                     "disponibilite": {
                                         "type": "string"
+                                    },
+                                    "user_id": {
+                                        "type": "integer"
                                     }
                                 },
                                 "type": "object"
@@ -728,6 +719,12 @@
                                 "properties": {
                                     "nomService": {
                                         "type": "string"
+                                    },
+                                    "prestataire_id": {
+                                        "type": "integer"
+                                    },
+                                    "categorie_id": {
+                                        "type": "integer"
                                     }
                                 },
                                 "type": "object"

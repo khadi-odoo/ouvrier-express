@@ -63,6 +63,7 @@ class PrestataireController extends Controller
      *             @OA\Property(property="image", type="string", format="binary", description="Fichier de photo"),
      *             @OA\Property(property="metier", type="string"),
      *             @OA\Property(property="disponibilite", type="string"),
+     *             @OA\Property(property="user_id", type="integer"),
      *         )
      *        )
      *     ),
@@ -75,6 +76,7 @@ class PrestataireController extends Controller
      */
     public function store(StoreprestataireRequest $request)
     {
+       
 
         $request->validated($request->all());
         $prestataire = new Prestataire();
@@ -82,7 +84,7 @@ class PrestataireController extends Controller
         // $imagePath = $request->file('image')->store('images/Prestataires', 'public');
         // $prestataire->image = $imagePath;
         $prestataire->metier = $request->metier;
-        // dd(Auth::user());
+       
         if (Auth::check()) {
             // dd('ok');
             $prestataire->user_id = Auth::user()->id;

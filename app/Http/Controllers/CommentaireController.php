@@ -62,6 +62,8 @@ class CommentaireController extends Controller
      *         @OA\MediaType(
      *             mediaType="multipart/form-data",
      *             @OA\Schema(
+     *             @OA\Property(property="client_id", type="integer"),
+     *             @OA\Property(property="prestation_id", type="integer"),
      *             @OA\Property(property="statut_evaluation", type="string"),
      *         )
      *        )

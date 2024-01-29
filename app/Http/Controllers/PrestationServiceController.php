@@ -62,7 +62,9 @@ class PrestationServiceController extends Controller
      *         @OA\MediaType(
      *             mediaType="multipart/form-data",
      *             @OA\Schema(
-     *             @OA\Property(property="nomService", type="string"),             
+     *             @OA\Property(property="nomService", type="string"),
+     *            @OA\Property(property="prestataire_id", type="integer"), 
+     *            @OA\Property(property="categorie_id", type="integer"),            
      *         )
      *        )
      *     ),

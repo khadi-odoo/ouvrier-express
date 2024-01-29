@@ -22,7 +22,7 @@ class Admin extends Seeder
             'adress' => 'DIAXAAY 2',
             'role' => 'admin',
             'email' => 'kadia@gmail.com',
-            'login' => 'kadia',
+            //'login' => 'kadia',
             'password'  => Hash::make('pass@123'),
 
         ];

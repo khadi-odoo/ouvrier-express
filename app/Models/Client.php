@@ -21,4 +21,10 @@ class client extends Model
 
         return $this->belongsTo(Commentaire::class);
     }
+
+    protected $fillable = [
+
+        'user_id',
+
+    ];
 }

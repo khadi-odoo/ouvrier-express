@@ -33,5 +33,7 @@ class PrestationService extends Model
 
         'nomService',
         'estArchive',
+        'prestataire_id',
+        'categorie_id',
     ];
 }

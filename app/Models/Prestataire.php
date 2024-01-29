@@ -27,5 +27,6 @@ class prestataire extends Model
         'metier',
         'disponibilite',
         'estArchive',
+        'user_id'
     ];
 }

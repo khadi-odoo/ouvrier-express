@@ -21,6 +21,8 @@ class Commentaire extends Model
     }
 
     protected $fillable = [
+        'client_id',
+        'prestation_id',
         'statut_evaluation',
         'estArchive',
     ];
