@@ -17,6 +17,16 @@ use OpenApi\Annotations as OA;
  *     description="Application de gestion de relation prestataire-client"
  * )
  */
+
+
+/**
+ * @OA\SecurityScheme(
+ *      securityScheme="bearerAuth",
+ *      type="http",
+ *      scheme="bearer",
+ *      bearerFormat="JWT",
+ * )
+ */
 class AuthController extends Controller
 {
     public function __construct()
@@ -28,6 +38,11 @@ class AuthController extends Controller
      * @OA\Post(
      *     path="/api/login",
      *     tags={"Connexion"},
+     * 
+     * security={
+     *         {"bearerAuth": {}}
+     *     },
+     * 
      *     summary="Authentifier un utilisateur",
      *     @OA\RequestBody(
      *         required=true,
@@ -129,7 +144,8 @@ class AuthController extends Controller
             'adress' => $request->adress,
             'role' => $request->role,
             'email' => $request->email,
-            'login' => $request->login,
+            // 'login' => $request->login,
+
 
             'password' => Hash::make($request->password),
         ]);

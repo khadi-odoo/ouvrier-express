@@ -42,7 +42,7 @@ class ClientController extends Controller
      *         @OA\MediaType(
      *             mediaType="multipart/form-data",
      *             @OA\Schema(
-     *             @OA\Property(property="user_id", type="string"),
+     *             @OA\Property(property="user_id", type="integer"),
      *         )
      *        )
      *     ),
@@ -56,26 +56,17 @@ class ClientController extends Controller
     public function store(StoreclientRequest $request)
     {
         // Récupérer l'identifiant de l'utilisateur à partir du champ user_id du formulaire
-        $user_id = $request->user_id;
+        $user = auth()->user();
+        // dd($user);
 
-        // Trouver l'utilisateur avec cet identifiant et charger sa relation avec le client
-        $user = User::with('client')->find($user_id);
 
         // Vérifier si l'utilisateur existe et a le rôle de client
-        if ($user && $user->role('client')) {
+        if ($user && $user->role === 'client') {
             // Créer un nouveau client avec les données du formulaire
             $client = new Client();
 
             // Associer le client à l'utilisateur
             $client->user_id = $user->id;
-
-            // Récupérer les autres champs de l'utilisateur et les mettre dans le client
-            $client->nom = $user->nom;
-            $client->prenom = $user->prenom;
-            $client->tel = $user->tel;
-            $client->adress = $user->adress;
-            $client->login = $user->login;
-
 
             // Enregistrer le client dans la base de données
             $client->save();
