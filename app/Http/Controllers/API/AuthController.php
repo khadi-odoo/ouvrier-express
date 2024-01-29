@@ -43,6 +43,7 @@ class AuthController extends Controller
      *         {"bearerAuth": {}}
      *     },
      * 
+     * 
      *     summary="Authentifier un utilisateur",
      *     @OA\RequestBody(
      *         required=true,
