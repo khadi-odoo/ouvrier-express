@@ -85,8 +85,10 @@ class PrestationServiceController extends Controller
         // dd(Auth::user());
         if (Auth::check()) {
             $prestation->prestataire_id = Auth::user()->id;
-            $prestation->categorie_id = $request->categorie_id;
         }
+
+        $prestation->prestataire_id = $request->prestataire_id;
+        $prestation->categorie_id = $request->categorie_id;
 
         $prestation->save();
 
