@@ -80,11 +80,12 @@ class CategorieServiceController extends Controller
 
 
         $request->validated($request->all());
-        $categorie = new CategorieService();
+
 
         // $categorie->user_id = $user;
         //$categorie->user_id = Auth::user()->id;
         if (Auth::check() && auth()->user()->role === 'admin') {
+            $categorie = new CategorieService();
             // dd('ok');
             //$categorie->user_id = Auth::user()->id;
             $categorie->libelleCategorie = $request->libelleCategorie;

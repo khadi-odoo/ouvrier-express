@@ -32,11 +32,11 @@ class PrestationController extends Controller
     public function store(StorePrestationRequest $request)
     {
         $request->validated($request->all());
-        $prestation = new Prestation();
+        
 
         if (Auth::check() && auth()->user()->role === 'client') {
+            $prestation = new Prestation();
             $prestation->prestataire_id = Auth::user()->id;
-
             $prestation->client_ide = $request->client_id;
             $prestation->prestation_id = $request->prestation_id;
             $prestation->prestation_demande = $request->prestation_demande;

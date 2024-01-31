@@ -79,21 +79,19 @@ class PrestataireController extends Controller
 
 
         $request->validated($request->all());
-        $prestataire = new Prestataire();
-        //dd('ok');
-        // $imagePath = $request->file('image')->store('images/Prestataires', 'public');
-        // $prestataire->image = $imagePath;
 
 
         if (Auth::check() && auth()->user()->role === 'prestataire') {
-            // dd('ok');
-
-            $prestataire->user_id = Auth::user()->id;
-
+            $prestataire = new Prestataire();
+            //dd('ok');
+            // $imagePath = $request->file('image')->store('images/Prestataires', 'public');
+            // $prestataire->image = $imagePath;
             $prestataire->metier = $request->metier;
             $prestataire->disponibilite = $request->disponibilite;
             $prestataire->user_id = $request->user_id;
 
+
+            $prestataire->user_id = Auth::user()->id;
 
             $prestataire->save();
 
@@ -102,7 +100,9 @@ class PrestataireController extends Controller
             return response()->json(['message' => 'Vous n\' êtes pas prestataire'], 404);
         }
         // $prestataire->user_id = Auth::user()->id;
-        //dd($prestataire);
+        // dd($prestataire);
+
+
 
     }
 

@@ -78,9 +78,10 @@ class CommentaireController extends Controller
     public function store(StoreCommentaireRequest $request)
     {
         $request->validated($request->all());
-        $comment = new Commentaire();
+        
 
         if (Auth::check() && auth()->user()->role === 'client') {
+            $comment = new Commentaire();
             $comment->client_id = $request->client_id;
             $comment->prestation_id = $request->prestation_id;
             $comment->statut_evaluation = $request->statut_evaluation;
