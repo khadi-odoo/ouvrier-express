@@ -84,20 +84,35 @@ class CategorieServiceController extends Controller
 
         // $categorie->user_id = $user;
         //$categorie->user_id = Auth::user()->id;
-        if (Auth::check()) {
+        if (Auth::check() && auth()->user()->role === 'admin') {
             // dd('ok');
-            $categorie->user_id = Auth::user()->id;
+            //$categorie->user_id = Auth::user()->id;
+            $categorie->libelleCategorie = $request->libelleCategorie;
+
+            $categorie->save();
+
+            return response()->json(['message' => 'Catégorie de service ajoutée avec succès', 'data' => $categorie]);
         }
 
-        $categorie->libelleCategorie = $request->libelleCategorie;
+
 
         // $imagePath = $request->file('image')->store('images/Categorie', 'public');
         // $categorie->image = $imagePath;
 
-        $categorie->save();
 
-        return response()->json(['message' => 'Catégorie de service ajoutée avec succès', 'data' => $categorie]);
+
+        else {
+            return response()->json(['message' => 'Vous n\' êtes pas admin'], 404);
+        }
     }
+
+
+    // $imagePath = $request->file('image')->store('images/Categorie', 'public');
+    // $categorie->image = $imagePath;
+
+
+
+
     /**
      * @OA\Get(
      *     path="/api/affichCategorie/{id}",
@@ -117,6 +132,7 @@ class CategorieServiceController extends Controller
      *     @OA\Response(response=401, description="Non autorisé"),
      * )
      */
+
     public function show($id)
     {
         $categorieService = categorieService::findOrFail($id);
@@ -149,7 +165,7 @@ class CategorieServiceController extends Controller
      *         name="id",
      *         in="path",
      *         required=true,
-     *         description="ID de la catégorie à modifier",
+     *         description="Modifier la catégorie à partir de l'id",
      *         @OA\Schema(type="integer")
      * ),    
      * 

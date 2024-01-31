@@ -76,25 +76,34 @@ class PrestataireController extends Controller
      */
     public function store(StoreprestataireRequest $request)
     {
-       
+
 
         $request->validated($request->all());
         $prestataire = new Prestataire();
         //dd('ok');
         // $imagePath = $request->file('image')->store('images/Prestataires', 'public');
         // $prestataire->image = $imagePath;
-        $prestataire->metier = $request->metier;
-       
-        if (Auth::check()) {
-            // dd('ok');
-            $prestataire->user_id = Auth::user()->id;
-        }
 
+
+        if (Auth::check() && auth()->user()->role === 'prestataire') {
+            // dd('ok');
+
+            $prestataire->user_id = Auth::user()->id;
+
+            $prestataire->metier = $request->metier;
+            $prestataire->disponibilite = $request->disponibilite;
+            $prestataire->user_id = $request->user_id;
+
+
+            $prestataire->save();
+
+            return response()->json(['message' => 'prestataire ajouté avec succès', 'data' => $prestataire]);
+        } else {
+            return response()->json(['message' => 'Vous n\' êtes pas prestataire'], 404);
+        }
         // $prestataire->user_id = Auth::user()->id;
         //dd($prestataire);
-        $prestataire->save();
 
-        return response()->json(['message' => 'prestataire ajouté avec succès', 'data' => $prestataire]);
     }
 
     public function ajouterPrestataire(Request $request)

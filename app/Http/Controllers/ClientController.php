@@ -72,7 +72,7 @@ class ClientController extends Controller
             $client->save();
 
             // Retourner une réponse JSON avec le client créé
-            return response()->json(['message' => 'Client ajouté avec succès', 'data' => $client]);
+            return response()->json(['message' => 'Profil Client ajouté avec succès', 'data' => $client]);
         } else {
             // Retourner une erreur
             return response()->json(['message' => 'L\'utilisateur n\'existe pas ou n\'a pas le rôle de client'], 404);

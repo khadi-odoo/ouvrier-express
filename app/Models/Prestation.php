@@ -4,28 +4,26 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class client extends Model
+class Prestation extends Model
 {
     use HasFactory;
 
-    public function user(): BelongsTo
+    public function client(): HasMany
     {
-
-        return $this->belongsTo(User::class);
+        return $this->hasMany(Client::class);
     }
 
     public function comment(): HasMany
     {
-
         return $this->hasMany(Commentaire::class);
     }
 
     protected $fillable = [
-
-        'user_id',
-
+        'client_id',
+        'prestation_id',
+        'prestation_demande',
+        'estArchive',
     ];
 }

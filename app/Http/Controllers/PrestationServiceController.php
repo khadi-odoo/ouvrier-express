@@ -77,22 +77,31 @@ class PrestationServiceController extends Controller
      */
     public function store(StorePrestationServiceRequest $request)
     {
-        $request->validated();
+        $request->validated($request->all());
         $prestation = new PrestationService();
         //$prestation->user_id = $user;
         //$prestation->user_id = Auth::user()->id;
-        $prestation->nomService = $request->nomService;
+
         // dd(Auth::user());
-        if (Auth::check()) {
+        if (Auth::check() && auth()->user()->role === 'prestataire') {
             $prestation->prestataire_id = Auth::user()->id;
-        }
 
-        $prestation->prestataire_id = $request->prestataire_id;
-        $prestation->categorie_id = $request->categorie_id;
+            $prestation->nomService = $request->nomService;
+            $prestation->prestataire_id = $request->prestataire_id;
+            $prestation->categorie_id = $request->categorie_id;
 
-        $prestation->save();
+            $prestation->save();
 
         return response()->json(['message' => 'Prestation ajoutée avec succès', 'data' => $prestation]);
+        }
+
+        else {
+            return response()->json(['message' => 'Vous n\' êtes pas prestataire'], 404);
+        }
+
+
+
+        
     }
 
     /**
@@ -167,7 +176,7 @@ class PrestationServiceController extends Controller
      */
     public function update(UpdatePrestationServiceRequest $request, PrestationService $prestationService)
     {
-        $request->validated();
+        $request->validated($request->all());
 
         $prestationService->nomService = $request->nomService;
 

@@ -80,22 +80,16 @@ class CommentaireController extends Controller
         $request->validated($request->all());
         $comment = new Commentaire();
 
-        //$comment->user_id = $user;
-        //$comment->user_id = Auth::user()->id;
+        if (Auth::check() && auth()->user()->role === 'client') {
+            $comment->client_id = $request->client_id;
+            $comment->prestation_id = $request->prestation_id;
+            $comment->statut_evaluation = $request->statut_evaluation;
+            $comment->save();
 
-
-        // dd(Auth::user());
-
-
-        if (Auth::check()) {
-            $comment->client_id = Auth::user()->id;
+            return response()->json(['message' => 'Commentaire envoyé avec succès', 'data' => $comment]);
+        } else {
+            return response()->json(['message' => 'Vous n\' êtes pas client'], 404);
         }
-        $comment->client_id = $request->client_id;
-        $comment->prestation_id = $request->prestation_id;
-        $comment->statut_evaluation = $request->statut_evaluation;
-        $comment->save();
-
-        return response()->json(['message' => 'Commentaire envoyé avec succès', 'data' => $comment]);
     }
 
     /**
@@ -122,7 +116,7 @@ class CommentaireController extends Controller
         $commentaire = Commentaire::findOrFail($id);
         return response()->json([
 
-            "categorie" => $commentaire,
+            "Statut" => $commentaire,
 
 
         ]);
@@ -171,7 +165,7 @@ class CommentaireController extends Controller
      */
     public function update(UpdateCommentaireRequest $request, Commentaire $commentaire)
     {
-        $request->validated();
+        $request->validated($request->all());
         $commentaire->statut_evaluation = $request->statut_evaluation;
         $commentaire->update();
 

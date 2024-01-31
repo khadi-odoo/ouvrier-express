@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('commentaires', function (Blueprint $table) {
+        Schema::create('prestations', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('client_id');
-            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('prestation_id');
-            $table->foreign('prestation_id')->references('id')->on('prestation_services')->onDelete('cascade');
-            $table->string('statut_evaluation');
+            $table->foreign('prestation_id')->references('id')->on('prestation_services')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('prestation_demande');
             $table->boolean('estArchive')->default(false);
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('commentaires');
+        Schema::dropIfExists('prestations');
     }
 };

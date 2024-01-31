@@ -4,7 +4,9 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\CategorieServiceController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CommentaireController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\PrestataireController;
+use App\Http\Controllers\PrestationController;
 use App\Http\Controllers\PrestationServiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -38,8 +40,8 @@ Route::controller(PrestataireController::class)->group(function () {
     Route::post('ajouterPresta', 'store');
     Route::post('ajouterPrestataire', 'ajouterPrestataire');
     Route::get('affichPresta{id}', 'show');
-    Route::patch('modifPresta/{prestataire}', 'update');
-    Route::patch('supprimPresta/{id}', 'destroy');
+    Route::post('modifPresta/{prestataire}', 'update');
+    Route::post('supprimPresta/{id}', 'destroy');
 });
 
 
@@ -47,8 +49,8 @@ Route::controller(ClientController::class)->group(function () {
     Route::get('listeclient', 'index');
     Route::post('ajouterclient', 'store');
     Route::get('afficherclient/{id}', 'show');
-    Route::patch('modifclient/{client}', 'update');
-    Route::patch('supprimclient/{id}', 'destroy');
+    Route::post('modifclient/{client}', 'update');
+    Route::post('supprimclient/{id}', 'destroy');
 });
 
 
@@ -56,8 +58,8 @@ Route::controller(CategorieServiceController::class)->group(function () {
     Route::get('listeCétegorie', 'index');
     Route::post('ajouterCategorie', 'store');
     Route::get('affichCategorie/{id}', 'show');
-    Route::patch('modifCategorie/{categorieservice}', 'update');
-    Route::patch('supprimCategorie/{id}', 'destroy');
+    Route::post('modifCategorie/{categorieservice}', 'update');
+    Route::post('supprimCategorie/{id}', 'destroy');
 });
 
 
@@ -65,8 +67,8 @@ Route::controller(PrestationServiceController::class)->group(function () {
     Route::get('listePrestaService', 'index');
     Route::post('ajoutPrestaService', 'store');
     Route::get('affichPrestaService/{id}', 'show');
-    Route::patch('modifPrestaService/{prestatationservice}', 'update');
-    Route::patch('supprimPrestaService/{id}', 'destroy');
+    Route::post('modifPrestaService/{prestatationservice}', 'update');
+    Route::post('supprimPrestaService/{id}', 'destroy');
 });
 
 
@@ -74,6 +76,23 @@ Route::controller(CommentaireController::class)->group(function () {
     Route::get('listeComment', 'index');
     Route::post('ajoutComment', 'store');
     Route::get('affichComment/{id}', 'show');
-    Route::patch('modifComment/{commentaire}', 'update');
-    Route::patch('supprimComment/{id}', 'destroy');
+    Route::post('modifComment/{commentaire}', 'update');
+    Route::post('supprimComment/{id}', 'destroy');
+});
+
+Route::controller(PrestationController::class)->group(function () {
+    Route::get('listePrestation', 'index');
+    Route::post('ajoutPrestation', 'store');
+    Route::get('affichPrestation/{id}', 'show');
+    Route::post('modifPrestation/{prestation}', 'update');
+    Route::post('supprimPrestation/{id}', 'destroy');
+});
+
+
+Route::controller(MailController::class)->group(function () {
+    Route::get('listeMail', 'index');
+    Route::post('ajoutMail', 'store');
+    Route::get('affichMail/{id}', 'show');
+    Route::post('modifMail/{mail}', 'update');
+    Route::post('supprimMail/{id}', 'destroy');
 });
