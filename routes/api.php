@@ -53,7 +53,7 @@ Route::controller(ClientController::class)->group(function () {
 
 
 Route::controller(CategorieServiceController::class)->group(function () {
-    Route::get('listeCétegorie', 'index');
+    Route::get('listeCategorie', 'index');
     Route::post('ajouterCategorie', 'store');
     Route::get('affichCategorie/{id}', 'show');
     Route::patch('modifCategorie/{categorieservice}', 'update');
