@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use app\http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Client;
+use App\Models\prestataire;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -62,30 +64,30 @@ class AuthController extends Controller
      * )
      */
 
-     public function login(Request $request)
-     {
-         $request->validate([
-             'email' => 'required|string|email',
-             'password' => 'required|string',
-         ]);
-         $credentials = $request->only('email', 'password');
-         $token = Auth::attempt($credentials);
- 
-         if (!$token) {
-             return response()->json([
-                 'message' => 'Unauthorized',
-             ], 401);
-         }
- 
-         $user = Auth::user();
-         return response()->json([
-             'user' => $user,
-             'authorization' => [
-                 'token' => $token,
-                 'type' => 'bearer',
-             ]
-         ]);
-     }
+    public function login(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+        ]);
+        $credentials = $request->only('email', 'password');
+        $token = Auth::attempt($credentials);
+
+        if (!$token) {
+            return response()->json([
+                'message' => 'Login u mot de passe incorrect',
+            ], 401);
+        }
+
+        $user = Auth::user();
+        return response()->json([
+            'user' => $user,
+            'authorization' => [
+                'token' => $token,
+                'type' => 'bearer',
+            ]
+        ]);
+    }
 
     /**
      * @OA\Post(
@@ -135,7 +137,15 @@ class AuthController extends Controller
 
             'password' => Hash::make($request->password),
         ]);
-
+        if ($request->role == "client") {
+            $client = new Client();
+            $client->user_id = $user->id;
+            $client->save();
+        } elseif ($request->role == "prestataire") {
+            $prestataire = new prestataire();
+            $prestataire->user_id = $user->id;
+            $prestataire->save();
+        }
         return response()->json([
             'message' => 'Utilisateur créé avec succès',
             'data' => $user
@@ -160,7 +170,7 @@ class AuthController extends Controller
     {
         Auth::logout();
         return response()->json([
-            'message' => 'Successfully logged out',
+            'message' => 'Utilisateur déconnecté avec succès',
         ]);
     }
 

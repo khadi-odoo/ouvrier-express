@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('libelleCategorie');
             $table->string('image')->nullable();
+            $table->string('description')->nullable();
             $table->boolean('estArchive')->default(false);
             $table->timestamps();
         });

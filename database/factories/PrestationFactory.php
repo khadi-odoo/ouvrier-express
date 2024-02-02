@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Client;
+use App\Models\Prestation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,13 @@ class PrestationFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'client_id' => function () {
+                return Client::factory()->create()->id;
+            },
+            'prestation_id'  => function () {
+                return Prestation::factory()->create()->id;
+            },
+            'prestation_demande' => fake()->text(20),
         ];
     }
 }

@@ -65,7 +65,8 @@ class CategorieServiceController extends Controller
      *             @OA\Schema(
      *             @OA\Property(property="libelleCategorie", type="string"),
      *             @OA\Property(property="image", type="string", format="binary", description="Fichier de photo"),
-     *         )
+     *             @OA\Property(property="description", type="string"),
+     * )
      *        )
      *     ),
      *     @OA\Response(
@@ -89,6 +90,7 @@ class CategorieServiceController extends Controller
             // dd('ok');
             //$categorie->user_id = Auth::user()->id;
             $categorie->libelleCategorie = $request->libelleCategorie;
+            $categorie->description = $request->description;
 
             $categorie->save();
 
@@ -177,7 +179,8 @@ class CategorieServiceController extends Controller
      *             @OA\Schema(
      *             @OA\Property(property="libelleCategorie", type="string"),
      *             @OA\Property(property="image", type="string", format="binary", description="Fichier de photo"),
-     *         )
+     *             @OA\Property(property="desription", type="string"),
+     * )
      *        )
      *     ),
      *     @OA\Response(
@@ -193,6 +196,7 @@ class CategorieServiceController extends Controller
         $request->validated();
 
         $categorieService->libelleCategorie = $request->libelleCategorie;
+        $categorieService->description = $request->description;
 
         // if ($request->file('image')) {
         //     $imagePath = $request->file('image')->store('images/Categorie', 'public');
