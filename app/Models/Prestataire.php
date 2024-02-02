@@ -26,6 +26,9 @@ class prestataire extends Model
         'image',
         'metier',
         'disponibilite',
+        'experience',
+        'competence',
+        'motivation',
         'estArchive',
         'user_id'
     ];

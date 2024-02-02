@@ -46,22 +46,22 @@ Route::controller(PrestataireController::class)->group(function () {
 });
 //});
 
-//Route::middleware(['auth:api', 'role:prestataire'])->group(function () {
-Route::controller(PrestataireController::class)->group(function () {
-    Route::get('listePresta', 'index');
-    Route::post('ajouterPresta', 'store');
-    Route::get('affichPresta{id}', 'show');
-    Route::post('modifPresta/{prestataire}', 'update');
-    Route::post('supprimPresta/{id}', 'destroy');
-});
-//});
+// Route::middleware(['auth:api', 'role:prestataire'])->group(function () {
+// Route::controller(PrestataireController::class)->group(function () {
+//     Route::get('listePresta', 'index');
+//     Route::post('ajouterPresta', 'store');
+//     Route::get('affichPresta{id}', 'show');
+//     Route::post('modifPresta/{prestataire}', 'update');
+//     Route::post('supprimPresta/{id}', 'destroy');
+// });
+// });
 
-//Route::middleware(['auth:api', 'role:client'])->group(function () {
-Route::controller(PrestataireController::class)->group(function () {
-    Route::get('listePrestataire', 'index');
-    Route::get('affichPrestataire{id}', 'show');
-});
-//});
+// Route::middleware(['auth:api', 'role:client'])->group(function () {
+// Route::controller(PrestataireController::class)->group(function () {
+//     Route::get('listePrestataire', 'index');
+//     Route::get('affichPrestataire{id}', 'show');
+// });
+// });
 
 //Route::middleware(['auth:api', 'role:admin'])->group(function () {
 Route::controller(CategorieServiceController::class)->group(function () {
@@ -73,13 +73,13 @@ Route::controller(CategorieServiceController::class)->group(function () {
 });
 //});
 
-//Route::middleware(['auth:api', 'role:prestataire'])->group(function () {
-Route::controller(CategorieServiceController::class)->group(function () {
-    Route::get('listeCateg', 'index');
+// Route::middleware(['auth:api', 'role:prestataire'])->group(function () {
+// Route::controller(CategorieServiceController::class)->group(function () {
+//     Route::get('listeCateg', 'index');
 
-    Route::get('affichCateg/{id}', 'show');
-});
-//});
+//     Route::get('affichCateg/{id}', 'show');
+// });
+// });
 
 //Route::middleware(['auth:api', 'role:admin'])->group(function () {
 Route::controller(PrestationServiceController::class)->group(function () {
@@ -91,15 +91,15 @@ Route::controller(PrestationServiceController::class)->group(function () {
 });
 //});
 
-//Route::middleware(['auth:api', 'role:prestataire'])->group(function () {
-Route::controller(PrestationServiceController::class)->group(function () {
-    Route::get('listePrestService', 'index');
-    Route::post('ajoutPrestService', 'store');
-    Route::get('affichPrestService/{id}', 'show');
-    Route::post('modifPrestService/{prestatationservice}', 'update');
-    Route::post('supprimPrestService/{id}', 'destroy');
-});
-//});
+// Route::middleware(['auth:api', 'role:prestataire'])->group(function () {
+// Route::controller(PrestationServiceController::class)->group(function () {
+//     Route::get('listePrestService', 'index');
+//     Route::post('ajoutPrestService', 'store');
+//     Route::get('affichPrestService/{id}', 'show');
+//     Route::post('modifPrestService/{prestatationservice}', 'update');
+//     Route::post('supprimPrestService/{id}', 'destroy');
+// });
+// });
 
 
 Route::controller(ClientController::class)->group(function () {

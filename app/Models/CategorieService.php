@@ -18,6 +18,7 @@ class CategorieService extends Model
     protected $fillable = [
         'libelleCategorie',
         'image',
+        'description',
         'estArchive',
     ];
 }

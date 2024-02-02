@@ -18,6 +18,7 @@ class CategorieServiceFactory extends Factory
     {
         return [
             'libelleCategorie' => fake()->text(20),
+            'description' => fake()->text(50),
         ];
     }
 }

@@ -62,7 +62,10 @@ class PrestataireController extends Controller
      *             @OA\Schema(
      *             @OA\Property(property="image", type="string", format="binary", description="Fichier de photo"),
      *             @OA\Property(property="metier", type="string"),
-     *             @OA\Property(property="disponibilite", type="string"),
+     *             @OA\Property(property="disponibilite", type="boolean"),
+     *             @OA\Property(property="experience", type="string"),
+     *             @OA\Property(property="competence", type="string"),
+     *             @OA\Property(property="motivation", type="string"),
      *             @OA\Property(property="user_id", type="integer"),
      *         )
      *        )
@@ -88,6 +91,9 @@ class PrestataireController extends Controller
             // $prestataire->image = $imagePath;
             $prestataire->metier = $request->metier;
             $prestataire->disponibilite = $request->disponibilite;
+            $prestataire->experience = $request->experience;
+            $prestataire->competence = $request->competence;
+            $prestataire->motivation = $request->motivation;
             $prestataire->user_id = $request->user_id;
 
 
@@ -183,6 +189,10 @@ class PrestataireController extends Controller
      *             @OA\Schema(
      *             @OA\Property(property="image", type="string", format="binary", description="Fichier de photo"),
      *             @OA\Property(property="metier", type="string"),
+     *             @OA\Property(property="disponibilite", type="boolean"),
+     *             @OA\Property(property="experience", type="string"),
+     *             @OA\Property(property="competence", type="string"),
+     *             @OA\Property(property="motivation", type="string"),
      *         )
      *        )
      *     ),
@@ -202,6 +212,9 @@ class PrestataireController extends Controller
         // }
         $prestataire->metier = $request->metier;
         $prestataire->disponibilite = $request->disponibilite;
+        $prestataire->experience = $request->experience;
+        $prestataire->competence = $request->competence;
+        $prestataire->motivation = $request->motivation;
         $prestataire->update();
 
         return response()->json(['message' => 'prestataire modifié avec succès', 'data' => $prestataire]);
