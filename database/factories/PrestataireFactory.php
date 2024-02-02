@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,11 @@ class PrestataireFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'metier' => fake()->text(20),
+            'disponibilite' => fake()->boolean(true),
+            'user_id' => function () {
+                return User::factory()->create()->id;
+            }
         ];
     }
 }

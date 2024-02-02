@@ -17,7 +17,7 @@ class CategorieServiceFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'libelleCategorie' => fake()->text(20),
         ];
     }
 }
