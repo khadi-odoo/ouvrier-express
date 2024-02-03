@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('prestataires', function (Blueprint $table) {
             $table->id();
+            $table->string('presentation')->nullable();
             $table->string('image')->nullable();
             $table->string('metier')->nullable();
             $table->boolean('disponibilite')->default(true);

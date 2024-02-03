@@ -60,6 +60,7 @@ class PrestataireController extends Controller
      *         @OA\MediaType(
      *             mediaType="multipart/form-data",
      *             @OA\Schema(
+     *             @OA\Property(property="presentation", type="string"),
      *             @OA\Property(property="image", type="string", format="binary", description="Fichier de photo"),
      *             @OA\Property(property="metier", type="string"),
      *             @OA\Property(property="disponibilite", type="boolean"),
@@ -89,6 +90,7 @@ class PrestataireController extends Controller
             //dd('ok');
             // $imagePath = $request->file('image')->store('images/Prestataires', 'public');
             // $prestataire->image = $imagePath;
+            $prestataire->presentation = $request->presentation;
             $prestataire->metier = $request->metier;
             $prestataire->disponibilite = $request->disponibilite;
             $prestataire->experience = $request->experience;
@@ -97,7 +99,7 @@ class PrestataireController extends Controller
             $prestataire->user_id = $request->user_id;
 
 
-            $prestataire->user_id = Auth::user()->id;
+            //$prestataire->user_id = Auth::user()->id;
 
             $prestataire->save();
 
@@ -187,6 +189,7 @@ class PrestataireController extends Controller
      *         @OA\MediaType(
      *             mediaType="multipart/form-data",
      *             @OA\Schema(
+     *             @OA\Property(property="presentation", type="string"),
      *             @OA\Property(property="image", type="string", format="binary", description="Fichier de photo"),
      *             @OA\Property(property="metier", type="string"),
      *             @OA\Property(property="disponibilite", type="boolean"),
@@ -210,6 +213,7 @@ class PrestataireController extends Controller
         //     $imagePath = $request->file('image')->store('images/Prestataires', 'public');
         //     $prestataire->image = $imagePath;
         // }
+        $prestataire->presentation = $request->presentation;
         $prestataire->metier = $request->metier;
         $prestataire->disponibilite = $request->disponibilite;
         $prestataire->experience = $request->experience;

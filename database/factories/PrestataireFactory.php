@@ -18,6 +18,7 @@ class PrestataireFactory extends Factory
     public function definition(): array
     {
         return [
+            'presentation' => fake()->text(20),
             'metier' => fake()->text(20),
             'disponibilite' => fake()->boolean(true),
             'experience' => fake()->text(20),

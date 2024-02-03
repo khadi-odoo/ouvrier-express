@@ -23,6 +23,7 @@ class prestataire extends Model
     }
 
     protected $fillable = [
+        'presentation',
         'image',
         'metier',
         'disponibilite',

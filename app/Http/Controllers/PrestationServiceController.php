@@ -78,7 +78,6 @@ class PrestationServiceController extends Controller
     public function store(StorePrestationServiceRequest $request)
     {
         $request->validated($request->all());
-
         if (Auth::check() && auth()->user()->role === 'prestataire') {
 
             $prestation = new PrestationService();
@@ -91,7 +90,7 @@ class PrestationServiceController extends Controller
             $prestation->prestataire_id = $request->prestataire_id;
             $prestation->categorie_id = $request->categorie_id;
 
-            $prestation->prestataire_id = Auth::user()->id;
+            // $prestation->prestataire_id = Auth::user()->id;
 
             $prestation->save();
 
