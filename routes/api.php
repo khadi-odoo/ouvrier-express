@@ -92,15 +92,15 @@ Route::controller(PrestationServiceController::class)->group(function () {
 });
 //});
 
-// Route::middleware(['auth:api', 'role:prestataire'])->group(function () {
-// Route::controller(PrestationServiceController::class)->group(function () {
-//     Route::get('listePrestService', 'index');
-//     Route::post('ajoutPrestService', 'store');
-//     Route::get('affichPrestService/{id}', 'show');
-//     Route::post('modifPrestService/{prestatationservice}', 'update');
-//     Route::post('supprimPrestService/{id}', 'destroy');
-// });
-// });
+//Route::middleware(['auth:api', 'role:prestataire'])->group(function () {
+Route::controller(PrestationServiceController::class)->group(function () {
+    Route::get('listePrestService', 'index');
+    Route::post('ajoutPrestService', 'store');
+    Route::get('affichPrestService/{id}', 'show');
+    Route::post('modifPrestService/{prestatationservice}', 'update');
+    Route::post('supprimPrestService/{id}', 'destroy');
+});
+//});
 
 
 Route::controller(ClientController::class)->group(function () {

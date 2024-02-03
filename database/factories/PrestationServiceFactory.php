@@ -20,10 +20,10 @@ class PrestationServiceFactory extends Factory
     public function definition(): array
     {
         $user = User::factory()->create();
-        $prestataire = prestataire::factory()->create(['user_id'=> $user->id]);
+        $prestataire = prestataire::factory()->create(['user_id' => $user->id]);
         $categorieService = CategorieService::factory()->create();
         return [
-            'nomService' => $this->faker->text(20), 
+            'nomService' => $this->faker->text(20),
             'prestataire_id' => $prestataire->id,
             'categorie_id' => $categorieService->id,
         ];
