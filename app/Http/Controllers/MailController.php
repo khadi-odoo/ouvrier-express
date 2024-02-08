@@ -36,8 +36,8 @@ class MailController extends Controller
         if (Auth::check()) {
             // dd('ok');
             //$categorie->user_id = Auth::user()->id;
-            $mail->sujet = $request->sujet;
-            $mail->corps = $request->corps;
+            $mail->email = $request->email;
+            $mail->message = $request->message;
 
             $mail->save();
 
@@ -72,7 +72,16 @@ class MailController extends Controller
      */
     public function update(UpdateMailRequest $request, Mail $mail)
     {
-        //
+        $request->validated();
+
+        $mail->email = $request->email;
+        $mail->message = $request->message;
+
+    
+
+        $mail->update();
+
+        return response()->json(['message' => 'mail modifiée avec succès', 'data' => $mail]);
     }
 
     /**

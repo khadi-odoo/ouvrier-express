@@ -34,7 +34,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register');
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
-   
+    Route::get('getAllUsers', 'getAllUsers');
 });
 
 //Route::middleware(['auth:api', 'role:admin'])->group(function () {
@@ -93,15 +93,15 @@ Route::controller(PrestationServiceController::class)->group(function () {
 });
 //});
 
-//Route::middleware(['auth:api', 'role:prestataire'])->group(function () {
-Route::controller(PrestationServiceController::class)->group(function () {
-    Route::get('listePrestService', 'index');
-    Route::post('ajoutPrestService', 'store');
-    Route::get('affichPrestService/{id}', 'show');
-    Route::post('modifPrestService/{prestatationservice}', 'update');
-    Route::post('supprimPrestService/{id}', 'destroy');
-});
-//});
+// Route::middleware(['auth:api', 'role:prestataire'])->group(function () {
+// Route::controller(PrestationServiceController::class)->group(function () {
+//     Route::get('listePrestService', 'index');
+//     Route::post('ajoutPrestService', 'store');
+//     Route::get('affichPrestService/{id}', 'show');
+//     Route::post('modifPrestService/{prestatationservice}', 'update');
+//     Route::post('supprimPrestService/{id}', 'destroy');
+// });
+// });
 
 
 Route::controller(ClientController::class)->group(function () {
@@ -131,9 +131,9 @@ Route::controller(CommentaireController::class)->group(function () {
 
 
 // Route::controller(MailController::class)->group(function () {
-//     Route::get('listeMail', 'index');
-//     Route::post('ajoutMail', 'store');
+Route::get('listeMail', 'index');
+Route::post('ajoutMail', 'store');
 //     Route::get('affichMail/{id}', 'show');
 //     Route::post('modifMail/{mail}', 'update');
-//     Route::post('supprimMail/{id}', 'destroy');
+Route::post('supprimMail/{id}', 'destroy');
 // });

@@ -215,7 +215,7 @@ class PrestataireController extends Controller
         // }
         $prestataire->presentation = $request->presentation;
         $prestataire->metier = $request->metier;
-        $prestataire->disponibilite = $request->disponibilite;
+        //$prestataire->disponibilite = $request->disponibilite;
         $prestataire->experience = $request->experience;
         $prestataire->competence = $request->competence;
         $prestataire->motivation = $request->motivation;

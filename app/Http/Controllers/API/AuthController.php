@@ -152,6 +152,25 @@ class AuthController extends Controller
         ]);
     }
 
+    public function getAllUsers()
+    {
+        $users = User::all();
+        $data = [];
+        foreach ($users as $user) {
+            $data[] = [
+                'id' => $user['id'],
+                'nom' => $user['nom'],
+                'prenom' => $user['prenom'],
+                'email' => $user['email'],
+                'role' => $user['role'],
+                'adress' => $user['adress'],
+                'tel' => $user['tel'],
+            ];
+        }
+        return response()->json($data);
+    }
+
+
 
     /**
      * @OA\Post(

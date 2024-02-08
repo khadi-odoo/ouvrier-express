@@ -36,11 +36,11 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasOne(Prestataire::class);
     }
 
-    public function mail(): BelongsTo
-    {
+    // public function mail(): BelongsTo
+    // {
 
-        return $this->belongsTo(Mail::class);
-    }
+    //     return $this->belongsTo(Mail::class);
+    // }
 
 
     protected $fillable = [

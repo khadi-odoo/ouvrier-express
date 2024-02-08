@@ -61,7 +61,7 @@ class ClientController extends Controller
 
 
         // Vérifier si l'utilisateur existe et a le rôle de client
-        if ($user && $user->role === 'client') {
+        if ($user && $user->role == 'client') {
             // Créer un nouveau client avec les données du formulaire
             $client = new Client();
 
@@ -72,7 +72,7 @@ class ClientController extends Controller
             $client->save();
 
             // Retourner une réponse JSON avec le client créé
-            return response()->json(['message' => 'Profil Client ajouté avec succès', 'data' => $client]);
+            return response()->json([  'data' => $client]);
         } else {
             // Retourner une erreur
             return response()->json(['message' => 'L\'utilisateur n\'existe pas ou n\'a pas le rôle de client'], 404);

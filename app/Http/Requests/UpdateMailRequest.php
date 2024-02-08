@@ -22,10 +22,10 @@ class UpdateMailRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'to' => 'required|string',
-            'from' => 'required|string',
-            'sujet' => 'required|string',
-            'corps' => 'required|string',
+            'email' => 'required|string',
+            'message' => 'required|string',
+            // 'sujet' => 'required|string',
+            // 'corps' => 'required|string',
         ];
     }
 }
