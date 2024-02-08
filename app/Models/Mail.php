@@ -10,19 +10,16 @@ class Mail extends Model
 {
     use HasFactory;
 
-    public function user(): HasMany
-    {
+    // public function user(): HasMany
+    // {
 
-        return $this->hasMany(Mail::class);
-    }
+    //     return $this->hasMany(Mail::class);
+    // }
 
 
     protected $fillable = [
-        'to',
-        'from',
-        'sujet',
-        'corps',
-        'date_mail',
-        'estArchive',
+        'email',
+        'message',
+
     ];
 }

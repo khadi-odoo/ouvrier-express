@@ -31,7 +31,7 @@ services:
         build: docker/php
         container_name: tuto_oe
         ports:
-          - "9000:80"
+          - "8082:80"
         volumes:
             - ./docker/php/vhosts:/etc/apache2/sites-enabled
             - ./:/var/www

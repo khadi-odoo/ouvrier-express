@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('mails', function (Blueprint $table) {
             $table->id();
-            $table->string('to');
-            $table->string('from');
-            $table->string('sujet');
-            $table->string('corps');
-            $table->date('date_mail')->nullable();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('email');
+            $table->string('message');
+            // $table->string('sujet');
+            // $table->string('corps');
+            // $table->date('date_mail')->nullable();
+            // $table->unsignedBigInteger('user_id');
+            // $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->boolean('estArchive')->default(false);
             $table->timestamps();
         });

@@ -3,12 +3,11 @@
 namespace Tests\Feature;
 
 use App\Models\User;
-use Database\Factories\ClientFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class ClientTest extends TestCase
+class CommentTest extends TestCase
 {
     /**
      * A basic feature test example.
@@ -21,18 +20,14 @@ class ClientTest extends TestCase
     }
 
 
-    public function test_client()
+    public function test_comment()
     {
         $user = User::factory()->create();
-
         $this->actingAs($user, 'api');
 
-        //$client = ClientFactory::new()->make()->toArray();
-
-        $client = ['user_id' => 25];
-        $response = $this->post('/api/ajouterclient', $client);
+        $commentClient = ['client_id' => 2, 'prestation_id' => 1, 'statut_evaluation' => 'Satisfait'];
+        $response = $this->post('/api/ajoutComment', $commentClient);
 
         $response->assertStatus(200);
-        // $response->assertJson(['message' => ' Profil client ajouté avec succès']);
     }
 }
