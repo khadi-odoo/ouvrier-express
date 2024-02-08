@@ -1,7 +1,7 @@
 FROM php:8.2-apache
 #le chemin du conteneur
 WORKDIR /var/www/html  
-#Il met à jour le co nteneur 
+#Il met à jour le conteneur 
 COPY . .
 
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
@@ -31,3 +31,5 @@ RUN chmod +x /usr/local/bin/install-php-extensions && sync && \
 #RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 #WORKDIR /var/www
+
+

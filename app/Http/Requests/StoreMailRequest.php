@@ -23,10 +23,10 @@ class StoreMailRequest extends FormRequest
     {
         return [
 
-            'to' => 'required|string',
-            'from' => 'required|string',
-            'sujet' => 'required|string',
-            'corps' => 'required|string',
+            'email' => 'required|string',
+            'message' => 'required|string',
+            // 'sujet' => 'required|string',
+            // 'corps' => 'required|string',
         ];
     }
 }
