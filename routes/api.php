@@ -38,23 +38,23 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 //Route::middleware(['auth:api', 'role:admin'])->group(function () {
-Route::controller(PrestataireController::class)->group(function () {
-    Route::get('listeP', 'index');
-    Route::post('ajouterP', 'store');
-    Route::get('affichP{id}', 'show');
-    Route::post('modifP/{prestataire}', 'update');
-    Route::post('supprimP/{id}', 'destroy');
-});
+// Route::controller(PrestataireController::class)->group(function () {
+//     Route::get('listeP', 'index');
+//     Route::post('ajouterP', 'store');
+//     Route::get('affichP{id}', 'show');
+//     Route::post('modifP/{prestataire}', 'update');
+//     Route::post('supprimP/{id}', 'destroy');
+// });
 //});
 
 // Route::middleware(['auth:api', 'role:prestataire'])->group(function () {
-// Route::controller(PrestataireController::class)->group(function () {
-//     Route::get('listePresta', 'index');
-//     Route::post('ajouterPresta', 'store');
-//     Route::get('affichPresta{id}', 'show');
-//     Route::post('modifPresta/{prestataire}', 'update');
-//     Route::post('supprimPresta/{id}', 'destroy');
-// });
+Route::controller(PrestataireController::class)->group(function () {
+    Route::get('listePresta', 'index');
+    Route::post('ajouterPresta', 'store');
+    Route::get('affichPresta{id}', 'show');
+    Route::post('modifPresta/{prestataire}', 'update');
+    Route::post('supprimPresta/{id}', 'destroy');
+});
 // });
 
 // Route::middleware(['auth:api', 'role:client'])->group(function () {
@@ -129,10 +129,10 @@ Route::controller(CommentaireController::class)->group(function () {
 });
 
 
-// Route::controller(MailController::class)->group(function () {
-Route::get('listeMail', 'index');
-Route::post('ajoutMail', 'store');
-//     Route::get('affichMail/{id}', 'show');
-//     Route::post('modifMail/{mail}', 'update');
-Route::post('supprimMail/{id}', 'destroy');
-// });
+Route::controller(MailController::class)->group(function () {
+    Route::get('listeMail', 'index');
+    Route::post('ajoutMail', 'store');
+    //     Route::get('affichMail/{id}', 'show');
+    //     Route::post('modifMail/{mail}', 'update');
+    Route::post('supprimMail/{id}', 'destroy');
+});

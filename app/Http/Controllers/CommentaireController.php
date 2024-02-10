@@ -31,7 +31,7 @@ class CommentaireController extends Controller
     /**
      * @OA\Get(
      *     path="/api/listeComment",
-     * tags={"Commentaire sur un prestataire"},
+     * tags={"Commentaire"},
      *     summary="liste de toutes les commentaires",
      *     @OA\Response(response="200", description="succes")
      * )
@@ -56,7 +56,7 @@ class CommentaireController extends Controller
      *     security={
      *         {"bearerAuth": {}}
      *     },
-     *     tags={"Commentaire sur un prestataire"},
+     *     tags={"Commentaire"},
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\MediaType(
@@ -78,7 +78,7 @@ class CommentaireController extends Controller
     public function store(StoreCommentaireRequest $request)
     {
         $request->validated($request->all());
-        
+
 
         if (Auth::check() && auth()->user()->role === 'client') {
             $comment = new Commentaire();
@@ -96,7 +96,7 @@ class CommentaireController extends Controller
     /**
      * @OA\Get(
      *     path="/api/aaffichComment/{id}",
-     *     tags={"Commentaire sur un prestataire"},
+     *     tags={"Commentaire"},
      *     summary="Afficher un commentaire",
      *     @OA\Parameter(
      *         name="id",
@@ -132,19 +132,19 @@ class CommentaireController extends Controller
     }
 
     /**
-     * @OA\Patch(
-     *     path="/api/modifCategorie/{commentaire}",
+     * @OA\Post(
+     *     path="/api/modifComment/{commentaire}",
      *     summary="Modificier un commentaire",
      *     security={
      *         {"bearerAuth": {}}
      *     },
-     *     tags={"Commentaire sur un prestataire"},
+     *     tags={"Commentaire"},
      * 
      *         @OA\Parameter(
      *         name="commentaire",
      *         in="path",
      *         required=true,
-     *         description="ID du commentaire à modifier",
+     *         description="Modifier un commentaire à partir de l'id",
      *         @OA\Schema(type="integer")
      * ),    
      * 
@@ -174,9 +174,9 @@ class CommentaireController extends Controller
     }
 
     /**
-     * @OA\Patch(
+     * @OA\Post(
      *     path="/api/supprimComment/{id}",
-     *     tags={"Commentaire sur un prestataire"},
+     *     tags={"Commentaire"},
      *     summary="Supprimer un commentaire",
      *    
      *  @OA\Parameter(

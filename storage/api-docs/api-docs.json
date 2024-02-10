@@ -381,7 +381,7 @@
         "/api/listeComment": {
             "get": {
                 "tags": [
-                    "Commentaire sur un prestataire"
+                    "Commentaire"
                 ],
                 "summary": "liste de toutes les commentaires",
                 "operationId": "03a59617b5168a7efc58a10679d5f1a2",
@@ -395,7 +395,7 @@
         "/api/ajoutComment": {
             "post": {
                 "tags": [
-                    "Commentaire sur un prestataire"
+                    "Commentaire"
                 ],
                 "summary": "Ajouter un commentaire sur un prestataire",
                 "operationId": "2ed4cc14cf97335461f00c77388cd6d3",
@@ -438,7 +438,7 @@
         "/api/aaffichComment/{id}": {
             "get": {
                 "tags": [
-                    "Commentaire sur un prestataire"
+                    "Commentaire"
                 ],
                 "summary": "Afficher un commentaire",
                 "operationId": "aeb3ae0e87d0b0ef9b267db2f57e110f",
@@ -463,18 +463,18 @@
                 }
             }
         },
-        "/api/modifCategorie/{commentaire}": {
-            "patch": {
+        "/api/modifComment/{commentaire}": {
+            "post": {
                 "tags": [
-                    "Commentaire sur un prestataire"
+                    "Commentaire"
                 ],
                 "summary": "Modificier un commentaire",
-                "operationId": "883d4a74037fb67eb42243cb32036b70",
+                "operationId": "f3d96d167da41e509ad732e7df979f65",
                 "parameters": [
                     {
                         "name": "commentaire",
                         "in": "path",
-                        "description": "ID du commentaire à modifier",
+                        "description": "Modifier un commentaire à partir de l'id",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -512,17 +512,91 @@
             }
         },
         "/api/supprimComment/{id}": {
-            "patch": {
+            "post": {
                 "tags": [
-                    "Commentaire sur un prestataire"
+                    "Commentaire"
                 ],
                 "summary": "Supprimer un commentaire",
-                "operationId": "d0a58e2e7dc4bb558909ccd0bda98434",
+                "operationId": "ac60d168f8954c9cc4a2e41c8ac9b584",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "description": "Supprimer un commentaire à partir de l'id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                }
+            }
+        },
+        "/api/listeMail": {
+            "get": {
+                "tags": [
+                    "Contact"
+                ],
+                "summary": "liste des messages",
+                "operationId": "9a0197a7a76d064dbf526917f6434e53",
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                }
+            }
+        },
+        "/api/ajoutMail": {
+            "post": {
+                "tags": [
+                    "Contact"
+                ],
+                "summary": "Envoyer un mail",
+                "operationId": "7401b3040c2c0463cb6f28950bf59016",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "message": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Message envoyé avec succés"
+                    },
+                    "401": {
+                        "description": "Validation Error"
+                    }
+                }
+            }
+        },
+        "/api/supprimMail/{id}": {
+            "post": {
+                "tags": [
+                    "Contact"
+                ],
+                "summary": "Annuler l'envoi",
+                "operationId": "575e2764954c4a49848d183198c14716",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Annuler l'envoi de mail à partir de l'id",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -710,6 +784,164 @@
                         "name": "id",
                         "in": "path",
                         "description": "Supprimer un profil à partir de l'id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                }
+            }
+        },
+        "/api/listePrestation": {
+            "get": {
+                "tags": [
+                    "Prestation Client"
+                ],
+                "summary": "liste des prestations",
+                "operationId": "b3293b18a41e2d54b39f5a185e5bf145",
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                }
+            }
+        },
+        "/api/ajoutPrestation": {
+            "post": {
+                "tags": [
+                    "Prestation Client"
+                ],
+                "summary": "Demander une prestation",
+                "operationId": "09d910946c65d2180fcf8aa4edff5e35",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "client_id": {
+                                        "type": "integer"
+                                    },
+                                    "prestation_id": {
+                                        "type": "integer"
+                                    },
+                                    "prestation_demande": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Prestation envoyé avec succés"
+                    },
+                    "401": {
+                        "description": "Validation Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/affichPrestation/{id}": {
+            "get": {
+                "tags": [
+                    "Prestation Client"
+                ],
+                "summary": "Voir détail d'une prestation",
+                "operationId": "d541d02a3718ca4dd5eb87f9ad63a9f2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Afficher la prestation à partir de l'id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Succès"
+                    },
+                    "401": {
+                        "description": "Non autorisé"
+                    }
+                }
+            }
+        },
+        "/api/modifPrestation/{prestation}": {
+            "post": {
+                "tags": [
+                    "Prestation Client"
+                ],
+                "summary": "Modificier une prestation",
+                "operationId": "aedac50293d4582454a5eb90bf2a35fd",
+                "parameters": [
+                    {
+                        "name": "prestation",
+                        "in": "path",
+                        "description": "Modifier une prestation à partir de l'id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "prestation_demande": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Prestation modifiée avec succées"
+                    },
+                    "401": {
+                        "description": "Validation Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/supprimPrestation/{id}": {
+            "post": {
+                "tags": [
+                    "Prestation Client"
+                ],
+                "summary": "Annuler une prestation demandée",
+                "operationId": "a9385ecc6bbb652b4a15ac44fdd7d5b5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Annuler une prestation à partir de l'id",
                         "required": true,
                         "schema": {
                             "type": "integer"
