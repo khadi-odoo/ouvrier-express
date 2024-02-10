@@ -88,8 +88,8 @@ class PrestataireController extends Controller
         if (Auth::check() && auth()->user()->role === 'prestataire') {
             $prestataire = new Prestataire();
             //dd('ok');
-            // $imagePath = $request->file('image')->store('images/Prestataires', 'public');
-            // $prestataire->image = $imagePath;
+            $imagePath = $request->file('image')->store('images/Prestataires', 'public');
+            $prestataire->image = $imagePath;
             $prestataire->presentation = $request->presentation;
             $prestataire->metier = $request->metier;
             $prestataire->disponibilite = $request->disponibilite;
@@ -97,10 +97,6 @@ class PrestataireController extends Controller
             $prestataire->competence = $request->competence;
             $prestataire->motivation = $request->motivation;
             $prestataire->user_id = $request->user_id;
-
-
-            //$prestataire->user_id = Auth::user()->id;
-
             $prestataire->save();
 
             return response()->json(['message' => ' Profil prestataire ajouté avec succès', 'data' => $prestataire]);
@@ -114,24 +110,7 @@ class PrestataireController extends Controller
 
     }
 
-    public function ajouterPrestataire(Request $request)
-    {
-        $request->validate([
-            'metier' => 'required|string',
-        ]);
 
-        // $presta = Prestataire::create([
-        //     'metier' => $request->input('metier'),
-        //     'user_id' => Auth::user()->id,
-        // ]);
-        $presta = new Prestataire();
-        $presta->metier = $request->metier;
-        $presta->user_id = Auth::user()->id;
-        //dd($presta);
-        $presta->save();
-
-        return response()->json(['message' => 'Inscription reussie']);
-    }
 
     /**
      * @OA\Get(
@@ -177,10 +156,10 @@ class PrestataireController extends Controller
      *         {"bearerAuth": {}}
      *     },
      *         @OA\Parameter(
-     *         name="id",
+     *         name="prestataire",
      *         in="path",
      *         required=true,
-     *         description="Modifier à partir de l'id",
+     *         description="Modifier le prestataire à partir de l'id",
      *         @OA\Schema(type="integer")
      * ),    
      * 
@@ -208,14 +187,15 @@ class PrestataireController extends Controller
      */
     public function update(UpdateprestataireRequest $request, prestataire $prestataire)
     {
-        $request->validated();
-        // if ($request->file('image')) {
-        //     $imagePath = $request->file('image')->store('images/Prestataires', 'public');
-        //     $prestataire->image = $imagePath;
-        // }
+        $request->validated($request->all());
+
         $prestataire->presentation = $request->presentation;
+        if ($request->image) {
+            $imagePath = $request->file('image')->store('images/Prestataires', 'public');
+            $prestataire->image = $imagePath;
+        }
         $prestataire->metier = $request->metier;
-        //$prestataire->disponibilite = $request->disponibilite;
+       // $prestataire->disponibilite = $request->disponibilite;
         $prestataire->experience = $request->experience;
         $prestataire->competence = $request->competence;
         $prestataire->motivation = $request->motivation;

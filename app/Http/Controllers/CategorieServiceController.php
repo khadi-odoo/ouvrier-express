@@ -82,38 +82,21 @@ class CategorieServiceController extends Controller
 
         $request->validated($request->all());
 
-
-        // $categorie->user_id = $user;
-        //$categorie->user_id = Auth::user()->id;
         if (Auth::check() && auth()->user()->role === 'admin') {
             $categorie = new CategorieService();
-            // dd('ok');
-            //$categorie->user_id = Auth::user()->id;
+
             $categorie->libelleCategorie = $request->libelleCategorie;
+            $imagePath = $request->file('image')->store('images/Categorie', 'public');
+            $categorie->image = $imagePath;
             $categorie->description = $request->description;
 
             $categorie->save();
 
             return response()->json(['message' => 'Catégorie de service ajoutée avec succès', 'data' => $categorie]);
-        }
-
-
-
-        // $imagePath = $request->file('image')->store('images/Categorie', 'public');
-        // $categorie->image = $imagePath;
-
-
-
-        else {
+        } else {
             return response()->json(['message' => 'Vous n\' êtes pas admin'], 404);
         }
     }
-
-
-    // $imagePath = $request->file('image')->store('images/Categorie', 'public');
-    // $categorie->image = $imagePath;
-
-
 
 
     /**
@@ -157,7 +140,7 @@ class CategorieServiceController extends Controller
 
     /**
      * @OA\Patch(
-     *     path="/api/modifCategorie/{id}",
+     *     path="/api/modifCategorie/{categorieService}",
      *     summary="Modificier une catégorie de service",
      *     security={
      *         {"bearerAuth": {}}
@@ -165,7 +148,7 @@ class CategorieServiceController extends Controller
      *     tags={"Catégorie de service"},
      * 
      *         @OA\Parameter(
-     *         name="id",
+     *         name="categorieService",
      *         in="path",
      *         required=true,
      *         description="Modifier la catégorie à partir de l'id",
@@ -192,16 +175,15 @@ class CategorieServiceController extends Controller
      */
     public function update(UpdatecategorieServiceRequest $request, categorieService $categorieService)
     {
-        //$request->all();
-        $request->validated();
+
+        $request->validated($request->all());
 
         $categorieService->libelleCategorie = $request->libelleCategorie;
+        if ($request->image) {
+            $imagePath = $request->file('image')->store('images/Categorie', 'public');
+            $categorieService->image = $imagePath;
+        }
         $categorieService->description = $request->description;
-
-        // if ($request->file('image')) {
-        //     $imagePath = $request->file('image')->store('images/Categorie', 'public');
-        //     $categorieService->image = $imagePath;
-        // }
 
         $categorieService->update();
 

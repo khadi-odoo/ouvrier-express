@@ -8,10 +8,31 @@ use App\Http\Requests\UpdatePrestationRequest;
 use Illuminate\Support\Facades\Auth;
 use OpenApi\Annotations as OA;
 
+/**
+ * @OA\Info(
+ *     title="Ouvrier-Express",
+ *     version="1.0.0",
+ *     description="Application de gestion de relation prestataire-client"
+ * )
+ */
+
+/**
+ * @OA\SecurityScheme(
+ *      securityScheme="bearerAuth",
+ *      type="http",
+ *      scheme="bearer",
+ *      bearerFormat="JWT",
+ * )
+ */
 class PrestationController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/api/listePrestation",
+     * tags={"Prestation Client"},
+     *     summary="liste des prestations",
+     *     @OA\Response(response="200", description="succes")
+     * )
      */
     public function index()
     {
@@ -25,9 +46,31 @@ class PrestationController extends Controller
     {
         //
     }
-
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *     path="/api/ajoutPrestation",
+     *     summary="Demander une prestation",
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     *     tags={"Prestation Client"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *             @OA\Property(property="client_id", type="integer"),
+     *             @OA\Property(property="prestation_id", type="integer"),
+     *             @OA\Property(property="prestation_demande", type="string"),
+     *         )
+     *        )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Prestation envoyé avec succés",
+     *     ),
+     *     @OA\Response(response=401, description="Validation Error")
+     * )
      */
     public function store(StorePrestationRequest $request)
     {
@@ -50,7 +93,23 @@ class PrestationController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *     path="/api/affichPrestation/{id}",
+     *     tags={"Prestation Client"},
+     *     summary="Voir détail d'une prestation",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="Afficher la prestation à partir de l'id",
+     *         @OA\Schema(type="integer")
+     * ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Succès",
+     *     ),
+     *     @OA\Response(response=401, description="Non autorisé"),
+     * )
      */
     public function show($id)
     {
@@ -71,7 +130,37 @@ class PrestationController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @OA\Post(
+     *     path="/api/modifPrestation/{prestation}",
+     *     summary="Modificier une prestation",
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     *     tags={"Prestation Client"},
+     * 
+     *         @OA\Parameter(
+     *         name="prestation",
+     *         in="path",
+     *         required=true,
+     *         description="Modifier une prestation à partir de l'id",
+     *         @OA\Schema(type="integer")
+     * ),    
+     * 
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *             @OA\Property(property="prestation_demande", type="string"),
+     *         )
+     *        )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Prestation modifiée avec succées",
+     *     ),
+     *     @OA\Response(response=401, description="Validation Error")
+     * )
      */
     public function update(UpdatePrestationRequest $request, Prestation $prestation)
     {
@@ -86,7 +175,20 @@ class PrestationController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Post(
+     *     path="/api/supprimPrestation/{id}",
+     *     tags={"Prestation Client"},
+     *     summary="Annuler une prestation demandée",
+     *    
+     *  @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="Annuler une prestation à partir de l'id",
+     *         @OA\Schema(type="integer")
+     * ),
+     *     @OA\Response(response="200", description="succes")
+     * )
      */
     public function destroy($id)
     {
