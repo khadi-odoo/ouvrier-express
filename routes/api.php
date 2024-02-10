@@ -130,10 +130,10 @@ Route::controller(CommentaireController::class)->group(function () {
 });
 
 
-// Route::controller(MailController::class)->group(function () {
+ Route::controller(MailController::class)->group(function () {
 Route::get('listeMail', 'index');
 Route::post('ajoutMail', 'store');
 //     Route::get('affichMail/{id}', 'show');
 //     Route::post('modifMail/{mail}', 'update');
 Route::post('supprimMail/{id}', 'destroy');
-// });
+});
