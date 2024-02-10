@@ -22,9 +22,13 @@ class UpdateprestataireRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'metier' => 'required|string|min:5|max:50',
-            // 'disponibilte' => 'required|boolean',
+            'presentation' => 'required|string|min:5|max:250',
+            'image' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'metier' => 'required|string|min:5|max:100',
+            'experience' => 'required|string|min:5|max:250',
+            //'disponibilite' => 'boolean',
+            'competence' => 'required|string|min:5|max:250',
+            'motivation' => 'required|string|min:5|max:250',
         ];
     }
 }

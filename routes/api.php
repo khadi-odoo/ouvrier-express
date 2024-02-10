@@ -69,7 +69,7 @@ Route::controller(CategorieServiceController::class)->group(function () {
     Route::get('listeCategorie', 'index');
     Route::post('ajouterCategorie', 'store');
     Route::get('affichCategorie/{id}', 'show');
-    Route::post('modifCategorie/{categorieservice}', 'update');
+    Route::post('modifCategorie/{categorieService}', 'update');
     Route::post('supprimCategorie/{id}', 'destroy');
 });
 //});
