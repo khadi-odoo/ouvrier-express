@@ -85,8 +85,8 @@ class CategorieServiceController extends Controller
             $categorie = new CategorieService();
 
             $categorie->libelleCategorie = $request->libelleCategorie;
-            $imagePath = $request->file('image')->store('images/Categorie', 'public');
-            $categorie->image = $imagePath;
+            // $imagePath = $request->file('image')->store('images/Categorie', 'public');
+            // $categorie->image = $imagePath;
             $categorie->description = $request->description;
 
             $categorie->save();
