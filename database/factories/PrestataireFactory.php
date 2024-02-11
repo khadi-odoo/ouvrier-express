@@ -18,12 +18,6 @@ class PrestataireFactory extends Factory
     public function definition(): array
     {
         return [
-            'presentation' => fake()->text(20),
-            'metier' => fake()->text(20),
-            'disponibilite' => fake()->boolean(true),
-            'experience' => fake()->text(20),
-            'competence' => fake()->text(20),
-            'motivation' => fake()->text(20),
             'user_id' => function () {
                 return User::factory()->create()->id;
             }

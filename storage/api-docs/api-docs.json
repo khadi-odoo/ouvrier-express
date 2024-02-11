@@ -265,16 +265,16 @@
                 }
             }
         },
-        "/api/modifCategorie/{id}": {
+        "/api/modifCategorie/{categorieService}": {
             "patch": {
                 "tags": [
                     "Catégorie de service"
                 ],
                 "summary": "Modificier une catégorie de service",
-                "operationId": "8a7d376c403f297988452c39d9b20d3b",
+                "operationId": "8f2053f20896db52fddd009115e10402",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "categorieService",
                         "in": "path",
                         "description": "Modifier la catégorie à partir de l'id",
                         "required": true,
@@ -342,38 +342,6 @@
                 "responses": {
                     "200": {
                         "description": "succes"
-                    }
-                }
-            }
-        },
-        "/api/ajouterclient": {
-            "post": {
-                "tags": [
-                    "Profil client"
-                ],
-                "summary": "Ajouter profil client",
-                "operationId": "5062bfbf240047adb8f453930d4afdcd",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "properties": {
-                                    "user_id": {
-                                        "type": "integer"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "création profil reussie"
-                    },
-                    "401": {
-                        "description": "Validation Error"
                     }
                 }
             }
@@ -610,193 +578,6 @@
                 }
             }
         },
-        "/api/listePresta": {
-            "get": {
-                "tags": [
-                    "Profil prestataire"
-                ],
-                "summary": "liste des profills prestataires",
-                "operationId": "d418774958d880311436ec86bfae7b9d",
-                "responses": {
-                    "200": {
-                        "description": "succes"
-                    }
-                }
-            }
-        },
-        "/api/ajouterPresta": {
-            "post": {
-                "tags": [
-                    "Profil prestataire"
-                ],
-                "summary": "Ajouter profil",
-                "operationId": "641afae848b35a700928fcc2bdda057d",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "properties": {
-                                    "presentation": {
-                                        "type": "string"
-                                    },
-                                    "image": {
-                                        "description": "Fichier de photo",
-                                        "type": "string",
-                                        "format": "binary"
-                                    },
-                                    "metier": {
-                                        "type": "string"
-                                    },
-                                    "disponibilite": {
-                                        "type": "boolean"
-                                    },
-                                    "experience": {
-                                        "type": "string"
-                                    },
-                                    "competence": {
-                                        "type": "string"
-                                    },
-                                    "motivation": {
-                                        "type": "string"
-                                    },
-                                    "user_id": {
-                                        "type": "integer"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Création reussie"
-                    },
-                    "401": {
-                        "description": "Validation Error"
-                    }
-                }
-            }
-        },
-        "/api/affichPresta{id}": {
-            "get": {
-                "tags": [
-                    "Profil prestataire"
-                ],
-                "summary": "Voir profil",
-                "operationId": "970971d10f5533d7a6115e615895811e",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Afficher un prestataire",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Succès"
-                    }
-                }
-            }
-        },
-        "/api/modifPresta/{prestataire}": {
-            "patch": {
-                "tags": [
-                    "Profil prestataire"
-                ],
-                "summary": "Modificier un profil",
-                "operationId": "fe93a99ec056c9ea78fa60693a8c3e4a",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Modifier à partir de l'id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "properties": {
-                                    "presentation": {
-                                        "type": "string"
-                                    },
-                                    "image": {
-                                        "description": "Fichier de photo",
-                                        "type": "string",
-                                        "format": "binary"
-                                    },
-                                    "metier": {
-                                        "type": "string"
-                                    },
-                                    "disponibilite": {
-                                        "type": "boolean"
-                                    },
-                                    "experience": {
-                                        "type": "string"
-                                    },
-                                    "competence": {
-                                        "type": "string"
-                                    },
-                                    "motivation": {
-                                        "type": "string"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Profil modifiée avec succés"
-                    },
-                    "401": {
-                        "description": "Validation Error"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/supprimPresta/{id}": {
-            "patch": {
-                "tags": [
-                    "Profil prestataire"
-                ],
-                "summary": "Supprimer un profil",
-                "operationId": "6a757c1e828c33ee01d1405d62172708",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Supprimer un profil à partir de l'id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "succes"
-                    }
-                }
-            }
-        },
         "/api/listePrestation": {
             "get": {
                 "tags": [
@@ -974,7 +755,7 @@
                 "tags": [
                     "Prestation de service"
                 ],
-                "summary": "Ajouter une prestation de service",
+                "summary": "Ajouter un profil prestataire",
                 "operationId": "2f1ce5f884b8f665be38a6a9c501b092",
                 "requestBody": {
                     "required": true,
@@ -983,6 +764,26 @@
                             "schema": {
                                 "properties": {
                                     "nomService": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "description": "Fichier de photo",
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "presentation": {
+                                        "type": "string"
+                                    },
+                                    "disponibilte": {
+                                        "type": "boolean"
+                                    },
+                                    "experience": {
+                                        "type": "string"
+                                    },
+                                    "competence": {
+                                        "type": "string"
+                                    },
+                                    "motivation": {
                                         "type": "string"
                                     },
                                     "prestataire_id": {
@@ -999,7 +800,7 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Prestation de service ajoutée avec succées"
+                        "description": "Profil ajoutée avec succées"
                     },
                     "401": {
                         "description": "Validation Error"
@@ -1017,13 +818,13 @@
                 "tags": [
                     "Prestation de service"
                 ],
-                "summary": "Voir une prestation de service",
+                "summary": "Voir un profil",
                 "operationId": "834dda159bd38dac925275229b9e9860",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Prestation de service à afficher à partir de l'id",
+                        "description": "Profil à afficher à partir de l'id",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -1045,13 +846,13 @@
                 "tags": [
                     "Prestation de service"
                 ],
-                "summary": "Modificier une prestation de service",
+                "summary": "Modificier profil prestataire",
                 "operationId": "28f088c0ff81615ad170d6eef087542e",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "prestatationservice",
                         "in": "path",
-                        "description": "ID de la prestation à modifier",
+                        "description": "Modifier le profil à partir de l'id",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -1066,6 +867,32 @@
                                 "properties": {
                                     "nomService": {
                                         "type": "string"
+                                    },
+                                    "image": {
+                                        "description": "Fichier de photo",
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "presentation": {
+                                        "type": "string"
+                                    },
+                                    "disponibilte": {
+                                        "type": "boolean"
+                                    },
+                                    "experience": {
+                                        "type": "string"
+                                    },
+                                    "competence": {
+                                        "type": "string"
+                                    },
+                                    "motivation": {
+                                        "type": "string"
+                                    },
+                                    "prestataire_id": {
+                                        "type": "integer"
+                                    },
+                                    "categorie_id": {
+                                        "type": "integer"
                                     }
                                 },
                                 "type": "object"
@@ -1093,13 +920,13 @@
                 "tags": [
                     "Prestation de service"
                 ],
-                "summary": "Supprimer une prestation de service",
+                "summary": "Supprimer profil prestataire",
                 "operationId": "0352b6cbf98b1d038969fbd1c26281ec",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Suppression d'une prestation de service à partir de l'id",
+                        "description": "Suppression du profil à partir de l'id",
                         "required": true,
                         "schema": {
                             "type": "integer"

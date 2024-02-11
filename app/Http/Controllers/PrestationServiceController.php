@@ -52,7 +52,7 @@ class PrestationServiceController extends Controller
     /**
      * @OA\Post(
      *     path="/api/ajoutPrestaService",
-     *     summary="Ajouter une prestation de service",
+     *     summary="Ajouter un profil prestataire",
      *     security={
      *         {"bearerAuth": {}}
      *     },
@@ -62,35 +62,43 @@ class PrestationServiceController extends Controller
      *         @OA\MediaType(
      *             mediaType="multipart/form-data",
      *             @OA\Schema(
-     *             @OA\Property(property="nomService", type="string"),
-     *            @OA\Property(property="prestataire_id", type="integer"), 
-     *            @OA\Property(property="categorie_id", type="integer"),            
+     *              @OA\Property(property="nomService", type="string"),
+     *             @OA\Property(property="image", type="string", format="binary", description="Fichier de photo"),
+     *             @OA\Property(property="presentation", type="string"),
+     *             @OA\Property(property="disponibilte", type="boolean"),
+     *             @OA\Property(property="experience", type="string"),
+     *             @OA\Property(property="competence", type="string"),
+     *             @OA\Property(property="motivation", type="string"),
+     *             @OA\Property(property="prestataire_id", type="integer"),
+     *             @OA\Property(property="categorie_id", type="integer"),           
      *         )
      *        )
      *     ),
      *     @OA\Response(
      *         response=201,
-     *         description="Prestation de service ajoutée avec succées",
+     *         description="Profil ajoutée avec succées",
      *     ),
      *     @OA\Response(response=401, description="Validation Error")
      * )
      */
+
     public function store(StorePrestationServiceRequest $request)
     {
         $request->validated($request->all());
         if (Auth::check() && auth()->user()->role === 'prestataire') {
 
             $prestation = new PrestationService();
-            //$prestation->user_id = $user;
-            //$prestation->user_id = Auth::user()->id;
-
-            // dd(Auth::user());
 
             $prestation->nomService = $request->nomService;
+            $imagePath = $request->file('image')->store('images/Categorie', 'public');
+            $prestation->image = $imagePath;
+            $prestation->presentation = $request->presentation;
+            //$prestation->disponibilite = $request->disponibilite;
+            $prestation->experience = $request->experience;
+            $prestation->competence = $request->competence;
+            $prestation->motivation = $request->motivation;
             $prestation->prestataire_id = $request->prestataire_id;
             $prestation->categorie_id = $request->categorie_id;
-
-            // $prestation->prestataire_id = Auth::user()->id;
 
             $prestation->save();
 
@@ -100,16 +108,17 @@ class PrestationServiceController extends Controller
         }
     }
 
+
     /**
      * @OA\Get(
      *     path="/api/affichPrestaService/{id}",
      *     tags={"Prestation de service"},
-     *     summary="Voir une prestation de service",
+     *     summary="Voir un profil",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
-     *         description="Prestation de service à afficher à partir de l'id",
+     *         description="Profil à afficher à partir de l'id",
      *         @OA\Schema(type="integer")
      * ),
      *     @OA\Response(
@@ -119,6 +128,8 @@ class PrestationServiceController extends Controller
      *     @OA\Response(response=401, description="Non autorisé"),
      * )
      */
+
+
     public function show($id)
     {
         $prestationService = PrestationService::findOrFail($id);
@@ -140,17 +151,17 @@ class PrestationServiceController extends Controller
     /**
      * @OA\Patch(
      *     path="/api/modifPrestaService/{prestatationservice}",
-     *     summary="Modificier une prestation de service",
+     *     summary="Modificier profil prestataire",
      *     security={
      *         {"bearerAuth": {}}
      *     },
      *     tags={"Prestation de service"},
      * 
      *         @OA\Parameter(
-     *         name="id",
+     *         name="prestatationservice",
      *         in="path",
      *         required=true,
-     *         description="ID de la prestation à modifier",
+     *         description="Modifier le profil à partir de l'id",
      *         @OA\Schema(type="integer")
      * ),    
      * 
@@ -160,6 +171,14 @@ class PrestationServiceController extends Controller
      *             mediaType="multipart/form-data",
      *             @OA\Schema(
      *             @OA\Property(property="nomService", type="string"),
+     *             @OA\Property(property="image", type="string", format="binary", description="Fichier de photo"),
+     *             @OA\Property(property="presentation", type="string"),
+     *             @OA\Property(property="disponibilte", type="boolean"),
+     *             @OA\Property(property="experience", type="string"),
+     *             @OA\Property(property="competence", type="string"),
+     *             @OA\Property(property="motivation", type="string"),
+     *             @OA\Property(property="prestataire_id", type="integer"),
+     *             @OA\Property(property="categorie_id", type="integer"),
      *         )
      *        )
      *     ),
@@ -174,25 +193,41 @@ class PrestationServiceController extends Controller
     {
         $request->validated($request->all());
 
-        $prestationService->nomService = $request->nomService;
+        if (Auth::check() && auth()->user()->role === 'prestataire') {
+
+            $prestationService->nomService = $request->nomService;
+
+            if ($request->image) {
+                $imagePath = $request->file('image')->store('images/Prestations', 'public');
+                $prestationService->image = $imagePath;
+            }
+            $prestationService->presentation = $request->presentation;
+            //$prestationService->disponibilite = $request->disponibilite;
+            $prestationService->experience = $request->experience;
+            $prestationService->competence = $request->competence;
+            $prestationService->motivation = $request->motivation;
 
 
-        $prestationService->update();
+            $prestationService->update();
 
-        return response()->json(['message' => 'Prestation modifiée avec succès', 'data' => $prestationService]);
+            return response()->json(['message' => 'Profil modifié avec succès', 'data' => $prestationService]);
+        } else {
+            return response()->json(['message' => 'Vous n\' êtes pas prestataire'], 404);
+        }
     }
+
 
     /**
      * @OA\Patch(
      *     path="/api/supprimPrestaService/{id}",
      *     tags={"Prestation de service"}, 
-     *     summary="Supprimer une prestation de service",
+     *     summary="Supprimer profil prestataire",
      *    
      *  @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
-     *         description="Suppression d'une prestation de service à partir de l'id",
+     *         description="Suppression du profil à partir de l'id",
      *         @OA\Schema(type="integer")
      * ),
      *     @OA\Response(response="200", description="succes")
@@ -206,7 +241,7 @@ class PrestationServiceController extends Controller
             $prestationService->estArchive = 1;
             $prestationService->save();
 
-            return response()->json(['message' => 'Prestation de service supprimée']);
+            return response()->json(['message' => 'Profil supprimé']);
         }
     }
 }

@@ -7,15 +7,7 @@ use App\Http\Requests\StoreclientRequest;
 use App\Http\Requests\UpdateclientRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use OpenApi\Annotations as OA;
 
-/**
- * @OA\Info(
- *     title="Ouvrier-Express",
- *     version="1.0.0",
- *     description="Application de gestion de relation prestataire-client"
- * )
- */
 class ClientController extends Controller
 {
 
@@ -32,27 +24,6 @@ class ClientController extends Controller
         //
     }
 
-    /**
-     * @OA\Post(
-     *     path="/api/ajouterclient",
-     *     tags={"Profil client"},
-     *     summary="Ajouter profil client",
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\MediaType(
-     *             mediaType="multipart/form-data",
-     *             @OA\Schema(
-     *             @OA\Property(property="user_id", type="integer"),
-     *         )
-     *        )
-     *     ),
-     *     @OA\Response(
-     *         response=201,
-     *         description="création profil reussie",
-     *     ),
-     *     @OA\Response(response=401, description="Validation Error")
-     * )
-     */
     public function store(StoreclientRequest $request)
     {
         // Récupérer l'identifiant de l'utilisateur à partir du champ user_id du formulaire
