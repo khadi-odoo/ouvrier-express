@@ -81,7 +81,6 @@ class CategorieServiceController extends Controller
 
 
         $request->validated($request->all());
-
         if (Auth::check() && auth()->user()->role === 'admin') {
             $categorie = new CategorieService();
 
