@@ -81,13 +81,12 @@ class CategorieServiceController extends Controller
 
 
         $request->validated($request->all());
-
         if (Auth::check() && auth()->user()->role === 'admin') {
             $categorie = new CategorieService();
 
             $categorie->libelleCategorie = $request->libelleCategorie;
-            $imagePath = $request->file('image')->store('images/Categorie', 'public');
-            $categorie->image = $imagePath;
+            // $imagePath = $request->file('image')->store('images/Categorie', 'public');
+            // $categorie->image = $imagePath;
             $categorie->description = $request->description;
 
             $categorie->save();
@@ -179,10 +178,10 @@ class CategorieServiceController extends Controller
         $request->validated($request->all());
 
         $categorieService->libelleCategorie = $request->libelleCategorie;
-        if ($request->image) {
-            $imagePath = $request->file('image')->store('images/Categorie', 'public');
-            $categorieService->image = $imagePath;
-        }
+        // if ($request->image) {
+        //     $imagePath = $request->file('image')->store('images/Categorie', 'public');
+        //     $categorieService->image = $imagePath;
+        // }
         $categorieService->description = $request->description;
 
         $categorieService->update();
