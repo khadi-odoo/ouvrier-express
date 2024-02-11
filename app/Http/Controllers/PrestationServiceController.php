@@ -90,8 +90,8 @@ class PrestationServiceController extends Controller
             $prestation = new PrestationService();
 
             $prestation->nomService = $request->nomService;
-            // $imagePath = $request->file('image')->store('images/Categorie', 'public');
-            // $prestation->image = $imagePath;
+            $imagePath = $request->file('image')->store('images/Categorie', 'public');
+            $prestation->image = $imagePath;
             $prestation->presentation = $request->presentation;
             //$prestation->disponibilite = $request->disponibilite;
             $prestation->experience = $request->experience;
@@ -197,11 +197,11 @@ class PrestationServiceController extends Controller
 
             $prestationService->nomService = $request->nomService;
 
-            // if ($request->image) {
-            //     $imagePath = $request->file('image')->store('images/Prestations', 'public');
-            //     $prestationService->image = $imagePath;
-            // }
-            // $prestationService->presentation = $request->presentation;
+            if ($request->image) {
+                $imagePath = $request->file('image')->store('images/Prestations', 'public');
+                $prestationService->image = $imagePath;
+            }
+            $prestationService->presentation = $request->presentation;
             //$prestationService->disponibilite = $request->disponibilite;
             $prestationService->experience = $request->experience;
             $prestationService->competence = $request->competence;
