@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Client;
 use App\Models\prestataire;
+use App\Models\PrestationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -144,8 +145,11 @@ class AuthController extends Controller
         } elseif ($request->role == "prestataire") {
             $prestataire = new prestataire();
             $prestataire->user_id = $user->id;
+            $prestaService = new PrestationService();
+            $prestaService->prestataire_id = $prestataire->id;
             $prestataire->save();
         }
+
         return response()->json([
             'message' => 'Utilisateur créé avec succès',
             'data' => $user

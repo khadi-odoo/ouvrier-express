@@ -32,8 +32,14 @@ class PrestationService extends Model
     protected $fillable = [
 
         'nomService',
-        'estArchive',
+        'image',
+        'presentation',
+        'disponibilite',
+        'experience',
+        'competence',
+        'motivation',
         'prestataire_id',
         'categorie_id',
+        'estArchive',
     ];
 }

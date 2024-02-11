@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('prestation_services', function (Blueprint $table) {
             $table->id();
-            $table->string('nomService');
+            $table->string('nomService')->nullable();
+            $table->string('image')->nullable();
+            $table->string('presentation')->nullable();
+            $table->boolean('disponibilite')->default(true);
+            $table->string('experience')->nullable();
+            $table->string('competence')->nullable();
+            $table->string('motivation')->nullable();
             $table->unsignedBigInteger('prestataire_id');
             $table->foreign('prestataire_id')->references('id')->on('prestataires')->onDelete('cascade');
             $table->unsignedBigInteger('categorie_id');

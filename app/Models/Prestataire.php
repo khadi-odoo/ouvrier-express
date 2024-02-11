@@ -23,14 +23,7 @@ class prestataire extends Model
     }
 
     protected $fillable = [
-        'presentation',
-        'image',
-        'metier',
-        'disponibilite',
-        'experience',
-        'competence',
-        'motivation',
-        'estArchive',
-        'user_id'
+        'user_id',
+        'estArchive'
     ];
 }

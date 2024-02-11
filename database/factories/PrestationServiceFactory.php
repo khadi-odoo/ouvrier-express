@@ -24,6 +24,10 @@ class PrestationServiceFactory extends Factory
         $categorieService = CategorieService::factory()->create();
         return [
             'nomService' => $this->faker->text(20),
+            'presentation' => $this->faker->text(100),
+            'experience' => $this->faker->text(100),
+            'competence' => $this->faker->text(100),
+            'motivation' => $this->faker->text(100),
             'prestataire_id' => $prestataire->id,
             'categorie_id' => $categorieService->id,
         ];
