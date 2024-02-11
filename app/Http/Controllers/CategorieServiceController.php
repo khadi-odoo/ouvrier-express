@@ -178,10 +178,10 @@ class CategorieServiceController extends Controller
         $request->validated($request->all());
 
         $categorieService->libelleCategorie = $request->libelleCategorie;
-        if ($request->image) {
-            $imagePath = $request->file('image')->store('images/Categorie', 'public');
-            $categorieService->image = $imagePath;
-        }
+        // if ($request->image) {
+        //     $imagePath = $request->file('image')->store('images/Categorie', 'public');
+        //     $categorieService->image = $imagePath;
+        // }
         $categorieService->description = $request->description;
 
         $categorieService->update();
