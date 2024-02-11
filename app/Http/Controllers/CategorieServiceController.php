@@ -146,15 +146,15 @@ class CategorieServiceController extends Controller
      *         {"bearerAuth": {}}
      *     },
      *     tags={"Catégorie de service"},
-     * 
+     *
      *         @OA\Parameter(
      *         name="categorieService",
      *         in="path",
      *         required=true,
      *         description="Modifier la catégorie à partir de l'id",
      *         @OA\Schema(type="integer")
-     * ),    
-     * 
+     * ),
+     *
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\MediaType(
@@ -193,9 +193,9 @@ class CategorieServiceController extends Controller
     /**
      * @OA\Patch(
      *     path="/api/supprimCategorie/{id}",
-     *     tags={"Catégorie de service"}, 
+     *     tags={"Catégorie de service"},
      *     summary="Supprimer une catégorie de service",
-     *    
+     *
      *  @OA\Parameter(
      *         name="id",
      *         in="path",
