@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\PrestationService;
 use App\Http\Requests\StorePrestationServiceRequest;
 use App\Http\Requests\UpdatePrestationServiceRequest;
+use App\Models\prestataire;
 use Illuminate\Support\Facades\Auth;
 use OpenApi\Annotations as OA;
 
@@ -88,7 +89,7 @@ class PrestationServiceController extends Controller
         if (Auth::check() && auth()->user()->role === 'prestataire') {
 
             $prestation = new PrestationService();
-
+            // $prestation = prestataire::where('user_id', Auth::user()->id)->first();
             $prestation->nomService = $request->nomService;
             $imagePath = $request->file('image')->store('images/Categorie', 'public');
             $prestation->image = $imagePath;
@@ -149,7 +150,7 @@ class PrestationServiceController extends Controller
     }
 
     /**
-     * @OA\Patch(
+     * @OA\Post(
      *     path="/api/modifPrestaService/{prestatationservice}",
      *     summary="Modificier profil prestataire",
      *     security={
@@ -197,7 +198,7 @@ class PrestationServiceController extends Controller
 
             $prestationService->nomService = $request->nomService;
 
-            if ($request->image) {
+            if ($request->file('image')) {
                 $imagePath = $request->file('image')->store('images/Prestations', 'public');
                 $prestationService->image = $imagePath;
             }
@@ -207,18 +208,22 @@ class PrestationServiceController extends Controller
             $prestationService->competence = $request->competence;
             $prestationService->motivation = $request->motivation;
 
-
             $prestationService->update();
-
-            return response()->json(['message' => 'Profil modifié avec succès', 'data' => $prestationService]);
+            if ($prestationService->update()) {
+                return response()->json(['message' => 'Profil modifié avec succès', 'data' => $prestationService]);
+            } else {
+                return response()->json([
+                    'message' => 'error'
+                ]);
+            }
         } else {
-            return response()->json(['message' => 'Vous n\' êtes pas prestataire'], 404);
+            return response()->json(['message' => 'Vous n\'êtes pas prestataire'], 404);
         }
     }
 
 
     /**
-     * @OA\Patch(
+     * @OA\Post(
      *     path="/api/supprimPrestaService/{id}",
      *     tags={"Prestation de service"}, 
      *     summary="Supprimer profil prestataire",

@@ -9,6 +9,8 @@ use App\Models\Client;
 use App\Models\prestataire;
 use App\Models\PrestationService;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use OpenApi\Annotations as OA;
@@ -65,12 +67,9 @@ class AuthController extends Controller
      * )
      */
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string',
-        ]);
+        $request->validated($request->all());
         $credentials = $request->only('email', 'password');
         $token = Auth::attempt($credentials);
 
@@ -118,13 +117,9 @@ class AuthController extends Controller
      * )
      */
 
-    public function register(Request $request)
+    public function register(StoreUserRequest $request)
     {
-        $request->validate([
-            'nom' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
-        ]);
+        $request->validated($request->all());
 
         $user = User::create([
             'nom' => $request->nom,

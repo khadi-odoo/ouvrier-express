@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class StorePrestationServiceRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +24,8 @@ class StorePrestationServiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nomService' => 'required|string|min:5|max:100',
-            'image' => 'image|mimes:jpeg,png,jpg|max:2048',
-            'presentation' => 'required|string|min:5|max:250',
-            'experience' => 'required|string|min:5|max:250',
-            'competence' => 'required|string|min:5|max:250',
-            'motivation' => 'required|string|min:5|max:250',
+            'email' => 'required|string|email',
+            'password' => 'required|string',
         ];
     }
 
@@ -44,14 +40,12 @@ class StorePrestationServiceRequest extends FormRequest
         ]));
     }
 
+
     public function messages()
     {
         return [
-            'nomService' => 'Le champ nomService est obligatoire.',
-            'presentation.required' => 'Le champ presentation est obligatoire.',
-            'experience.required' => 'Le champ experience obligatoire.',
-            'competence.required' => 'Le champ compétence obligatoire.',
-            'motivation.required' => 'Le champ motivation obligatoire.',
+            'email.required' => 'Le champ email est obligatoire.',
+            'password.required' => 'Le champ mot de passe est obligatoire.',
 
         ];
     }

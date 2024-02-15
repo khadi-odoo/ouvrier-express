@@ -31,7 +31,7 @@ class CategorieServiceController extends Controller
 {
     /**
      * @OA\Get(
-     *     path="/api/listeCétegorie",
+     *     path="/api/listeCategorie",
      * tags={"Catégorie de service"},
      *     summary="liste de toutes les catégories de service",
      *     @OA\Response(response="200", description="succes")
@@ -39,7 +39,7 @@ class CategorieServiceController extends Controller
      */
     public function index()
     {
-        return response()->json(CategorieService::where('estArchive', false)->get()); //
+        return response()->json(CategorieService::where('estArchive', false)->get());
     }
 
     /**
@@ -76,9 +76,9 @@ class CategorieServiceController extends Controller
      *     @OA\Response(response=401, description="Validation Error")
      * )
      */
+
     public function store(StorecategorieServiceRequest $request)
     {
-
 
         $request->validated($request->all());
         if (Auth::check() && auth()->user()->role === 'admin') {
@@ -138,7 +138,7 @@ class CategorieServiceController extends Controller
     }
 
     /**
-     * @OA\Patch(
+     * @OA\Post(
      *     path="/api/modifCategorie/{categorieService}",
      *     summary="Modificier une catégorie de service",
      *     security={
@@ -172,6 +172,7 @@ class CategorieServiceController extends Controller
      *     @OA\Response(response=401, description="Validation Error")
      * )
      */
+
     public function update(UpdatecategorieServiceRequest $request, categorieService $categorieService)
     {
 
@@ -190,7 +191,7 @@ class CategorieServiceController extends Controller
     }
 
     /**
-     * @OA\Patch(
+     * @OA\Post(
      *     path="/api/supprimCategorie/{id}",
      *     tags={"Catégorie de service"}, 
      *     summary="Supprimer une catégorie de service",

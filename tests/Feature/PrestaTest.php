@@ -24,7 +24,7 @@ class PrestaTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $this->actingAs($user, 'api');
+        //$this->actingAs($user, 'api');
 
         //$prestataire = PrestataireFactory::new()->make()->toArray();
         $prestataire = ['user_id' => 1];

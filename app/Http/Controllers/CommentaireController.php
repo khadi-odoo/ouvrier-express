@@ -81,13 +81,13 @@ class CommentaireController extends Controller
 
 
         if (Auth::check() && auth()->user()->role === 'client') {
-            $comment = new Commentaire();
-            $comment->client_id = $request->client_id;
-            $comment->prestation_id = $request->prestation_id;
-            $comment->statut_evaluation = $request->statut_evaluation;
-            $comment->save();
+        $comment = new Commentaire();
+        $comment->client_id = $request->client_id;
+        $comment->prestation_id = $request->prestation_id;
+        $comment->statut_evaluation = $request->statut_evaluation;
+        $comment->save();
 
-            return response()->json(['message' => 'Commentaire envoyé avec succès', 'data' => $comment]);
+        return response()->json(['message' => 'Commentaire envoyé avec succès', 'data' => $comment]);
         } else {
             return response()->json(['message' => 'Vous n\' êtes pas client'], 404);
         }
