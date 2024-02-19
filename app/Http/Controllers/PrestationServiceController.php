@@ -8,7 +8,6 @@ use App\Models\User;
 use App\Models\PrestationService;
 use App\Http\Requests\StorePrestationServiceRequest;
 use App\Http\Requests\UpdatePrestationServiceRequest;
-use App\Models\prestataire;
 use Illuminate\Support\Facades\Auth;
 use OpenApi\Annotations as OA;
 
