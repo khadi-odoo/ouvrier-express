@@ -41,6 +41,57 @@ Route::controller(AuthController::class)->group(function () {
 Route::controller(PrestataireController::class)->group(function () {
     Route::post('ajouterPresta', 'store');
 });
+<<<<<<< HEAD
+// });
+
+// Route::middleware(['auth:api', 'role:client'])->group(function () {
+// Route::controller(PrestataireController::class)->group(function () {
+//     Route::get('listePrestataire', 'index');
+//     Route::get('affichPrestataire{id}', 'show');
+// });
+// });
+
+//Route::middleware(['auth:api', 'role:admin'])->group(function () {
+Route::controller(CategorieServiceController::class)->group(function () {
+    Route::get('listeCategorie', 'index');
+    Route::get('listeCategorie', 'index');
+    Route::post('ajouterCategorie', 'store');
+    Route::get('affichCategorie/{id}', 'show');
+    Route::post('modifCategorie/{categorieService}', 'update');
+    Route::post('supprimCategorie/{id}', 'destroy');
+});
+//});
+
+// Route::middleware(['auth:api', 'role:prestataire'])->group(function () {
+// Route::controller(CategorieServiceController::class)->group(function () {
+//     Route::get('listeCateg', 'index');
+
+//     Route::get('affichCateg/{id}', 'show');
+// });
+// });
+
+//Route::middleware(['auth:api', 'role:admin'])->group(function () {
+Route::controller(PrestationServiceController::class)->group(function () {
+    Route::get('listePrestaService', 'index');
+    Route::post('ajoutPrestaService', 'store');
+    Route::get('affichPrestaService/{id}', 'show');
+    Route::post('modifPrestaService/{prestatationservice}', 'update');
+    Route::post('supprimPrestaService/{id}', 'destroy');
+     Route::get('affichPrestaire/{categorie}', 'categorieprestataire');
+});
+//});
+
+// Route::middleware(['auth:api', 'role:prestataire'])->group(function () {
+// Route::controller(PrestationServiceController::class)->group(function () {
+//     Route::get('listePrestService', 'index');
+//     Route::post('ajoutPrestService', 'store');
+//     Route::get('affichPrestService/{id}', 'show');
+//     Route::post('modifPrestService/{prestatationservice}', 'update');
+//     Route::post('supprimPrestService/{id}', 'destroy');
+// });
+// });
+=======
+>>>>>>> 0ddf1a003936b0e21cb64d61766c2e78b4fa364b
 
 
 Route::controller(ClientController::class)->group(function () {

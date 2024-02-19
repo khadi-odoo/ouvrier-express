@@ -1,7 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
 
+namespace App\Http\Controllers;
+use App\Models\prestataire;
+use App\Models\CategorieService;
+use App\Models\User;
 use App\Models\PrestationService;
 use App\Http\Requests\StorePrestationServiceRequest;
 use App\Http\Requests\UpdatePrestationServiceRequest;
@@ -39,6 +42,33 @@ class PrestationServiceController extends Controller
      */
     public function index()
     {
+      $prestataires = prestataire::all();
+$info = [];
+foreach ($prestataires as $prestataire) {
+    //dd($prestataires);
+    $prestataire_service=PrestationService::where('prestataire_id',$prestataire->id)->first();
+    if ($prestataire_service!=null) {
+            $user = User::where('id', $prestataire->user_id)->first();
+
+    $info[] = [
+                'id'=>$user->id,
+                'nom'    => $user->nom,
+                'prenom' => $user->prenom,
+                'tel'   => $user->tel,
+                'email'  => $user->email,
+                 'images' => $prestataire_service->image,
+                'presentation'=>$prestataire_service->presentation,
+                'experience'=>$prestataire_service->experience,
+                'competence'=>$prestataire_service->competence,
+                'motivation'=>$prestataire_service->motivation,
+                'metier'=>$prestataire_service->nomService,
+            ];
+    }
+
+}
+
+return response()->json($info);
+
         return response()->json(PrestationService::where('estArchive', false)->get());
     }
 
@@ -49,7 +79,64 @@ class PrestationServiceController extends Controller
     {
         //
     }
+    public function categorieprestataire(CategorieService $categorie){
+        if ($categorie!=null){
+            $prestationservices=PrestationService::where('categorie_id',$categorie->id)->get();
+            $tabprestataires=[];
+            foreach ($prestationservices as $prestationservice) {
+                $prestataire= prestataire::where('id',$prestationservice->prestataire_id)->get();
+                if($prestataire!=null){
+                     $tabprestataires[]=[
+                    'prestataires'=>$prestataire
+                ];
+                }
 
+            }
+
+
+
+            $info=[];
+            foreach ($tabprestataires as $tabprestataire) {
+                if($tabprestataire['prestataires']!=null){
+                    $id=$tabprestataire['prestataires'][0]->user_id;
+                     $user=User::where('id',$id)->first();
+                     $prestUser=prestataire::where('user_id',$user->id)->first();
+
+                     if($prestUser!=null){
+                            $prestservice=PrestationService::where('prestataire_id',$prestUser->id)->first();
+
+                            if($prestservice!=null){
+                            $info[] = [
+                            'id'=>$user->id,
+                            'nom'    => $user->nom,
+                            'prenom' => $user->prenom,
+                            'tel'   => $user->tel,
+                            'email'  => $user->email,
+                             'images' => $prestservice->image,
+                            'presentation'=>$prestservice->presentation,
+                            'experience'=>$prestservice->experience,
+                            'competence'=>$prestservice->competence,
+                            'motivation'=>$prestservice->motivation,
+                            'metier'=>$prestservice->nomService,
+                        ];
+                            }
+
+
+
+                     }
+
+                }
+
+            }
+
+          return response()->json($info);
+        }else{
+            return response()->json([
+                'message' =>'Categorie inexistant',
+                'status' =>400
+            ]);
+        }
+    }
     /**
      * @OA\Post(
      *     path="/api/ajoutPrestaService",
@@ -71,7 +158,7 @@ class PrestationServiceController extends Controller
      *             @OA\Property(property="competence", type="string"),
      *             @OA\Property(property="motivation", type="string"),
      *             @OA\Property(property="prestataire_id", type="integer"),
-     *             @OA\Property(property="categorie_id", type="integer"),           
+     *             @OA\Property(property="categorie_id", type="integer"),
      *         )
      *        )
      *     ),
@@ -89,16 +176,16 @@ class PrestationServiceController extends Controller
         if (Auth::check() && auth()->user()->role === 'prestataire') {
 
             $prestation = new PrestationService();
-            // $prestation = prestataire::where('user_id', Auth::user()->id)->first();
+
             $prestation->nomService = $request->nomService;
-            $imagePath = $request->file('image')->store('images/Categorie', 'public');
+            $imagePath = $request->file('image')->store('images/PrestationService', 'public');
             $prestation->image = $imagePath;
             $prestation->presentation = $request->presentation;
             //$prestation->disponibilite = $request->disponibilite;
             $prestation->experience = $request->experience;
             $prestation->competence = $request->competence;
             $prestation->motivation = $request->motivation;
-            $prestation->prestataire_id = $request->prestataire_id;
+            $prestation->prestataire_id =$prestataire->id;
             $prestation->categorie_id = $request->categorie_id;
 
             $prestation->save();
@@ -138,9 +225,14 @@ class PrestationServiceController extends Controller
 
     public function show($id)
     {
-        $prestationService = PrestationService::findOrFail($id);
-        return response()->json([
+        $prestationService = PrestationService::Find($id);
+        if($prestationService==null){
+             return response()->json([
+            "Message" => 'Ressources introuvable',
 
+        ]);
+        }
+        return response()->json([
             "Prestation" => $prestationService,
 
         ]);
@@ -162,15 +254,15 @@ class PrestationServiceController extends Controller
      *         {"bearerAuth": {}}
      *     },
      *     tags={"Prestation de service"},
-     * 
+     *
      *         @OA\Parameter(
      *         name="prestatationservice",
      *         in="path",
      *         required=true,
      *         description="Modifier le profil à partir de l'id",
      *         @OA\Schema(type="integer")
-     * ),    
-     * 
+     * ),
+     *
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\MediaType(
@@ -203,7 +295,7 @@ class PrestationServiceController extends Controller
 
             $prestationService->nomService = $request->nomService;
 
-            if ($request->file('image')) {
+            if ($request->image) {
                 $imagePath = $request->file('image')->store('images/Prestations', 'public');
                 $prestationService->image = $imagePath;
             }
@@ -214,13 +306,8 @@ class PrestationServiceController extends Controller
             $prestationService->motivation = $request->motivation;
 
             $prestationService->update();
-            if ($prestationService->update()) {
-                return response()->json(['message' => 'Profil modifié avec succès', 'data' => $prestationService]);
-            } else {
-                return response()->json([
-                    'message' => 'error'
-                ]);
-            }
+
+            return response()->json(['message' => 'Profil modifié avec succès', 'data' => $prestationService]);
         } else {
             return response()->json(['message' => 'Vous n\'êtes pas prestataire'], 404);
         }
@@ -230,13 +317,9 @@ class PrestationServiceController extends Controller
     /**
      * @OA\Post(
      *     path="/api/supprimPrestaService/{id}",
-     *     tags={"Prestation de service"}, 
+     *     tags={"Prestation de service"},
      *     summary="Supprimer profil prestataire",
-     * 
-     * security={
-     *         {"bearerAuth": {}}
-     *     },
-     *    
+     *
      *  @OA\Parameter(
      *         name="id",
      *         in="path",
