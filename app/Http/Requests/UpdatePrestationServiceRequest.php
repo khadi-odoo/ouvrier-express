@@ -22,12 +22,12 @@ class UpdatePrestationServiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nomService' => 'string|min:5|max:100',
-            'image' => 'image|mimes:jpeg,png,jpg|max:2048',
-            'presentation' => 'string|min:5|max:250',
-            'experience' => 'string|min:5|max:250',
-            'competence' => 'string|min:5|max:250',
-            'motivation' => 'string|min:5|max:250',
+            'nomService' => 'string|min:5|max:1000',
+            'image' => 'image',
+            'presentation' => 'string|min:5|max:1000',
+            'experience' => 'string|min:5|max:1000',
+            'competence' => 'string|min:5|max:1000,
+            'motivation' => 'string|min:5|max:1000,
         ];
     }
 }

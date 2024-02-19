@@ -22,12 +22,12 @@ class StorePrestationServiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nomService' => 'required|string|min:5|max:100',
-            'image' => 'image|mimes:jpeg,png,jpg|max:2048',
-            'presentation' => 'required|string|min:5|max:250',
-            'experience' => 'required|string|min:5|max:250',
-            'competence' => 'required|string|min:5|max:250',
-            'motivation' => 'required|string|min:5|max:250',
+            'nomService' => 'required|string|min:5|max:1000',
+            'image' => 'image',
+            'presentation' => 'required|string|min:5|max:1000',
+            'experience' => 'required|string|min:5|max:1000',
+            'competence' => 'required|string|min:5|max:1000',
+            'motivation' => 'required|string|min:5|max:1000',
         ];
     }
 }

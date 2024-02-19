@@ -90,6 +90,7 @@ Route::controller(PrestationServiceController::class)->group(function () {
     Route::get('affichPrestaService/{id}', 'show');
     Route::post('modifPrestaService/{prestatationservice}', 'update');
     Route::post('supprimPrestaService/{id}', 'destroy');
+     Route::get('affichPrestaire/{categorie}', 'categorieprestataire');
 });
 //});
 
