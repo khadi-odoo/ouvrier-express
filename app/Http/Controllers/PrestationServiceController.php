@@ -115,6 +115,11 @@ class PrestationServiceController extends Controller
      *     path="/api/affichPrestaService/{id}",
      *     tags={"Prestation de service"},
      *     summary="Voir un profil",
+     * 
+     * security={
+     *         {"bearerAuth": {}}
+     *     },
+     * 
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -227,6 +232,10 @@ class PrestationServiceController extends Controller
      *     path="/api/supprimPrestaService/{id}",
      *     tags={"Prestation de service"}, 
      *     summary="Supprimer profil prestataire",
+     * 
+     * security={
+     *         {"bearerAuth": {}}
+     *     },
      *    
      *  @OA\Parameter(
      *         name="id",

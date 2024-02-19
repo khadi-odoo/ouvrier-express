@@ -178,6 +178,10 @@ class CommentaireController extends Controller
      *     path="/api/supprimComment/{id}",
      *     tags={"Commentaire"},
      *     summary="Supprimer un commentaire",
+     * 
+     * security={
+     *         {"bearerAuth": {}}
+     *     },
      *    
      *  @OA\Parameter(
      *         name="id",

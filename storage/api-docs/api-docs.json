@@ -343,7 +343,12 @@
                     "200": {
                         "description": "succes"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/listeComment": {
@@ -501,7 +506,12 @@
                     "200": {
                         "description": "succes"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/listeMail": {
@@ -733,7 +743,12 @@
                     "200": {
                         "description": "succes"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/listePrestaService": {
@@ -937,7 +952,12 @@
                     "200": {
                         "description": "succes"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         }
     },

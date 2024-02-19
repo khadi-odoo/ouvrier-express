@@ -195,7 +195,9 @@ class CategorieServiceController extends Controller
      *     path="/api/supprimCategorie/{id}",
      *     tags={"Catégorie de service"}, 
      *     summary="Supprimer une catégorie de service",
-     *    
+     *    security={
+     *         {"bearerAuth": {}}
+     *     },
      *  @OA\Parameter(
      *         name="id",
      *         in="path",

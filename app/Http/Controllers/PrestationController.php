@@ -180,6 +180,10 @@ class PrestationController extends Controller
      *     tags={"Prestation Client"},
      *     summary="Annuler une prestation demandée",
      *    
+     * security={
+     *         {"bearerAuth": {}}
+     *     },
+     * 
      *  @OA\Parameter(
      *         name="id",
      *         in="path",
