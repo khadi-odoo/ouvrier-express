@@ -178,13 +178,13 @@
                 }
             }
         },
-        "/api/listeCétegorie": {
+        "/api/listeCategorie": {
             "get": {
                 "tags": [
                     "Catégorie de service"
                 ],
                 "summary": "liste de toutes les catégories de service",
-                "operationId": "8044780a6fb5678febc61e28cba94811",
+                "operationId": "efc9b1f75c7b6edb88eede2e43004f35",
                 "responses": {
                     "200": {
                         "description": "succes"
@@ -266,12 +266,12 @@
             }
         },
         "/api/modifCategorie/{categorieService}": {
-            "patch": {
+            "post": {
                 "tags": [
                     "Catégorie de service"
                 ],
                 "summary": "Modificier une catégorie de service",
-                "operationId": "8f2053f20896db52fddd009115e10402",
+                "operationId": "7b480728ed0e912f45443fb0031c57bf",
                 "parameters": [
                     {
                         "name": "categorieService",
@@ -322,12 +322,12 @@
             }
         },
         "/api/supprimCategorie/{id}": {
-            "patch": {
+            "post": {
                 "tags": [
                     "Catégorie de service"
                 ],
                 "summary": "Supprimer une catégorie de service",
-                "operationId": "31097b1b5915aabb3d65d75847cd1d09",
+                "operationId": "96f7d5e02562e935bae62dd1bc3079d4",
                 "parameters": [
                     {
                         "name": "id",
@@ -842,12 +842,12 @@
             }
         },
         "/api/modifPrestaService/{prestatationservice}": {
-            "patch": {
+            "post": {
                 "tags": [
                     "Prestation de service"
                 ],
                 "summary": "Modificier profil prestataire",
-                "operationId": "28f088c0ff81615ad170d6eef087542e",
+                "operationId": "3935bc9967af536a7dbd5dfd8596b6bf",
                 "parameters": [
                     {
                         "name": "prestatationservice",
@@ -916,12 +916,12 @@
             }
         },
         "/api/supprimPrestaService/{id}": {
-            "patch": {
+            "post": {
                 "tags": [
                     "Prestation de service"
                 ],
                 "summary": "Supprimer profil prestataire",
-                "operationId": "0352b6cbf98b1d038969fbd1c26281ec",
+                "operationId": "038f76b10ba0b5a3539ce2d0725fef52",
                 "parameters": [
                     {
                         "name": "id",

@@ -37,24 +37,11 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('getAllUsers', 'getAllUsers');
 });
 
-//Route::middleware(['auth:api', 'role:admin'])->group(function () {
-// Route::controller(PrestataireController::class)->group(function () {
-//     Route::get('listeP', 'index');
-//     Route::post('ajouterP', 'store');
-//     Route::get('affichP{id}', 'show');
-//     Route::post('modifP/{prestataire}', 'update');
-//     Route::post('supprimP/{id}', 'destroy');
-// });
-//});
 
-// Route::middleware(['auth:api', 'role:prestataire'])->group(function () {
 Route::controller(PrestataireController::class)->group(function () {
-    Route::get('listePresta', 'index');
     Route::post('ajouterPresta', 'store');
-    Route::get('affichPresta{id}', 'show');
-    Route::post('modifPresta/{prestataire}', 'update');
-    Route::post('supprimPresta/{id}', 'destroy');
 });
+<<<<<<< HEAD
 // });
 
 // Route::middleware(['auth:api', 'role:client'])->group(function () {
@@ -103,32 +90,96 @@ Route::controller(PrestationServiceController::class)->group(function () {
 //     Route::post('supprimPrestService/{id}', 'destroy');
 // });
 // });
+=======
+>>>>>>> 0ddf1a003936b0e21cb64d61766c2e78b4fa364b
 
 
 Route::controller(ClientController::class)->group(function () {
-    Route::get('listeclient', 'index');
     Route::post('ajouterclient', 'store');
-    Route::get('afficherclient/{id}', 'show');
-    Route::post('modifclient/{client}', 'update');
-    Route::post('supprimclient/{id}', 'destroy');
 });
+
+
+//Route::middleware(['auth:api', 'role:admin'])->group(function () {
+    Route::controller(CategorieServiceController::class)->group(function () {
+        Route::post('ajouterCategorie', 'store');
+        Route::post('modifCategorie/{categorieService}', 'update');
+        Route::post('supprimCategorie/{id}', 'destroy');
+    });
+//});
+
+
+Route::controller(CategorieServiceController::class)->group(function () {
+    Route::get('listeCategorie', 'index');
+    Route::get('affichCategorie/{id}', 'show');
+});
+
+//Route::middleware(['auth:api', 'role:admin'])->group(function () {
+    Route::controller(PrestationServiceController::class)->group(function () {
+        Route::post('ajoutPrestaS', 'store');
+        Route::get('affichPrestaS/{id}', 'show');
+        Route::post('modifPrestaS/{prestationService}', 'update');
+        Route::post('supprimPrestaS/{id}', 'destroy');
+    });
+//});
+
+//Route::middleware(['auth:api', 'role:client'])->group(function () {
+    Route::controller(PrestationServiceController::class)->group(function () {
+        Route::get('affichPrestService/{id}', 'show');
+    });
+//});
+
+//Route::middleware(['auth:api', 'role:prestataire'])->group(function () {
+    Route::controller(PrestationServiceController::class)->group(function () {
+        Route::post('ajoutPrestaService', 'store');
+        Route::get('affichPrestaService/{id}', 'show');
+        Route::post('modifPrestaService/{prestationService}', 'update');
+        Route::post('supprimPrestaService/{id}', 'destroy');
+    });
+//});
+
+
+Route::controller(PrestationServiceController::class)->group(function () {
+    Route::get('listePrestaService', 'index');
+});
+
+
+//Route::middleware(['auth:api', 'role:client'])->group(function () {
+    Route::controller(PrestationController::class)->group(function () {
+        Route::post('ajoutPrestation', 'store');
+        Route::post('modifPrestation/{prestation}', 'update');
+        Route::post('supprimPrestation/{id}', 'destroy');
+    });
+//});
+
+
+//Route::middleware(['auth:api', 'role:admin'])->group(function () {
+    Route::controller(PrestationController::class)->group(function () {
+        Route::post('ajoutPrestaclient', 'store');
+        Route::post('modifPrestaclient/{prestation}', 'update');
+        Route::post('supprimPrestaclient/{id}', 'destroy');
+    });
+//});
 
 
 Route::controller(PrestationController::class)->group(function () {
     Route::get('listePrestation', 'index');
-    Route::post('ajoutPrestation', 'store');
     Route::get('affichPrestation/{id}', 'show');
-    Route::post('modifPrestation/{prestation}', 'update');
-    Route::post('supprimPrestation/{id}', 'destroy');
 });
+
+//Route::middleware(['auth:api', 'role:client'])->group(function () {
+    Route::controller(CommentaireController::class)->group(function () {
+        Route::post('ajoutComment', 'store');
+        Route::post('modifComment/{commentaire}', 'update');
+        Route::post('supprimComment/{id}', 'destroy');
+    });
+//});
+
 
 Route::controller(CommentaireController::class)->group(function () {
     Route::get('listeComment', 'index');
-    Route::post('ajoutComment', 'store');
     Route::get('affichComment/{id}', 'show');
-    Route::post('modifComment/{commentaire}', 'update');
-    Route::post('supprimComment/{id}', 'destroy');
 });
+
 
 
 Route::controller(MailController::class)->group(function () {

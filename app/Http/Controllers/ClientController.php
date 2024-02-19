@@ -27,27 +27,27 @@ class ClientController extends Controller
     public function store(StoreclientRequest $request)
     {
         // Récupérer l'identifiant de l'utilisateur à partir du champ user_id du formulaire
-        $user = auth()->user();
+        //$user = auth()->user();
         // dd($user);
 
 
         // Vérifier si l'utilisateur existe et a le rôle de client
-        if ($user && $user->role == 'client') {
-            // Créer un nouveau client avec les données du formulaire
-            $client = new Client();
+        //if ($user && $user->role == 'client') {
+        // Créer un nouveau client avec les données du formulaire
+        $client = new Client();
 
-            // Associer le client à l'utilisateur
-            $client->user_id = $user->id;
+        // Associer le client à l'utilisateur
+        $client->user_id = $request->user_id;
 
-            // Enregistrer le client dans la base de données
-            $client->save();
+        // Enregistrer le client dans la base de données
+        $client->save();
 
-            // Retourner une réponse JSON avec le client créé
-            return response()->json([  'data' => $client]);
-        } else {
-            // Retourner une erreur
-            return response()->json(['message' => 'L\'utilisateur n\'existe pas ou n\'a pas le rôle de client'], 404);
-        }
+        // Retourner une réponse JSON avec le client créé
+        return response()->json(['data' => $client]);
+        //} else {
+        // Retourner une erreur
+        //     return response()->json(['message' => 'L\'utilisateur n\'existe pas ou n\'a pas le rôle de client'], 404);
+        // }
     }
 
     /**

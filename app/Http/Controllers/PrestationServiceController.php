@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\PrestationService;
 use App\Http\Requests\StorePrestationServiceRequest;
 use App\Http\Requests\UpdatePrestationServiceRequest;
+use App\Models\prestataire;
 use Illuminate\Support\Facades\Auth;
 use OpenApi\Annotations as OA;
 
@@ -175,7 +176,7 @@ return response()->json($info);
         if (Auth::check() && auth()->user()->role === 'prestataire') {
 
             $prestation = new PrestationService();
-            $prestataire = prestataire::where('user_id',Auth::user()->id)->first();
+
             $prestation->nomService = $request->nomService;
             $imagePath = $request->file('image')->store('images/PrestationService', 'public');
             $prestation->image = $imagePath;
@@ -241,7 +242,7 @@ return response()->json($info);
     }
 
     /**
-     * @OA\Patch(
+     * @OA\Post(
      *     path="/api/modifPrestaService/{prestatationservice}",
      *     summary="Modificier profil prestataire",
      *     security={
@@ -290,7 +291,6 @@ return response()->json($info);
             $prestationService->nomService = $request->nomService;
 
             if ($request->image) {
-
                 $imagePath = $request->file('image')->store('images/Prestations', 'public');
                 $prestationService->image = $imagePath;
             }
@@ -300,23 +300,17 @@ return response()->json($info);
             $prestationService->competence = $request->competence;
             $prestationService->motivation = $request->motivation;
 
+            $prestationService->update();
 
-            if($prestationService->update()){
             return response()->json(['message' => 'Profil modifié avec succès', 'data' => $prestationService]);
-
-            }else{
-            return response()->json(['message' => 'error'
-            ]);
-            }
-
         } else {
-            return response()->json(['message' => 'Vous n\' êtes pas prestataire'], 404);
+            return response()->json(['message' => 'Vous n\'êtes pas prestataire'], 404);
         }
     }
 
 
     /**
-     * @OA\Patch(
+     * @OA\Post(
      *     path="/api/supprimPrestaService/{id}",
      *     tags={"Prestation de service"},
      *     summary="Supprimer profil prestataire",

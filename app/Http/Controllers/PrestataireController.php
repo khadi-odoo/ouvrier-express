@@ -31,16 +31,16 @@ class PrestataireController extends Controller
         //$request->validated($request->all());
 
 
-        if (Auth::check() && auth()->user()->role === 'prestataire') {
-            $prestataire = new Prestataire();
-            //dd('ok');
-            $prestataire->user_id = $request->user_id;
-            $prestataire->save();
+        // if (Auth::check() && auth()->user()->role === 'prestataire') {
+        $prestataire = new Prestataire();
+        //dd('ok');
+        $prestataire->user_id = $request->user_id;
+        $prestataire->save();
 
-            return response()->json(['message' => ' Profil prestataire ajouté avec succès', 'data' => $prestataire]);
-        } else {
-            return response()->json(['message' => 'Vous n\' êtes pas prestataire'], 404);
-        }
+        return response()->json(['message' => ' Profil prestataire ajouté avec succès', 'data' => $prestataire]);
+        // } else {
+        //     return response()->json(['message' => 'Vous n\' êtes pas prestataire'], 404);
+        // }
         // $prestataire->user_id = Auth::user()->id;
         // dd($prestataire);
 
