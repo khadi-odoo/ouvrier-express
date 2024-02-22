@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\prestataire;
 use App\Http\Requests\StoreprestataireRequest;
 use App\Http\Requests\UpdateprestataireRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -68,6 +69,14 @@ class PrestataireController extends Controller
 
     public function update(UpdateprestataireRequest $request, prestataire $prestataire)
     {
+        $user = User::where('id', $prestataire->user_id)->first();
+        $user->nom = $request->nom;
+        $user->prenom = $request->prenom;
+        $user->tel = $request->tel;
+        $user->adress = $request->adress;
+        $user->email = $request->mail;
+        $user->password = $request->password;
+        $user->update();
     }
 
 

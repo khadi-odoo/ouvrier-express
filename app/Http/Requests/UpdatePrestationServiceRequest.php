@@ -26,8 +26,8 @@ class UpdatePrestationServiceRequest extends FormRequest
             'image' => 'image',
             'presentation' => 'string|min:5|max:1000',
             'experience' => 'string|min:5|max:1000',
-            'competence' => 'string|min:5|max:1000,
-            'motivation' => 'string|min:5|max:1000,
+            'competence' => 'string|min:5|max:1000',
+            'motivation' => 'string|min:5|max:1000',
         ];
     }
 }
