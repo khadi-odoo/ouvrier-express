@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\User;
-use App\Models\categorieService;
+use App\Models\CategorieService;
 use App\Http\Requests\StorecategorieServiceRequest;
 use App\Http\Requests\UpdatecategorieServiceRequest;
 use Illuminate\Support\Facades\Auth;
@@ -211,7 +211,7 @@ class CategorieServiceController extends Controller
     public function destroy($id)
     {
 
-        $categorieService = categorieService::findOrFail($id);
+        $categorieService = CategorieService::findOrFail($id);
         // dd($categorieService);
         if ($categorieService->estArchive == 0) {
             $categorieService->estArchive = 1;
