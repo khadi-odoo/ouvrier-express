@@ -69,14 +69,22 @@ class PrestataireController extends Controller
 
     public function update(UpdateprestataireRequest $request, prestataire $prestataire)
     {
-        $user = User::where('id', $prestataire->user_id)->first();
-        $user->nom = $request->nom;
-        $user->prenom = $request->prenom;
-        $user->tel = $request->tel;
-        $user->adress = $request->adress;
-        $user->email = $request->mail;
-        $user->password = $request->password;
-        $user->update();
+        $request->validated($request->all());
+        if (Auth::check() && auth()->user()->role === 'prestataire') {
+            $user = User::where('id', $prestataire->user_id)->first();
+            // dd($user);
+            $user->nom = $request->nom;
+            $user->prenom = $request->prenom;
+            $user->tel = $request->tel;
+            $user->adress = $request->adress;
+            $user->email = $request->email;
+            $user->password = $request->password;
+            $user->update();
+
+            return response()->json(['message' => ' Profil prestataire modifié avec succès', 'data' => $user]);
+        } else {
+            return response()->json(['message' => 'Vous n\' êtes pas prestataire'], 404);
+        }
     }
 
 

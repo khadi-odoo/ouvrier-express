@@ -25,8 +25,7 @@ class StoreMailRequest extends FormRequest
 
             'email' => 'required|string',
             'message' => 'required|string',
-            // 'sujet' => 'required|string',
-            // 'corps' => 'required|string',
+            
         ];
     }
 }

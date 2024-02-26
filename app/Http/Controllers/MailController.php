@@ -5,8 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Mail;
 use App\Http\Requests\StoreMailRequest;
 use App\Http\Requests\UpdateMailRequest;
+//use App\Http\Mail\ContactMail as ContactMail;
+use App\Http\Requests;
+use App\Mail\ContactMail as ContactMail;
+use App\Mail\ResponseMail;
+use Illuminate\Http\Request;
+use Illuminate\Mail\Mailable;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Mail as FacadesMail;
 use OpenApi\Annotations as OA;
 
 /**
@@ -37,7 +43,7 @@ class MailController extends Controller
      */
     public function create()
     {
-        //
+        return view('emails.contact');
     }
 
     /**
@@ -65,17 +71,78 @@ class MailController extends Controller
      */
     public function store(StoreMailRequest $request)
     {
-        $request->validated($request->all());
-        $mail = new Mail();
 
+        $validatedData = $request->validated(); // Validation des données du formulaire
 
-        $mail->email = $request->email;
-        $mail->message = $request->message;
-
+        $mail = new \App\Models\Mail(); // Utilisation de la classe Mail du modèle
+        $mail->email = $validatedData['email'];
+        $mail->message = $validatedData['message'];
         $mail->save();
 
-        return response()->json(['message' => 'Message envoyé avec succès', 'data' => $mail]);
+        FacadesMail::send('messageView', ['mail' => $mail], function ($message) use ($request) {
+            $message->to($request->email);
+            $message->subject('Contactez-nous pour tout renseignement');
+        });
+
+        // if ($mail->save()) {
+        //     $contact = $validatedData['message'];
+        //     //dd($validatedData['email']);
+        //     dd($contact);
+        //     // Envoi de l'e-mail de contact avec la méthode to() correctement utilisée
+        //     FacadesMail::to($validatedData['email'])->send(new ContactMail($contact));
+
+        return response()->json(['message' => 'Accusé de réception']);
     }
+
+
+
+    // Retourner une réponse en cas d'erreur de sauvegarde du mail
+    // return response()->json(['message' => 'Erreur lors de l\'envoi de la réponse'], 500);
+
+
+    // $request->validated($request->all());
+
+    // $mail = new Mail();
+    // $mail->email = $request->email; // Accès à l'e-mail à partir des données validées
+    // $mail->message = $request->message;
+    // if ($mail->save()) {
+    //     $contact = $request->message;
+
+    //     if (email::to($request->email)->send(new ContactMail($contact))) {
+    //         return response()->json(['message' => 'reponse envoye avec success']);
+    //     }
+    //}
+
+    // Mail::to($mail->email)->send(new ResponseMail($mail)); // Utilisation de $mail->email
+
+    // return response()->json([
+    //     'message' => 'reponse envoye avec success',
+    //     'data' => $mail
+    // ]);
+
+
+    //return response()->json(['message' => 'Message envoyé avec succès', 'data' => $mail]);
+
+
+    // public function reponse(Request $request)
+
+    // {
+
+    //     try {
+    //         $contact = $request->message;
+    //         //$mailable = new ContactMail($contact);
+    //         // if ($mailable->to($request->email)->send()) {
+    //         if (Mail::to($request->email)->send(new ContactMail($contact))) {
+    //             return response()->json(['message' => 'reponse envoye avec success']);
+    //         } else {
+    //             return response()->json(['message' => 'reponse non envoyée']);
+    //         }
+    //     } catch (\Throwable $th) {
+    //         return  $th->getMessage();
+    //     }
+    // }
+
+
 
 
     /**

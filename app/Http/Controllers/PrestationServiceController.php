@@ -36,7 +36,7 @@ class PrestationServiceController extends Controller
      * @OA\Get(
      *     path="/api/listePrestaService",
      * tags={"Prestation de service"},
-     *     summary="liste de toutes les prestations de service",
+     *     summary="liste de toutes les prestations de service avec leur catégorie",
      *     @OA\Response(response="200", description="succes")
      * )
      */
@@ -91,8 +91,6 @@ class PrestationServiceController extends Controller
                     ];
                 }
             }
-
-
 
             $info = [];
             foreach ($tabprestataires as $tabprestataire) {
