@@ -71,7 +71,22 @@ class ClientController extends Controller
      */
     public function update(UpdateclientRequest $request, client $client)
     {
-        //
+        $request->validated($request->all());
+        if (Auth::check() && auth()->user()->role === 'client') {
+            $user = User::where('id', $client->user_id)->first();
+            // dd($user);
+            $user->nom = $request->nom;
+            $user->prenom = $request->prenom;
+            $user->tel = $request->tel;
+            $user->adress = $request->adress;
+            $user->email = $request->email;
+            $user->password = $request->password;
+            $user->update();
+
+            return response()->json(['message' => ' Profil client modifié avec succès', 'data' => $user]);
+        } else {
+            return response()->json(['message' => 'Vous n\'êtes pas client'], 404);
+        }
     }
 
     /**

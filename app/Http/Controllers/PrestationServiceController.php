@@ -62,6 +62,7 @@ class PrestationServiceController extends Controller
                     'competence' => $prestataire_service->competence,
                     'motivation' => $prestataire_service->motivation,
                     'metier' => $prestataire_service->nomService,
+                    '$prestataire_service_id' => $prestataire_service->id
                 ];
             }
         }
@@ -81,6 +82,7 @@ class PrestationServiceController extends Controller
     public function categorieprestataire(CategorieService $categorie)
     {
         if ($categorie != null) {
+            //dd($categorie);
             $prestationservices = PrestationService::where('categorie_id', $categorie->id)->get();
             $tabprestataires = [];
             foreach ($prestationservices as $prestationservice) {
@@ -122,6 +124,7 @@ class PrestationServiceController extends Controller
             }
 
             return response()->json($info);
+            dd($info);
         } else {
             return response()->json([
                 'message' => 'Categorie inexistant',
@@ -291,6 +294,8 @@ class PrestationServiceController extends Controller
             $prestationService->experience = $request->experience;
             $prestationService->competence = $request->competence;
             $prestationService->motivation = $request->motivation;
+            $prestationService->categorie_id = $request->categorie_id;
+            // $prestationService => $prestationService->id;
 
             $prestationService->update();
 

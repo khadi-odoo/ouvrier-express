@@ -48,9 +48,14 @@ Route::controller(PrestataireController::class)->group(function () {
 });
 // });
 
-
 Route::controller(ClientController::class)->group(function () {
     Route::post('ajouterclient', 'store');
+});
+
+Route::middleware(['auth:api', 'role:client'])->group(function () {
+    Route::controller(ClientController::class)->group(function () {
+        Route::post('modifClient/{client}', 'update');
+    });
 });
 
 
@@ -95,6 +100,7 @@ Route::controller(PrestationServiceController::class)->group(function () {
 
 Route::controller(PrestationServiceController::class)->group(function () {
     Route::get('listePrestaService', 'index');
+    Route::get('listeCategoriePresta', 'categorieprestataire');
 });
 
 

@@ -26,8 +26,9 @@ class UpdateprestataireRequest extends FormRequest
         return [
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
-            'tel' => ['required', 'string', 'regex:/^(77|78|70|75)[0-9]{7}$/'],
+            'tel' => ['required', 'string', 'regex:/^(77|78|70|75|76)[0-9]{7}$/'],
             'adress' => 'required|string|max:255',
+            //'role' => 'required|in:client,prestataire,admin',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
         ];
@@ -61,6 +62,7 @@ class UpdateprestataireRequest extends FormRequest
             'tel.regex' => 'Le téléphone doit commencer 70/77/78/76 suivis de 7 caractere',
             'tel.max' => 'Le téléphone ne peut pas dépasser 15 caractères.',
             'tel.unique' => 'Ce numéro de téléphone est déjà utilisé.',
+            'adress.required' => 'Le champ Adresse est obligatoire.',
             'email.required' => 'Le champ email est obligatoire.',
             'email.email' => 'L\'email doit être une adresse email valide.',
             'email.max' => 'L\'email ne peut pas dépasser 255 caractères.',
