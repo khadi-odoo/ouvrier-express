@@ -92,8 +92,15 @@ class ClientController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(client $client)
+    public function destroy($id)
     {
-        //
+        if (Auth::check() && auth()->user()->role === 'client') {
+            $user = User::findOrFail($id);
+            if ($user->estArchive == 0) {
+                $user->estArchive = 1;
+                $user->save();
+                return response()->json(['message' => 'Profil client archivé']);
+            }
+        }
     }
 }

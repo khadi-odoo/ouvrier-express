@@ -15,11 +15,11 @@ class ContactController extends Controller
     {
         return view('contact');
     }
- 
-    public function store(ContactRequest $request): view
-    {
-        Mail::to('administrateur@chezmoi.com')
-            ->send(new Contact($request->except('_token')));
-        return view('confirm');
-    }
+
+    // public function store(ContactRequest $request): view
+    // {
+    //     Mail::to('administrateur@chezmoi.com')
+    //         ->send(new Contact($request->except('_token')));
+    //     return view('confirm');
+    // }
 }

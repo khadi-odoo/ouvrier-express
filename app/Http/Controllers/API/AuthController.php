@@ -221,5 +221,27 @@ class AuthController extends Controller
         ]);
     }
 
-   
+
+    public function destroy_client(user $user)
+    {
+        // dd($user);
+        if (Auth::check() && auth()->user()->role === 'admin') {
+            if ($user->estArchive == 1) {
+                $user->delete();
+                return response()->json(['message' => 'Profil client supprimé']);
+            }
+        }
+    }
+
+
+    public function destroy_presta(user $user)
+    {
+        // dd(Auth::check());
+        if (Auth::check() && auth()->user()->role === 'admin') {
+            if ($user->estArchive == 1) {
+                $user->delete();
+                return response()->json(['message' => 'Profil prestataire supprimé ']);
+            }
+        }
+    }
 }

@@ -38,6 +38,14 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 
+Route::middleware(['auth:api', 'role:admin'])->group(function () {
+    Route::controller(AuthController::class)->group(function () {
+        Route::post('deleteClt/{user}', 'destroy_client');
+        Route::post('deletePresta/{user}', 'destroy_presta');
+    });
+});
+
+
 Route::controller(PrestataireController::class)->group(function () {
     Route::post('ajouterPresta', 'store');
 });
@@ -45,6 +53,7 @@ Route::controller(PrestataireController::class)->group(function () {
 // Route::middleware(['auth:api', 'role:prestataire'])->group(function () {
 Route::controller(PrestataireController::class)->group(function () {
     Route::post('modifPresta/{prestataire}', 'update');
+    Route::post('supprimPresta/{id}', 'destroy');
 });
 // });
 
@@ -55,6 +64,7 @@ Route::controller(ClientController::class)->group(function () {
 Route::middleware(['auth:api', 'role:client'])->group(function () {
     Route::controller(ClientController::class)->group(function () {
         Route::post('modifClient/{client}', 'update');
+        Route::post('supprimClient/{id}', 'destroy');
     });
 });
 
@@ -100,7 +110,7 @@ Route::controller(PrestationServiceController::class)->group(function () {
 
 Route::controller(PrestationServiceController::class)->group(function () {
     Route::get('listePrestaService', 'index');
-    Route::get('listeCategoriePresta', 'categorieprestataire');
+    Route::get('listeCategoriePresta/{categorie}', 'categorieprestataire');
 });
 
 
@@ -144,7 +154,7 @@ Route::controller(CommentaireController::class)->group(function () {
 
 
 Route::controller(MailController::class)->group(function () {
-    Route::post('reponseMail', 'reponse');
+    //Route::post('reponseMail', 'reponse');
     Route::get('listeMail', 'index');
     Route::post('ajoutMail', 'store');
     //     Route::get('affichMail/{id}', 'show');

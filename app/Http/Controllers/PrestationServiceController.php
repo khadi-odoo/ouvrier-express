@@ -52,6 +52,7 @@ class PrestationServiceController extends Controller
 
                 $info[] = [
                     'id' => $user->id,
+                    '$prestataire_service_id' => $prestataire_service->id,
                     'nom'    => $user->nom,
                     'prenom' => $user->prenom,
                     'tel'   => $user->tel,
@@ -62,7 +63,7 @@ class PrestationServiceController extends Controller
                     'competence' => $prestataire_service->competence,
                     'motivation' => $prestataire_service->motivation,
                     'metier' => $prestataire_service->nomService,
-                    '$prestataire_service_id' => $prestataire_service->id
+
                 ];
             }
         }
@@ -79,6 +80,8 @@ class PrestationServiceController extends Controller
     {
         //
     }
+
+
     public function categorieprestataire(CategorieService $categorie)
     {
         if ($categorie != null) {
@@ -124,7 +127,7 @@ class PrestationServiceController extends Controller
             }
 
             return response()->json($info);
-            dd($info);
+            // dd($info);
         } else {
             return response()->json([
                 'message' => 'Categorie inexistant',
@@ -311,6 +314,9 @@ class PrestationServiceController extends Controller
      *     path="/api/supprimPrestaService/{id}",
      *     tags={"Prestation de service"},
      *     summary="Supprimer profil prestataire",
+     * security={
+     *         {"bearerAuth": {}}
+     *     },
      *
      *  @OA\Parameter(
      *         name="id",

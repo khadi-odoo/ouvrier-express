@@ -203,12 +203,13 @@ class MailController extends Controller
     public function destroy($id)
     {
         $mail = Mail::findOrFail($id);
-        // dd($categorieService);
-        if ($mail->estArchive == 0) {
-            $mail->estArchive = 1;
-            $mail->save();
+        $mail->delete();
 
-            return response()->json(['message' => 'message annulé']);
-        }
+        // if ($mail->estArchive == 0) {
+        //     $mail->estArchive = 1;
+        //     $mail->save();
+
+        return response()->json(['message' => 'message mis à la corbeille']);
+        // }
     }
 }

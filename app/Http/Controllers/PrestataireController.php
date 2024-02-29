@@ -90,5 +90,13 @@ class PrestataireController extends Controller
 
     public function destroy($id)
     {
+        if (Auth::check() && auth()->user()->role === 'prestataire') {
+            $user = User::findOrFail($id);
+            if ($user->estArchive == 0) {
+                $user->estArchive = 1;
+                $user->save();
+                return response()->json(['message' => 'Profil prestataire archivé']);
+            }
+        }
     }
 }
