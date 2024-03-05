@@ -129,6 +129,25 @@
                 }
             }
         },
+        "/api/getAllUsers": {
+            "get": {
+                "tags": [
+                    "Liste des utilisateurs"
+                ],
+                "summary": "liste de tous les utilisateurs",
+                "operationId": "7d202192c1c293a8a9bd347211368103",
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/logout": {
             "post": {
                 "tags": [
@@ -176,6 +195,66 @@
                 "security": {
                     "bearerAuth": {}
                 }
+            }
+        },
+        "/api/deleteClt/{user}": {
+            "post": {
+                "tags": [
+                    "Autre"
+                ],
+                "summary": "Supprimer client",
+                "operationId": "985fea3727d48a6700f58534b66f5b1b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Suppression du client à partir de l'id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/deletePresta/{user}": {
+            "post": {
+                "tags": [
+                    "Autre"
+                ],
+                "summary": "Supprimer prestataire",
+                "operationId": "983e03bfc4a30cb6124c0722107a9d81",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Suppression prestataire à partir de l'id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/listeCategorie": {
@@ -333,6 +412,91 @@
                         "name": "id",
                         "in": "path",
                         "description": "Suppression d'une catégorie à partir de l'id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/modifClient/{client}": {
+            "post": {
+                "tags": [
+                    "Mis à jour client et archivage"
+                ],
+                "summary": "Modifier ses coordonnées",
+                "operationId": "66ebbe6c1e13ec309736564672768794",
+                "parameters": [
+                    {
+                        "name": "client",
+                        "in": "path",
+                        "description": "Modification des coordonnées du client à partir de son id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "nom": {
+                                        "type": "string"
+                                    },
+                                    "prenom": {
+                                        "type": "string"
+                                    },
+                                    "tel": {
+                                        "type": "string"
+                                    },
+                                    "adress": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/supprimClient/{id}": {
+            "post": {
+                "tags": [
+                    "Mis à jour client et archivage"
+                ],
+                "summary": "Archiver client",
+                "operationId": "f000466e61f6d5187680d32bfa8148b1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Archivage du client à partir de l'id",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -588,6 +752,91 @@
                 }
             }
         },
+        "/api/modifPresta/{prestataire}": {
+            "post": {
+                "tags": [
+                    "Mis à jour prestataire et archivage"
+                ],
+                "summary": "Modifier ses coordonnées ",
+                "operationId": "0e933f6c7c7f688df54f2cc3f15a308d",
+                "parameters": [
+                    {
+                        "name": "prestataire",
+                        "in": "path",
+                        "description": "Modification des coordonnées du prestataire à partir de son id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "nom": {
+                                        "type": "string"
+                                    },
+                                    "prenom": {
+                                        "type": "string"
+                                    },
+                                    "tel": {
+                                        "type": "string"
+                                    },
+                                    "adress": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/supprimPresta/{id}": {
+            "post": {
+                "tags": [
+                    "Mis à jour prestataire et archivage"
+                ],
+                "summary": "Archiver le prestataire",
+                "operationId": "0246d9c431d3f2e9edcccb6f42de8700",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Archivage du prestataire à partir de l'id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/listePrestation": {
             "get": {
                 "tags": [
@@ -756,11 +1005,39 @@
                 "tags": [
                     "Prestation de service"
                 ],
-                "summary": "liste de toutes les prestations de service",
+                "summary": "liste de toutes les prestations de service avec leur catégorie",
                 "operationId": "43a5380023113184f72ae75ae09f2b4c",
                 "responses": {
                     "200": {
                         "description": "succes"
+                    }
+                }
+            }
+        },
+        "/api/listeCategoriePresta/{categorie}": {
+            "get": {
+                "tags": [
+                    "Prestation de service"
+                ],
+                "summary": "Voir une catégorie avec ses prestation de service",
+                "operationId": "5fa1593cc7d84236b075599299a92a2a",
+                "parameters": [
+                    {
+                        "name": "categorie",
+                        "in": "path",
+                        "description": "Affichage de la catégorie avec ses prestations à partir de l'id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Succès"
+                    },
+                    "401": {
+                        "description": "Non autorisé"
                     }
                 }
             }
@@ -962,6 +1239,14 @@
         }
     },
     "components": {
+        "responses": {
+            "201": {
+                "description": "Client modifiée avec succées"
+            },
+            "401": {
+                "description": "Validation Error"
+            }
+        },
         "securitySchemes": {
             "bearerAuth": {
                 "type": "http",

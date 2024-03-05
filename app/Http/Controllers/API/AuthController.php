@@ -151,6 +151,19 @@ class AuthController extends Controller
         ]);
     }
 
+
+    /**
+     * @OA\Get(
+     *     path="/api/getAllUsers",
+     * tags={"Liste des utilisateurs"},
+     *     summary="liste de tous les utilisateurs",
+     * security={
+     *         {"bearerAuth": {}}
+     *     },
+     *     @OA\Response(response="200", description="succes")
+     * )
+     */
+
     public function getAllUsers()
     {
         $users = User::all();
@@ -222,6 +235,25 @@ class AuthController extends Controller
     }
 
 
+    /**
+     * @OA\Post(
+     *     path="/api/deleteClt/{user}",
+     *     tags={"Autre"}, 
+     *     summary="Supprimer client",
+     *    security={
+     *         {"bearerAuth": {}}
+     *     },
+     *  @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="Suppression du client à partir de l'id",
+     *         @OA\Schema(type="integer")
+     * ),
+     *     @OA\Response(response="200", description="succes")
+     * )
+     */
+
     public function destroy_client(user $user)
     {
         // dd($user);
@@ -234,9 +266,29 @@ class AuthController extends Controller
     }
 
 
+    /**
+     * @OA\Post(
+     *     path="/api/deletePresta/{user}",
+     *     tags={"Autre"}, 
+     *     summary="Supprimer prestataire",
+     *    security={
+     *         {"bearerAuth": {}}
+     *     },
+     *  @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="Suppression prestataire à partir de l'id",
+     *         @OA\Schema(type="integer")
+     * ),
+     *     @OA\Response(response="200", description="succes")
+     * )
+     */
+
+
     public function destroy_presta(user $user)
     {
-        // dd(Auth::check());
+
         if (Auth::check() && auth()->user()->role === 'admin') {
             if ($user->estArchive == 1) {
                 $user->delete();

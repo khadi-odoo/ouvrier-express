@@ -81,6 +81,26 @@ class PrestationServiceController extends Controller
         //
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/listeCategoriePresta/{categorie}",
+     *     tags={"Prestation de service"},
+     *     summary="Voir une catégorie avec ses prestation de service",
+     *     @OA\Parameter(
+     *         name="categorie",
+     *         in="path",
+     *         required=true,
+     *         description="Affichage de la catégorie avec ses prestations à partir de l'id",
+     *         @OA\Schema(type="integer")
+     * ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Succès",
+     *     ),
+     *     @OA\Response(response=401, description="Non autorisé"),
+     * )
+     */
+
 
     public function categorieprestataire(CategorieService $categorie)
     {

@@ -7,6 +7,15 @@ use App\Http\Requests\StoreclientRequest;
 use App\Http\Requests\UpdateclientRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use OpenApi\Annotations as OA;
+
+/**
+ * @OA\Info(
+ *     title="Ouvrier-Express",
+ *     version="1.0.0",
+ *     description="Application de gestion de relation prestataire-client"
+ * )
+ */
 
 class ClientController extends Controller
 {
@@ -67,8 +76,47 @@ class ClientController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @OA\Post(
+     *     path="/api/modifClient/{client}",
+     *     summary="Modifier ses coordonnées",
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     *     tags={"Mis à jour client et archivage"}, 
+     * 
+     *         @OA\Parameter(
+     *         name="client",
+     *         in="path",
+     *         required=true,
+     *         description="Modification des coordonnées du client à partir de son id",
+     *         @OA\Schema(type="integer")
+     * ),    
+     * 
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *             @OA\Property(property="nom", type="string"),
+     *              @OA\Property(property="prenom", type="string"),
+     *             @OA\Property(property="tel", type="string"),
+     *              @OA\Property(property="adress", type="string"),
+     *              @OA\Property(property="email", type="string"),
+     *              @OA\Property(property="password", type="string"),
+     * )
+     * )
+     * )
+     * )
+     *        )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Client modifiée avec succées",
+     *     ),
+     *     @OA\Response(response=401, description="Validation Error")
+     * )
      */
+
     public function update(UpdateclientRequest $request, client $client)
     {
         $request->validated($request->all());
@@ -83,14 +131,29 @@ class ClientController extends Controller
             $user->password = $request->password;
             $user->update();
 
-            return response()->json(['message' => ' Profil client modifié avec succès', 'data' => $user]);
+            return response()->json(['message' => ' Votre profil client modifié avec succès', 'data' => $user]);
         } else {
             return response()->json(['message' => 'Vous n\'êtes pas client'], 404);
         }
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Post(
+     *     path="/api/supprimClient/{id}",
+     *     tags={"Mis à jour client et archivage"}, 
+     *     summary="Archiver client",
+     *    security={
+     *         {"bearerAuth": {}}
+     *     },
+     *  @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="Archivage du client à partir de l'id",
+     *         @OA\Schema(type="integer")
+     * ),
+     *     @OA\Response(response="200", description="succes")
+     * )
      */
     public function destroy($id)
     {
@@ -99,7 +162,7 @@ class ClientController extends Controller
             if ($user->estArchive == 0) {
                 $user->estArchive = 1;
                 $user->save();
-                return response()->json(['message' => 'Profil client archivé']);
+                return response()->json(['message' => 'Client archivé']);
             }
         }
     }
