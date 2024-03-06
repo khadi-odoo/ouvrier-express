@@ -23,7 +23,7 @@ class StorecategorieServiceRequest extends FormRequest
     {
         return [
             'libelleCategorie' => 'required|string|min:5|max:200',
-            'image' => 'image|mimes:jpeg,png,jpg|max:2048',
+            //'image' => 'image|mimes:jpeg,png,jpg|max:2048',
             'description' => 'string|min:5|max:200',
         ];
     }

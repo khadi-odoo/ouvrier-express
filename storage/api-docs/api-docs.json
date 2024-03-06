@@ -287,11 +287,6 @@
                                     "libelleCategorie": {
                                         "type": "string"
                                     },
-                                    "image": {
-                                        "description": "Fichier de photo",
-                                        "type": "string",
-                                        "format": "binary"
-                                    },
                                     "description": {
                                         "type": "string"
                                     }
