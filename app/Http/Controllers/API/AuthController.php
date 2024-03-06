@@ -177,6 +177,7 @@ class AuthController extends Controller
                 'role' => $user['role'],
                 'adress' => $user['adress'],
                 'tel' => $user['tel'],
+                'estArchive' => $user['estArchive'],
             ];
         }
         return response()->json($data);

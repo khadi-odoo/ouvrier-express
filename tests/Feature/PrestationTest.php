@@ -31,7 +31,7 @@ class PrestationTest extends TestCase
         $client = client::factory()->create();
         $prestation = Prestation::factory()->create();
         // $prestationClient = PrestationService::factory()->create(['prestataire_id'=>1, 'categorie_id'=>1]);
-        $prestationClient = ['client_id' => 2, 'prestation_id' => 1, 'prestation_demande' => 'reparation_cuisine'];
+        $prestationClient = ['client_id' => 2, 'prestation_id' => 6, 'prestation_demande' => 'Réparation porte'];
         $response = $this->post('/api/ajoutPrestation', $prestationClient);
 
         $response->assertStatus(200);

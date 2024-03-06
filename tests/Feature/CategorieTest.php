@@ -28,8 +28,14 @@ class CategorieTest extends TestCase
 
         $this->actingAs($user,'api');
 
-        $categorie = CategorieServiceFactory::new()->make()->toArray();
+        // $categorie = CategorieServiceFactory::new()->make()->toArray();
+        $categorie = [
+            'libelleCategorie' => 'Maçonnerie',
+            'description' => 'Elle contient tout ce qui est métier maçon Elle contient tout ce qui est métier maçon
+            Elle contient tout ce qui est métier maçon
+            Elle contient tout ce qui est métier maçon',
 
+        ] ;
         $response = $this->post('/api/ajouterCategorie', $categorie);
 
         $response->assertStatus(200)->assertJson(['message' => 'Catégorie de service ajoutée avec succès']);

@@ -25,7 +25,7 @@ class CommentTest extends TestCase
         $user = User::factory()->create();
         //$this->actingAs($user, 'api');
 
-        $commentClient = ['client_id' => 2, 'prestation_id' => 1, 'statut_evaluation' => 'Satisfait'];
+        $commentClient = ['client_id' => 19, 'prestation_id' => 5, 'statut_evaluation' => 'Satisfait'];
         $response = $this->post('/api/ajoutComment', $commentClient);
 
         $response->assertStatus(200);

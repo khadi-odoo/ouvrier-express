@@ -366,11 +366,6 @@
                                     "libelleCategorie": {
                                         "type": "string"
                                     },
-                                    "image": {
-                                        "description": "Fichier de photo",
-                                        "type": "string",
-                                        "format": "binary"
-                                    },
                                     "desription": {
                                         "type": "string"
                                     }
@@ -941,6 +936,12 @@
                         "multipart/form-data": {
                             "schema": {
                                 "properties": {
+                                    "client_id": {
+                                        "type": "integer"
+                                    },
+                                    "prestation_id": {
+                                        "type": "integer"
+                                    },
                                     "prestation_demande": {
                                         "type": "string"
                                     }

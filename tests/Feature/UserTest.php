@@ -28,7 +28,7 @@ class UserTest extends TestCase
         $user = [
             'nom' => "ndoye",
             'prenom' => 'Libass',
-            'tel' => '7887687',
+            'tel' => '788768751',
             'adress' => 'KM city',
             'role' => 'prestataire',
             'email' => 'cisse@gmail.com',
@@ -48,7 +48,7 @@ class UserTest extends TestCase
         $user = User::create([
             'nom' => "ndoye",
             'prenom' => 'Libass',
-            'tel' => '788768',
+            'tel' => '78876872',
             'adress' => 'KM city',
             'role' => 'prestataire',
             'email' => 'ciss@gmail.com',

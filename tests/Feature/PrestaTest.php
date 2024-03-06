@@ -27,7 +27,7 @@ class PrestaTest extends TestCase
         //$this->actingAs($user, 'api');
 
         //$prestataire = PrestataireFactory::new()->make()->toArray();
-        $prestataire = ['user_id' => 1];
+        $prestataire = ['user_id' => 18];
         $response = $this->post('/api/ajouterPresta', $prestataire);
 
         $response->assertStatus(200);

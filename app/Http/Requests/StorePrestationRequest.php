@@ -22,7 +22,7 @@ class StorePrestationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'service_demande' => 'required|string',
+            'prestation_demande' => 'required|string',
         ];
     }
 }

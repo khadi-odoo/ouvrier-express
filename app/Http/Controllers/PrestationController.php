@@ -86,7 +86,7 @@ class PrestationController extends Controller
 
             $prestation->save();
 
-            return response()->json(['message' => 'Prestation Clientajoutée avec succès', 'data' => $prestation]);
+            return response()->json(['message' => 'Prestation Client ajoutée avec succès', 'data' => $prestation]);
         } else {
             return response()->json(['message' => 'Vous n\' êtes pas client'], 404);
         }
@@ -151,6 +151,8 @@ class PrestationController extends Controller
      *         @OA\MediaType(
      *             mediaType="multipart/form-data",
      *             @OA\Schema(
+     *             @OA\Property(property="client_id", type="integer"),
+     *             @OA\Property(property="prestation_id", type="integer"),
      *             @OA\Property(property="prestation_demande", type="string"),
      *         )
      *        )
@@ -166,6 +168,8 @@ class PrestationController extends Controller
     {
         $request->validated($request->all());
 
+        $prestation->client_id = $request->client_id;
+        $prestation->prestation_id = $request->prestation_id;
         $prestation->prestation_demande = $request->prestation_demande;
 
 

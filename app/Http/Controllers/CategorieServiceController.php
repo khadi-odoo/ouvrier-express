@@ -159,7 +159,6 @@ class CategorieServiceController extends Controller
      *             mediaType="multipart/form-data",
      *             @OA\Schema(
      *             @OA\Property(property="libelleCategorie", type="string"),
-     *             @OA\Property(property="image", type="string", format="binary", description="Fichier de photo"),
      *             @OA\Property(property="desription", type="string"),
      * )
      *        )
