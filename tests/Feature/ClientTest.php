@@ -29,7 +29,8 @@ class ClientTest extends TestCase
 
         //$client = ClientFactory::new()->make()->toArray();
 
-        $client = ['user_id' => 19];
+        $client = ['user_id' => 30
+    ];
         $response = $this->post('/api/ajouterclient', $client);
 
         $response->assertStatus(200);

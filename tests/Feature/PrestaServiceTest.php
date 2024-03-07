@@ -35,12 +35,12 @@ class PrestaServiceTest extends TestCase
         // $prestationService = PrestationService::factory()->create(['prestataire_id'=>1, 'categorie_id'=>1]);
         $prestationService = [
             'nomService' => 'reseau',
-            'presentation' => 'Je suis informaticienne',
-            'experience' => 'Expérimenté par la consultance informatique',
-            'competence' => 'Etude préalable, analyse et conception',
-            'motivation' => 'Etre opérationnelle',
-            'prestataire_id' => 1,
-            'categorie_id' => 1
+            'presentation' => 'Je suis Maintenancier',
+            'experience' => '5 ans',
+            'competence' => 'Installer un réseau LAN, WAN',
+            'motivation' => 'Je suis déterminé par le  perfectionnisme',
+            'prestataire_id' => 2,
+            'categorie_id' => 3
         ];
         $response = $this->post('/api/ajoutPrestService', $prestationService);
 
