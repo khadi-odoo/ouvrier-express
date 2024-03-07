@@ -138,7 +138,7 @@ class AuthController extends Controller
             $client->user_id = $user->id;
             $client->save();
         } elseif ($request->role == "prestataire") {
-            $prestataire = new prestataire();
+            $prestataire = new Prestataire();
             $prestataire->user_id = $user->id;
             $prestataire->save();
         }
