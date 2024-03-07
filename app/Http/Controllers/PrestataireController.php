@@ -47,7 +47,7 @@ class PrestataireController extends Controller
         $prestataire->user_id = $request->user_id;
         $prestataire->save();
 
-        return response()->json(['message' => ' Profil prestataire ajouté avec succès', 'data' => $prestataire]);
+        return response()->json(['message' => ' Prestataire ajouté avec succès', 'data' => $prestataire]);
         // } else {
         //     return response()->json(['message' => 'Vous n\' êtes pas prestataire'], 404);
         // }

@@ -140,8 +140,6 @@ class AuthController extends Controller
         } elseif ($request->role == "prestataire") {
             $prestataire = new prestataire();
             $prestataire->user_id = $user->id;
-            $prestaService = new PrestationService();
-            $prestaService->prestataire_id = $prestataire->id;
             $prestataire->save();
         }
 
